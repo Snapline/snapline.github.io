@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <meta name="baidu-site-verification" content="s8Pe1TBqyy" />
+  <title>手写代码实现call和apply功能 | You are my JavaScript Queen</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="call和apply的功能类似, 区别仅仅是传入的参数形式不同。它们的作用都是使用指定的this值来调用某个函数，用来改变上下文环境。
+举例说明：123456789var foo = &amp;#123;    value: 1&amp;#125;;function bar() &amp;#123;    console.log(this.value);&amp;#125;bar.call(foo); //输出1
+call把th">
+<meta property="og:type" content="article">
+<meta property="og:title" content="手写代码实现call和apply功能">
+<meta property="og:url" content="http://snapline.github.io/2017/08/09/write_call_and_apply/index.html">
+<meta property="og:site_name" content="You are my JavaScript Queen">
+<meta property="og:description" content="call和apply的功能类似, 区别仅仅是传入的参数形式不同。它们的作用都是使用指定的this值来调用某个函数，用来改变上下文环境。
+举例说明：123456789var foo = &amp;#123;    value: 1&amp;#125;;function bar() &amp;#123;    console.log(this.value);&amp;#125;bar.call(foo); //输出1
+call把th">
+<meta property="og:updated_time" content="2019-04-11T08:12:11.991Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="手写代码实现call和apply功能">
+<meta name="twitter:description" content="call和apply的功能类似, 区别仅仅是传入的参数形式不同。它们的作用都是使用指定的this值来调用某个函数，用来改变上下文环境。
+举例说明：123456789var foo = &amp;#123;    value: 1&amp;#125;;function bar() &amp;#123;    console.log(this.value);&amp;#125;bar.call(foo); //输出1
+call把th">
+  
+    <link rel="alternative" href="/atom.xml" title="You are my JavaScript Queen" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <script src="/style.js"></script>
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="http://images4.fanpop.com/image/photos/21000000/Bob-Dylan-bob-dylan-21091275-116-120.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Snapline</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">温柔且酷</p>
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a class="js-smart-menu" data-idx="0" href="javascript:void(0)">所有文章</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="1" href="javascript:void(0)">标签</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="2" href="javascript:void(0)">友链</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="3" href="javascript:void(0)">关于我</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/Snapline" title="github">github</a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-list"></i></div>
+  		<h1 class="header-author js-mobile-header hide">Snapline</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img src="http://images4.fanpop.com/image/photos/21000000/Bob-Dylan-bob-dylan-21091275-116-120.jpg" class="js-avatar">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Snapline</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">温柔且酷</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/Snapline" title="github">github</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap">
+        <article id="post-write_call_and_apply" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      手写代码实现call和apply功能
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>call和apply的功能类似, 区别仅仅是传入的参数形式不同。<br>它们的作用都是使用指定的this值来调用某个函数，用来改变上下文环境。</p>
+<p>举例说明：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> foo = &#123;</div><div class="line">    <span class="attr">value</span>: <span class="number">1</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.value);</div><div class="line">&#125;</div><div class="line"></div><div class="line">bar.call(foo); <span class="comment">//输出1</span></div></pre></td></tr></table></figure></p>
+<p>call把this的指向改成指向foo, 但bar函数依旧执行了。</p>
+<h2 id="Step1"><a href="#Step1" class="headerlink" title="Step1"></a>Step1</h2><p>调用call的时候, 想当于把foo对象进行了一次改造:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> foo = &#123;</div><div class="line">    <span class="attr">value</span>: <span class="number">1</span>,</div><div class="line">    <span class="attr">bar</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.value)</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">foo.bar(); <span class="comment">// 1</span></div></pre></td></tr></table></figure></p>
+<p>等于把bar函数设为了foo对象的一个属性——&gt;执行bar函数——&gt;删除这个属性</p>
+<p>按照这个思路,可以写出一个call2模拟函数:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Function</span>.prototype.call2 = <span class="function"><span class="keyword">function</span>(<span class="params">context</span>)</span>&#123;</div><div class="line">    <span class="comment">//用this获取调用call的函数</span></div><div class="line">    context.fn = <span class="keyword">this</span>;</div><div class="line">    context.fn();</div><div class="line">    <span class="keyword">delete</span> context.fn;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//test</span></div><div class="line"><span class="keyword">var</span> foo = &#123;</div><div class="line">    <span class="attr">age</span>: <span class="number">12</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.age);</div><div class="line">&#125;</div><div class="line"></div><div class="line">bar.call2(foo);  <span class="comment">//输出12</span></div></pre></td></tr></table></figure></p>
+<p>但是这个模拟没有实现传参功能,所以需要进行改造。</p>
+<h2 id="Step2"><a href="#Step2" class="headerlink" title="Step2"></a>Step2</h2><p>关于传参, 举个栗子:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> foo = &#123;</div><div class="line">    <span class="attr">value</span>: <span class="number">1</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params">name, age</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(name)</div><div class="line">    <span class="built_in">console</span>.log(age)</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.value);</div><div class="line">&#125;</div><div class="line"></div><div class="line">bar.call(foo, <span class="string">'Snapline'</span>, <span class="number">28</span>);</div><div class="line"><span class="comment">//输出</span></div><div class="line"><span class="comment">//Snapline</span></div><div class="line"><span class="comment">//28</span></div><div class="line"><span class="comment">//1</span></div></pre></td></tr></table></figure></p>
+<p>call的传参是不定的, 用arguments来获取所有的参数。</p>
+<p>改造如下:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Function</span>.prototype.call2 = <span class="function"><span class="keyword">function</span>(<span class="params">context</span>)</span>&#123;</div><div class="line">    <span class="comment">//用this获取调用call的函数</span></div><div class="line">    context.fn = <span class="keyword">this</span>;</div><div class="line">    <span class="comment">//获取参数</span></div><div class="line">    <span class="keyword">const</span> args = [...arguments].slice(<span class="number">1</span>);</div><div class="line">    context.fn(...args);</div><div class="line">    <span class="keyword">delete</span> context.fn;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//test</span></div><div class="line"><span class="keyword">var</span> foo = &#123;</div><div class="line">    <span class="attr">value</span>: <span class="number">1</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params">name, age</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(name)</div><div class="line">    <span class="built_in">console</span>.log(age)</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.value);</div><div class="line">&#125;</div><div class="line"></div><div class="line">bar.call2(foo, <span class="string">'Snapline'</span>, <span class="number">28</span>);</div><div class="line"><span class="comment">//输出</span></div><div class="line"><span class="comment">//Snapline</span></div><div class="line"><span class="comment">//28</span></div><div class="line"><span class="comment">//1</span></div></pre></td></tr></table></figure>
+<h2 id="Step3"><a href="#Step3" class="headerlink" title="Step3"></a>Step3</h2><p>基本已经完成了模拟, 有几个小问题需要注意:</p>
+<ul>
+<li><p>1.this参数可以传null, 此时this指向window</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> value = <span class="number">1</span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.value);</div><div class="line">&#125;</div><div class="line"></div><div class="line">bar.call(<span class="literal">null</span>); <span class="comment">// 相当于window.value  输出1</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>2.函数可以有返回值</p>
+</li>
+</ul>
+<p>所以有如下call函数完全体:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Function</span>.prototype.call2 = <span class="function"><span class="keyword">function</span>(<span class="params">context</span>)</span>&#123;</div><div class="line">    <span class="comment">//传入的必须是函数</span></div><div class="line">    <span class="keyword">if</span>(<span class="keyword">typeof</span> <span class="keyword">this</span> !== <span class="string">'function'</span>)&#123;</div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">'Error'</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">//传入null的话,this指向window</span></div><div class="line">    context = context || <span class="built_in">window</span>;</div><div class="line"></div><div class="line">    <span class="comment">//用this获取调用call的函数</span></div><div class="line">    context.fn = <span class="keyword">this</span>;</div><div class="line">    <span class="comment">//获取参数</span></div><div class="line">    <span class="keyword">const</span> args = [...arguments].slice(<span class="number">1</span>);</div><div class="line">    <span class="comment">//创建result用来做返回值</span></div><div class="line">    <span class="keyword">const</span> result = context.fn(...args);</div><div class="line"></div><div class="line">    <span class="comment">//恢复默认的fn</span></div><div class="line">    <span class="keyword">delete</span> context.fn;</div><div class="line">    <span class="comment">//返回值</span></div><div class="line">    <span class="keyword">return</span> result;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//test</span></div><div class="line"><span class="keyword">var</span> value = <span class="number">2</span>;</div><div class="line"></div><div class="line"><span class="keyword">var</span> obj = &#123;</div><div class="line">    <span class="attr">value</span>: <span class="number">1</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params">name, age</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.value);</div><div class="line">    <span class="keyword">return</span> &#123;</div><div class="line">        <span class="attr">value</span>: <span class="keyword">this</span>.value,</div><div class="line">        <span class="attr">name</span>: name,</div><div class="line">        <span class="attr">age</span>: age</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">bar.call2(<span class="literal">null</span>); <span class="comment">// 2</span></div><div class="line"><span class="built_in">console</span>.log(bar.call2(obj, <span class="string">'Snapline'</span>, <span class="number">28</span>));</div><div class="line"><span class="comment">//输出</span></div><div class="line"><span class="comment">//1</span></div><div class="line"><span class="comment">//Object &#123;</span></div><div class="line"><span class="comment">//     value: 1,</span></div><div class="line"><span class="comment">//     name: 'Snapline',</span></div><div class="line"><span class="comment">//     age: 28</span></div><div class="line"><span class="comment">// &#125;</span></div></pre></td></tr></table></figure></p>
+<h2 id="实现apply"><a href="#实现apply" class="headerlink" title="实现apply"></a>实现apply</h2><p>实现了call以后实现apply就非常简单了, 只是参数形式不同。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//实现apply</span></div><div class="line"><span class="built_in">Function</span>.prototype.apply2 = <span class="function"><span class="keyword">function</span>(<span class="params">context</span>)</span>&#123;</div><div class="line">    <span class="comment">//传入的必须是函数</span></div><div class="line">    <span class="keyword">if</span>(<span class="keyword">typeof</span> <span class="keyword">this</span> !== <span class="string">'function'</span>)&#123;</div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">'Error'</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    context = context || <span class="built_in">window</span>;</div><div class="line">    context.fn = <span class="keyword">this</span>;</div><div class="line">    <span class="keyword">let</span> result;</div><div class="line">    <span class="keyword">if</span>(<span class="built_in">Array</span>.isArray(<span class="built_in">arguments</span>[<span class="number">1</span>])) &#123;</div><div class="line">        <span class="comment">// 通过...运算符将数组转换为用逗号分隔的参数序列</span></div><div class="line">        result = context.fn(...arguments[<span class="number">1</span>])</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        result = context.fn()</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">delete</span> context.fn;</div><div class="line">    <span class="keyword">return</span> result;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//test</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params">arg1, arg2</span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(arg1, arg2)</div><div class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.a, <span class="keyword">this</span>.b)</div><div class="line">&#125;</div><div class="line"></div><div class="line">test.apply2(&#123;</div><div class="line">  <span class="attr">a</span>: <span class="string">'a'</span>,</div><div class="line">  <span class="attr">b</span>: <span class="string">'b'</span></div><div class="line">&#125;, [<span class="number">1</span>, <span class="number">2</span>])</div><div class="line"><span class="comment">//(1,2)</span></div><div class="line"><span class="comment">//(a,b)</span></div></pre></td></tr></table></figure>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2017/08/09/write_call_and_apply/" class="archive-article-date">
+  	<time datetime="2017-08-09T02:32:54.000Z" itemprop="datePublished"><i class="icon-clock"></i>2017-08-09</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2017/09/15/git_transfer/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          git仓库迁移的方法
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/07/01/forEach_and_map/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">forEach和map的区别</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+	    <a class="jiathis_button_twitter"></a>
+	    <a class="jiathis_button_plus"></a> 
+	    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2019 Snapline
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    <script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: false,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		root: "/",
+		innerArchive: true
+	}
+</script>
+
+<script src="/./main.js"></script>
+
+
+    
+<div class="tools-col">
+  <ul class="btn-wrap">
+    
+      <li class="chose" data-hook="tools-section-all"><span class="text">全部</span><i class="icon-book"></i></li>
+    
+    
+      <li data-hook="tools-section-tag"><span class="text">标签</span><i class="icon-price-tags"></i></li>
+    
+    
+      <li data-hook="tools-section-friends"><span class="text">友链</span><i class="icon-link"></i></li>
+    
+    
+      <li data-hook="tools-section-me"><span class="text">我</span><i class="icon-smile"></i></li>
+    
+  </ul>
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all chose">
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-tag">
+    			<div class="widget tagcloud" id="js-tagcloud">
+    				<a href="/tags/ES6/" style="font-size: 10px;">ES6</a> <a href="/tags/JavaScript/" style="font-size: 15px;">JavaScript</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/Vue/" style="font-size: 20px;">Vue</a> <a href="/tags/notOnlyFE/" style="font-size: 10px;">notOnlyFE</a> <a href="/tags/wechatApp/" style="font-size: 10px;">wechatApp</a>
+    			</div>
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-friends">
+  		
+  			<div class="friends-wrap" id="js-friends">
+  			
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.zhangxinxu.com/wordpress/">张鑫旭</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.ruanyifeng.com/blog/">阮一峰</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.liaoxuefeng.com/">廖雪峰</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.imooc.com/">慕课网</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://gold.xitu.io/explore/frontend">掘金前端</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://codepen.io/">CodePen</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://cn.vuejs.org/">Vuejs</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="https://mp.weixin.qq.com/debug/wxadoc/dev/?t=1476197490824">微信小程序</a>
+  	        
+  	        </div>
+  		
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-me">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">毕业于香港城市大学&lt;br&gt;&lt;br&gt;苏州码农&lt;br&gt;&lt;br&gt;热爱摇滚乐</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <meta name="baidu-site-verification" content="s8Pe1TBqyy" />
+  <title>vue-router钩子函数的生命周期 | You are my JavaScript Queen</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="场景描述近日碰到了一个项目需求，使我不得不去研究vue-router里路由切换的具体过程，在这个过程中发生了什么事情。
+场景大概如下：在一个表单页面里，用户可以选择提交，也可以选择不提交而离开。产品经理要求数据不保存在本地浏览器里，在用户提交成功后销毁表单数据；或者用户离开页面（点击取消或者其他tab）时，出现弹窗，提醒用户表单数据还未提交，是否放弃。
+在这个场景里，难点在于：1. 如何监听用户离">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue-router钩子函数的生命周期">
+<meta property="og:url" content="http://snapline.github.io/2016/10/27/vue_router_transition/index.html">
+<meta property="og:site_name" content="You are my JavaScript Queen">
+<meta property="og:description" content="场景描述近日碰到了一个项目需求，使我不得不去研究vue-router里路由切换的具体过程，在这个过程中发生了什么事情。
+场景大概如下：在一个表单页面里，用户可以选择提交，也可以选择不提交而离开。产品经理要求数据不保存在本地浏览器里，在用户提交成功后销毁表单数据；或者用户离开页面（点击取消或者其他tab）时，出现弹窗，提醒用户表单数据还未提交，是否放弃。
+在这个场景里，难点在于：1. 如何监听用户离">
+<meta property="og:image" content="https://github.com/Snapline/MyMarkDownPhotos/blob/master/vue-router-transition/20161028095332.png?raw=true">
+<meta property="og:image" content="http://i.imgur.com/9P42U9O.png?_=5690366">
+<meta property="og:image" content="https://github.com/Snapline/MyMarkDownPhotos/blob/master/vue-router-transition/traision.png?raw=true">
+<meta property="og:updated_time" content="2017-03-10T02:06:11.053Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="vue-router钩子函数的生命周期">
+<meta name="twitter:description" content="场景描述近日碰到了一个项目需求，使我不得不去研究vue-router里路由切换的具体过程，在这个过程中发生了什么事情。
+场景大概如下：在一个表单页面里，用户可以选择提交，也可以选择不提交而离开。产品经理要求数据不保存在本地浏览器里，在用户提交成功后销毁表单数据；或者用户离开页面（点击取消或者其他tab）时，出现弹窗，提醒用户表单数据还未提交，是否放弃。
+在这个场景里，难点在于：1. 如何监听用户离">
+<meta name="twitter:image" content="https://github.com/Snapline/MyMarkDownPhotos/blob/master/vue-router-transition/20161028095332.png?raw=true">
+  
+    <link rel="alternative" href="/atom.xml" title="You are my JavaScript Queen" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <script src="/style.js"></script>
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="http://images4.fanpop.com/image/photos/21000000/Bob-Dylan-bob-dylan-21091275-116-120.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Snapline</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">温柔且酷</p>
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a class="js-smart-menu" data-idx="0" href="javascript:void(0)">所有文章</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="1" href="javascript:void(0)">标签</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="2" href="javascript:void(0)">友链</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="3" href="javascript:void(0)">关于我</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/Snapline" title="github">github</a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-list"></i></div>
+  		<h1 class="header-author js-mobile-header hide">Snapline</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img src="http://images4.fanpop.com/image/photos/21000000/Bob-Dylan-bob-dylan-21091275-116-120.jpg" class="js-avatar">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Snapline</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">温柔且酷</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/Snapline" title="github">github</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap">
+        <article id="post-vue_router_transition" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      vue-router钩子函数的生命周期
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="场景描述"><a href="#场景描述" class="headerlink" title="场景描述"></a>场景描述</h3><p>近日碰到了一个项目需求，使我不得不去研究vue-router里路由切换的具体过程，在这个过程中发生了什么事情。</p>
+<p>场景大概如下：在一个表单页面里，用户可以选择提交，也可以选择不提交而离开。产品经理要求数据不保存在本地浏览器里，在用户提交成功后销毁表单数据；或者用户离开页面（点击取消或者其他tab）时，出现弹窗，提醒用户表单数据还未提交，是否放弃。</p>
+<p><em>在这个场景里，难点在于：1. 如何监听用户离开页面或者关闭页面的事件; 2.如何在用户选择放弃提交以后还能正确指向之前点击的路由目标。</em></p>
+<p><img src="https://github.com/Snapline/MyMarkDownPhotos/blob/master/vue-router-transition/20161028095332.png?raw=true" alt="&#39;场景截图&#39;"></p>
+<p>如上图所示，用户可以点击取消，或者任何侧边dashboard的tab，这就说明，modal弹窗的“取消”按钮上不能增加固定的路由链接，因为无法确定用户会点击哪个路径。只能通过先记录点击路径，然后绑定到取消按钮上。</p>
+<h3 id="轮子分析"><a href="#轮子分析" class="headerlink" title="轮子分析"></a>轮子分析</h3><h4 id="1-在轮子中解决"><a href="#1-在轮子中解决" class="headerlink" title="1.在轮子中解决"></a>1.在轮子中解决</h4><p>首先，内置location对象是可以使用的，但造成的问题是与vue-router分离性太强，同时也无法做到简洁的数据绑定。因此，最佳的方案还是在vue-router本身的功能中解决。<br>在之前我对于vue-router的了解并不多，一般只是用来做一些基本的路由控制和页面跳转传参，类似如下代码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> Foo = &#123;</div><div class="line">    <span class="attr">template</span>: <span class="string">'&lt;p&gt;This is foo!&lt;/p&gt;'</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> Bar = &#123;</div><div class="line">    <span class="attr">template</span>: <span class="string">'&lt;p&gt;This is bar!&lt;/p&gt;'</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> App = &#123;&#125;</div><div class="line"></div><div class="line"><span class="comment">// 创建一个路由器实例</span></div><div class="line"><span class="keyword">var</span> router = <span class="keyword">new</span> VueRouter()</div><div class="line"></div><div class="line"><span class="comment">// 定义路由规则</span></div><div class="line">router.map(&#123;</div><div class="line">    <span class="string">'/foo'</span>: &#123;</div><div class="line">        <span class="attr">component</span>: Foo</div><div class="line">    &#125;,</div><div class="line">    <span class="string">'/bar'</span>: &#123;</div><div class="line">        <span class="attr">component</span>: Bar</div><div class="line">    &#125;</div><div class="line">&#125;)</div><div class="line"></div><div class="line"><span class="comment">// 路由器会创建一个 App 实例，并且挂载到选择符 #app 匹配的元素上。</span></div><div class="line">router.start(App, <span class="string">'#app'</span>)</div></pre></td></tr></table></figure>
+<p><em>同时会用到一些路由嵌套，参数传递，大多数情况下，这些功能已经足够覆盖很多项目需求了。</em></p>
+<h4 id="2-vue-router钩子函数生命周期"><a href="#2-vue-router钩子函数生命周期" class="headerlink" title="2.vue-router钩子函数生命周期"></a>2.vue-router钩子函数生命周期</h4><p>搞懂了vue路由里钩子函数的运转过程，就可以轻松解决各种跳转需求。<br>路由的切换过程，本质上是执行一系列路由钩子函数，钩子函数总体上分为两大类：</p>
+<blockquote>
+<ul>
+<li>全局的钩子函数</li>
+<li>组件的钩子函数</li>
+</ul>
+</blockquote>
+<p>全局的钩子函数定义在全局的路由对象中，组件的钩子函数则定义在组件的route选项中。</p>
+<p><strong>全局钩子函数</strong></p>
+<p>全局钩子函数有2个：</p>
+<blockquote>
+<ul>
+<li>beforeEach：在路由切换开始时调用</li>
+<li>afterEach：在每次路由切换成功进入激活阶段时被调用</li>
+</ul>
+</blockquote>
+<p><strong>组件钩子函数</strong></p>
+<p>组件的钩子函数一共6个：</p>
+<blockquote>
+<ul>
+<li>data：可以设置组件的data</li>
+<li>activate：激活组件</li>
+<li>deactivate：禁用组件</li>
+<li>canActivate：组件是否可以被激活</li>
+<li>canDeactivate：组件是否可以被禁用</li>
+<li>canReuse：组件是否可以被重用</li>
+</ul>
+</blockquote>
+<p><strong>切换对象</strong></p>
+<p>每个切换钩子函数都会接受一个 transition 对象作为参数。这个切换对象包含以下函数和方法：</p>
+<blockquote>
+<ul>
+<li><strong>transition.to</strong><br>表示将要切换到的路径的路由对象。</li>
+<li><strong>transition.from</strong><br>代表当前路径的路由对象。</li>
+<li><strong>transition.next()</strong><br>调用此函数处理切换过程的下一步。</li>
+<li><strong>transition.abort([reason])</strong><br>调用此函数来终止或者拒绝此次切换。</li>
+<li><strong>transition.redirect(path)</strong><br>取消当前切换并重定向到另一个路由。</li>
+</ul>
+</blockquote>
+<p>具体的分析过程可以查看官方文档，也可以看这位仁兄的<a href="http://www.cnblogs.com/keepfool/p/5690366.html" target="_blank" rel="external">详细教学</a>。</p>
+<p>附一张详细教学里的生命周期图片:</p>
+<p><img src="http://i.imgur.com/9P42U9O.png?_=5690366" alt="&#39;生命周期&#39;"></p>
+<h4 id="3-实战解决"><a href="#3-实战解决" class="headerlink" title="3.实战解决"></a>3.实战解决</h4><p>首先，对我目前的这一个组件绑定一个新的data：completeSubmit。根据这个data的布尔值来判断是否应该跳出询问的弹窗。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//页面跳转的时候，需要进行询问。</span></div><div class="line">deactivate: <span class="function"><span class="keyword">function</span> (<span class="params">transition</span>) </span>&#123;</div><div class="line">	<span class="keyword">if</span>(!<span class="keyword">this</span>.completeSubmit)&#123;</div><div class="line">		<span class="comment">//未完成提交，出现提示信息</span></div><div class="line">		<span class="keyword">this</span>.confirmModalJump = <span class="literal">true</span>;</div><div class="line">		transition.abort();</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">else</span>&#123;</div><div class="line">		transition.next();</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>出现弹窗的时候，一定要加transition.abort()这行代码，这样router就不会继续前进，地址栏的url也不会进行变化。</p>
+<p>那么，如何记录用户即将前往的页面router呢。我们此时先把transition打印出来看一下具体的内容：</p>
+<p><img src="https://github.com/Snapline/MyMarkDownPhotos/blob/master/vue-router-transition/traision.png?raw=true" alt="transition对象"></p>
+<p>可以看到，transition里就有关于目的地的记录。那么只要在组件的data里绑定一个新的数据就可以进行记录了。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//页面跳转的时候，需要进行询问。</span></div><div class="line">deactivate: <span class="function"><span class="keyword">function</span> (<span class="params">transition</span>) </span>&#123;</div><div class="line">	<span class="keyword">this</span>.toPage = transition.to.name;</div><div class="line">	<span class="keyword">if</span>(!<span class="keyword">this</span>.completeSubmit)&#123;</div><div class="line">		<span class="comment">//未完成提交，出现提示信息</span></div><div class="line">		<span class="keyword">this</span>.confirmModalJump = <span class="literal">true</span>;</div><div class="line">		transition.abort();</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">else</span>&#123;</div><div class="line">		transition.next();</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>通过this.toPage我们就可以拿到目的地了。</p>
+<p>modal组件里，通过$dispatch来传递事件。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</div><div class="line">     data () &#123;</div><div class="line">        <span class="keyword">return</span> &#123;</div><div class="line">            ...</div><div class="line">        &#125;</div><div class="line">    &#125;,</div><div class="line">    <span class="attr">methods</span>: &#123;</div><div class="line">    	<span class="attr">leaveConfirm</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    		<span class="keyword">this</span>.$dispatch(<span class="string">'confirmLeave'</span>, <span class="literal">true</span>)</div><div class="line">    	&#125;,</div><div class="line">    	<span class="attr">cancleBtn</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    		<span class="keyword">this</span>.$dispatch(<span class="string">'clickDeleteLayer'</span>, <span class="literal">true</span>)</div><div class="line">    	&#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>然后在本组件里进行事件的接收<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">events: &#123;</div><div class="line">	<span class="string">'confirmLeave'</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">		<span class="keyword">this</span>.confirmModalJump = <span class="literal">false</span>;</div><div class="line">		<span class="keyword">this</span>.completeSubmit = <span class="literal">true</span>;</div><div class="line">		<span class="keyword">this</span>.$route.router.go(&#123; <span class="attr">name</span>: <span class="keyword">this</span>.toPage&#125;);</div><div class="line">		<span class="built_in">window</span>.localStorage.removeItem(<span class="string">'addServerInfo'</span>);</div><div class="line">	&#125;,</div><div class="line">	<span class="string">'clickDeleteLayer'</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">		<span class="keyword">this</span>.confirmModalJump = <span class="literal">false</span>;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>在用户确定离开的时候，我们首先把modal隐藏，接着把this.completeSubmit的布尔值进行更改（否则router部分的transition无法进行next()），然后通过this.toPage拿到之前用户的点击地址，在router的对象里进行操作。</p>
+<p>关于router的编码式导航，请一定仔细看文档，并区分vue-router的版本号。2.0版本和0.7版本的写法有明显不同。但二者都是支持编码式导航的（另一种方式是常见的html标签式导航）。</p>
+<p>最后，清空用户的填写记录，就大功告成啦。</p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/10/27/vue_router_transition/" class="archive-article-date">
+  	<time datetime="2016-10-27T06:00:27.565Z" itemprop="datePublished"><i class="icon-clock"></i>2016-10-27</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/">Vue</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2016/11/09/unit_test_in_vue_webpack/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          webpack构筑，Vue框架下的单元测试
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/10/25/vue_file_upload/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">在Vue框架下完成文件上传功能</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+	    <a class="jiathis_button_twitter"></a>
+	    <a class="jiathis_button_plus"></a> 
+	    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2019 Snapline
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    <script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: false,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		root: "/",
+		innerArchive: true
+	}
+</script>
+
+<script src="/./main.js"></script>
+
+
+    
+<div class="tools-col">
+  <ul class="btn-wrap">
+    
+      <li class="chose" data-hook="tools-section-all"><span class="text">全部</span><i class="icon-book"></i></li>
+    
+    
+      <li data-hook="tools-section-tag"><span class="text">标签</span><i class="icon-price-tags"></i></li>
+    
+    
+      <li data-hook="tools-section-friends"><span class="text">友链</span><i class="icon-link"></i></li>
+    
+    
+      <li data-hook="tools-section-me"><span class="text">我</span><i class="icon-smile"></i></li>
+    
+  </ul>
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all chose">
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-tag">
+    			<div class="widget tagcloud" id="js-tagcloud">
+    				<a href="/tags/ES6/" style="font-size: 10px;">ES6</a> <a href="/tags/JavaScript/" style="font-size: 15px;">JavaScript</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/Vue/" style="font-size: 20px;">Vue</a> <a href="/tags/notOnlyFE/" style="font-size: 10px;">notOnlyFE</a> <a href="/tags/wechatApp/" style="font-size: 10px;">wechatApp</a>
+    			</div>
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-friends">
+  		
+  			<div class="friends-wrap" id="js-friends">
+  			
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.zhangxinxu.com/wordpress/">张鑫旭</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.ruanyifeng.com/blog/">阮一峰</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.liaoxuefeng.com/">廖雪峰</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.imooc.com/">慕课网</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://gold.xitu.io/explore/frontend">掘金前端</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://codepen.io/">CodePen</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://cn.vuejs.org/">Vuejs</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="https://mp.weixin.qq.com/debug/wxadoc/dev/?t=1476197490824">微信小程序</a>
+  	        
+  	        </div>
+  		
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-me">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">毕业于香港城市大学&lt;br&gt;&lt;br&gt;苏州码农&lt;br&gt;&lt;br&gt;热爱摇滚乐</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <meta name="baidu-site-verification" content="s8Pe1TBqyy" />
+  <title>element-ui组件库使用心得 | You are my JavaScript Queen</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前言最近公司要做的项目基本都是后台管理，且业务越来越复杂和多变，我在这个过程中不再自己手写组件，一来开发效率低，二来容易有各种各样的问题，于是我采用了Element-UI来进行开发，在这个过程中，用到了很多组件库，记录一下心得和需要注意的地方。
+注意事项
+1.开发过程中一定要弄清楚版本号，不同版本对应的组件库数量不同，例如最新版的1.3.5有穿梭框组件，而上一版的1.2.9则没有，同时不同版本里组">
+<meta property="og:type" content="article">
+<meta property="og:title" content="element-ui组件库使用心得">
+<meta property="og:url" content="http://snapline.github.io/2017/05/10/some_focus_in_element-ui/index.html">
+<meta property="og:site_name" content="You are my JavaScript Queen">
+<meta property="og:description" content="前言最近公司要做的项目基本都是后台管理，且业务越来越复杂和多变，我在这个过程中不再自己手写组件，一来开发效率低，二来容易有各种各样的问题，于是我采用了Element-UI来进行开发，在这个过程中，用到了很多组件库，记录一下心得和需要注意的地方。
+注意事项
+1.开发过程中一定要弄清楚版本号，不同版本对应的组件库数量不同，例如最新版的1.3.5有穿梭框组件，而上一版的1.2.9则没有，同时不同版本里组">
+<meta property="og:updated_time" content="2017-06-09T02:31:21.270Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="element-ui组件库使用心得">
+<meta name="twitter:description" content="前言最近公司要做的项目基本都是后台管理，且业务越来越复杂和多变，我在这个过程中不再自己手写组件，一来开发效率低，二来容易有各种各样的问题，于是我采用了Element-UI来进行开发，在这个过程中，用到了很多组件库，记录一下心得和需要注意的地方。
+注意事项
+1.开发过程中一定要弄清楚版本号，不同版本对应的组件库数量不同，例如最新版的1.3.5有穿梭框组件，而上一版的1.2.9则没有，同时不同版本里组">
+  
+    <link rel="alternative" href="/atom.xml" title="You are my JavaScript Queen" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <script src="/style.js"></script>
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="http://images4.fanpop.com/image/photos/21000000/Bob-Dylan-bob-dylan-21091275-116-120.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Snapline</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">温柔且酷</p>
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a class="js-smart-menu" data-idx="0" href="javascript:void(0)">所有文章</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="1" href="javascript:void(0)">标签</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="2" href="javascript:void(0)">友链</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="3" href="javascript:void(0)">关于我</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/Snapline" title="github">github</a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-list"></i></div>
+  		<h1 class="header-author js-mobile-header hide">Snapline</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img src="http://images4.fanpop.com/image/photos/21000000/Bob-Dylan-bob-dylan-21091275-116-120.jpg" class="js-avatar">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Snapline</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">温柔且酷</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/Snapline" title="github">github</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap">
+        <article id="post-some_focus_in_element-ui" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      element-ui组件库使用心得
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>最近公司要做的项目基本都是后台管理，且业务越来越复杂和多变，我在这个过程中不再自己手写组件，一来开发效率低，二来容易有各种各样的问题，于是我采用了<a href="http://element.eleme.io/1.3/#/zh-CN" target="_blank" rel="external">Element-UI</a>来进行开发，在这个过程中，用到了很多组件库，记录一下心得和需要注意的地方。</p>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ul>
+<li><p>1.开发过程中一定要弄清楚版本号，不同版本对应的组件库数量不同，例如最新版的1.3.5有穿梭框组件，而上一版的1.2.9则没有，同时不同版本里组件的写法也是会略有不同。1.3.5版本的对话框demo在1.2.9版本里没有任何效果。</p>
+</li>
+<li><p>2.认真严格按照官方demo进行设置，不能只把精力放在template上，关于data的初始化设置也是必须的。如在Select组件，如果不设置data，则得不到正常的选择框效果。</p>
+</li>
+<li><p>3.form表单组件非常灵活，默认的必填选项，组件会自动在label前加上红色星号表明这是必填项，但是一旦是开发者自己定义的校验规则，则不带有红星号，为了样式统一，我一般全部采取自定义校验规则。</p>
+</li>
+<li><p>4.我在使用iView的时候遇到了一个场景，点击按钮，弹出弹窗，需要在弹窗里填写相应的字段进行提交，iView并没有去适配这个场景。但是在Element里，可以在弹窗（MessageBox）组件里进行填写和验证，但是也只适用于一般的邮箱电话的填写。如果是较为复杂的表单项，还是应该采取对话框（Dialog）的方式进行。</p>
+</li>
+<li><p>5.页码组件（Pagination）的总页数不是按照totalPage的方式来，而是按照总条数进行的，因为表格显示每一页的条数并不是固定的，所以使用总条数来计算总页数是更加准确的做法。</p>
+</li>
+<li><p>6.文件上传组件非常灵活，可以附带其他参数上传，整个上传过程有清晰的执行周期，根据每一个步骤的钩子函数可以定义相关的回调函数。在项目里遇到了一个场景，要同时上传两个name不同的文件和其他相关的文本字段，组件库只能做到一个name里传多个文件，但无法同时传两个不同name的文件。一个上传组件只能对应一个name。我采取的做法是先上传其他文本字段，服务器返回一个标志，然后将这个标志连同文件一起上传，第一个name的文件上传完毕后使用”on-success”钩子函数检测，成功后再上传第二个name的文件。整个过程若较慢，则用loading标志提醒用户等待。</p>
+</li>
+<li><p>7.对于多选框checkbox或者单选框radio，绑定的v-model一定要设置初始值，否则就无法显示勾选和反选的样式。</p>
+</li>
+<li><p>8.级联选择器很方便，但是都是在一个select里进行选择，如果场景要求多个单选select实现联动效果，则还是要使用单选select选择器，灵活处理选择器里内置的对象的数据结构。</p>
+</li>
+<li><p>9.默认的单项选择器Select都是会有一个“请选择”的空项，只有用户选择的时候才会有值。但是对于复杂的表单，我想省去这一个验证项，即初始化进入时该Select就有值，这个值是option里的第一项。那么就需要在data里设置。如果option是从后台获取的，整理好数据结构以后也一定要进行v-model的初始化设置。</p>
+</li>
+<li><p>10.日期选择器绑定的数据，并不是“所见即所得”。即你在日期选择器的输入框里看到了“2017-05-03”的字样时，它对应绑定的model并不是一个string类型的“2017-05-03”，而是一个date对象。这样如果后台接收date字段要求是string类型就无法正常进行。我的解决方法是使用日期选择器组件的“change”事件，因为用户一定要去选择日期，必然会触发这个事件，这个时候内置的event就是文本框里的string字段了，将这个event的值绑定到对应的data上即可。</p>
+</li>
+</ul>
+<p><strong>如果以后发现了新的坑，我会继续补充</strong></p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2017/05/10/some_focus_in_element-ui/" class="archive-article-date">
+  	<time datetime="2017-05-10T12:03:08.000Z" itemprop="datePublished"><i class="icon-clock"></i>2017-05-10</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/">Vue</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2017/06/08/promise_analysis/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          一道关于Promise面试题的分析
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/04/10/wechatApp_page_send/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">微信小程序实现多页面传参通信</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+	    <a class="jiathis_button_twitter"></a>
+	    <a class="jiathis_button_plus"></a> 
+	    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2019 Snapline
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    <script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: false,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		root: "/",
+		innerArchive: true
+	}
+</script>
+
+<script src="/./main.js"></script>
+
+
+    
+<div class="tools-col">
+  <ul class="btn-wrap">
+    
+      <li class="chose" data-hook="tools-section-all"><span class="text">全部</span><i class="icon-book"></i></li>
+    
+    
+      <li data-hook="tools-section-tag"><span class="text">标签</span><i class="icon-price-tags"></i></li>
+    
+    
+      <li data-hook="tools-section-friends"><span class="text">友链</span><i class="icon-link"></i></li>
+    
+    
+      <li data-hook="tools-section-me"><span class="text">我</span><i class="icon-smile"></i></li>
+    
+  </ul>
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all chose">
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-tag">
+    			<div class="widget tagcloud" id="js-tagcloud">
+    				<a href="/tags/ES6/" style="font-size: 10px;">ES6</a> <a href="/tags/JavaScript/" style="font-size: 15px;">JavaScript</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/Vue/" style="font-size: 20px;">Vue</a> <a href="/tags/notOnlyFE/" style="font-size: 10px;">notOnlyFE</a> <a href="/tags/wechatApp/" style="font-size: 10px;">wechatApp</a>
+    			</div>
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-friends">
+  		
+  			<div class="friends-wrap" id="js-friends">
+  			
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.zhangxinxu.com/wordpress/">张鑫旭</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.ruanyifeng.com/blog/">阮一峰</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.liaoxuefeng.com/">廖雪峰</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.imooc.com/">慕课网</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://gold.xitu.io/explore/frontend">掘金前端</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://codepen.io/">CodePen</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://cn.vuejs.org/">Vuejs</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="https://mp.weixin.qq.com/debug/wxadoc/dev/?t=1476197490824">微信小程序</a>
+  	        
+  	        </div>
+  		
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-me">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">毕业于香港城市大学&lt;br&gt;&lt;br&gt;苏州码农&lt;br&gt;&lt;br&gt;热爱摇滚乐</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>

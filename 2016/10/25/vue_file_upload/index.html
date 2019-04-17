@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <meta name="baidu-site-verification" content="s8Pe1TBqyy" />
+  <title>在Vue框架下完成文件上传功能 | You are my JavaScript Queen</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="需求描述近日在工作项目中遇到了一个需求：完成无刷新页面的文件上传功能，上传时要提交文件以外的字段信息，整个项目的框架是Vuejs，无jQuery，也不得使用jQuery的插件。
+寻找轮子由于该需求没有图片文件预览的要求，运行平台也不是移动端，所以相对来说，轮子还是不少的。最终我选择了vue-file-upload。
+轮子installnpm1npm install --save vue-file-">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在Vue框架下完成文件上传功能">
+<meta property="og:url" content="http://snapline.github.io/2016/10/25/vue_file_upload/index.html">
+<meta property="og:site_name" content="You are my JavaScript Queen">
+<meta property="og:description" content="需求描述近日在工作项目中遇到了一个需求：完成无刷新页面的文件上传功能，上传时要提交文件以外的字段信息，整个项目的框架是Vuejs，无jQuery，也不得使用jQuery的插件。
+寻找轮子由于该需求没有图片文件预览的要求，运行平台也不是移动端，所以相对来说，轮子还是不少的。最终我选择了vue-file-upload。
+轮子installnpm1npm install --save vue-file-">
+<meta property="og:updated_time" content="2017-03-10T02:05:54.178Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="在Vue框架下完成文件上传功能">
+<meta name="twitter:description" content="需求描述近日在工作项目中遇到了一个需求：完成无刷新页面的文件上传功能，上传时要提交文件以外的字段信息，整个项目的框架是Vuejs，无jQuery，也不得使用jQuery的插件。
+寻找轮子由于该需求没有图片文件预览的要求，运行平台也不是移动端，所以相对来说，轮子还是不少的。最终我选择了vue-file-upload。
+轮子installnpm1npm install --save vue-file-">
+  
+    <link rel="alternative" href="/atom.xml" title="You are my JavaScript Queen" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <script src="/style.js"></script>
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="http://images4.fanpop.com/image/photos/21000000/Bob-Dylan-bob-dylan-21091275-116-120.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Snapline</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">温柔且酷</p>
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a class="js-smart-menu" data-idx="0" href="javascript:void(0)">所有文章</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="1" href="javascript:void(0)">标签</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="2" href="javascript:void(0)">友链</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="3" href="javascript:void(0)">关于我</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/Snapline" title="github">github</a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-list"></i></div>
+  		<h1 class="header-author js-mobile-header hide">Snapline</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img src="http://images4.fanpop.com/image/photos/21000000/Bob-Dylan-bob-dylan-21091275-116-120.jpg" class="js-avatar">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Snapline</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">温柔且酷</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/Snapline" title="github">github</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap">
+        <article id="post-vue_file_upload" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      在Vue框架下完成文件上传功能
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="需求描述"><a href="#需求描述" class="headerlink" title="需求描述"></a>需求描述</h3><p>近日在工作项目中遇到了一个需求：完成无刷新页面的文件上传功能，上传时要提交文件以外的字段信息，整个项目的框架是Vuejs，无jQuery，也不得使用jQuery的插件。</p>
+<h3 id="寻找轮子"><a href="#寻找轮子" class="headerlink" title="寻找轮子"></a>寻找轮子</h3><p>由于该需求没有图片文件预览的要求，运行平台也不是移动端，所以相对来说，轮子还是不少的。最终我选择了<a href="https://github.com/Snapline/vue-file-upload" target="_blank" rel="external">vue-file-upload</a>。</p>
+<h3 id="轮子install"><a href="#轮子install" class="headerlink" title="轮子install"></a>轮子install</h3><h4 id="npm"><a href="#npm" class="headerlink" title="npm"></a>npm</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install --save vue-file-upload</div></pre></td></tr></table></figure>
+<h4 id="CommonJS"><a href="#CommonJS" class="headerlink" title="CommonJS"></a>CommonJS</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> VueFileUpload = <span class="built_in">require</span>(<span class="string">'vue-file-upload'</span>);</div></pre></td></tr></table></figure>
+<h4 id="ES6写法"><a href="#ES6写法" class="headerlink" title="ES6写法"></a>ES6写法</h4><p>由于我的项目是用ES6写的，所以重点看这一块。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">vue-file-upload</span> <span class="attr">url</span>=<span class="string">"http://localhost:8000/vue-file-upload/demo/upload.php"</span> <span class="attr">v-bind:files.sync</span>=<span class="string">"files"</span> <span class="attr">v-bind:events</span>=<span class="string">"cbEvents"</span> <span class="attr">v-bind:filters</span>=<span class="string">"filters"</span> <span class="attr">v-bind:request-options</span>=<span class="string">"reqopts"</span>&gt;</span><span class="tag">&lt;/<span class="name">vue-file-upload</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> @<span class="attr">click</span>=<span class="string">"doPost"</span>&gt;</span>上传<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">table</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">thead</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">tr</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">th</span>&gt;</span>name<span class="tag">&lt;/<span class="name">th</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">th</span>&gt;</span>size<span class="tag">&lt;/<span class="name">th</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">th</span>&gt;</span>progress<span class="tag">&lt;/<span class="name">th</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">th</span>&gt;</span>status<span class="tag">&lt;/<span class="name">th</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">th</span>&gt;</span>action<span class="tag">&lt;/<span class="name">th</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">thead</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">tbody</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">tr</span> <span class="attr">v-for</span>=<span class="string">"file in files"</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">td</span> <span class="attr">v-text</span>=<span class="string">"file.name"</span>&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">td</span> <span class="attr">v-text</span>=<span class="string">"file.size"</span>&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">td</span> <span class="attr">v-text</span>=<span class="string">"file.progress"</span>&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">td</span> <span class="attr">v-text</span>=<span class="string">"onStatus(file)"</span>&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">td</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">value</span>=<span class="string">"upload"</span> @<span class="attr">click</span>=<span class="string">"uploadItem(file)"</span>&gt;</span>upload<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line">      <span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">tbody</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">table</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> @<span class="attr">click</span>=<span class="string">"uploadAll"</span>&gt;</span>上传所有文件<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line"><span class="keyword">import</span> VueFileUpload <span class="keyword">from</span> <span class="string">'../src/vue-file-upload.vue'</span>;</div><div class="line"><span class="keyword">import</span> UploadActions <span class="keyword">from</span> <span class="string">'../src/config/msg.js'</span>;</div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span>&#123;</div><div class="line">  data()&#123;</div><div class="line">    <span class="keyword">return</span>&#123;</div><div class="line">      <span class="attr">files</span>:[],</div><div class="line">      <span class="comment">//过滤器回调</span></div><div class="line">      filters:[</div><div class="line">        &#123;</div><div class="line">          <span class="attr">name</span>:<span class="string">"imageFilter"</span>,</div><div class="line">          fn(file)&#123;</div><div class="line">              <span class="keyword">var</span> type = <span class="string">'|'</span> + file.type.slice(file.type.lastIndexOf(<span class="string">'/'</span>) + <span class="number">1</span>) + <span class="string">'|'</span>;</div><div class="line">              <span class="keyword">return</span> <span class="string">'|jpg|png|jpeg|bmp|gif|'</span>.indexOf(type) !== <span class="number">-1</span>;</div><div class="line">          &#125;</div><div class="line">        &#125;</div><div class="line">      ],</div><div class="line">      <span class="comment">//事件回调</span></div><div class="line">      cbEvents:&#123;</div><div class="line">        <span class="attr">onCompleteUpload</span>:<span class="function">(<span class="params">file,response,status,header</span>)=&gt;</span>&#123;</div><div class="line">          <span class="built_in">console</span>.log(file);</div><div class="line">          <span class="built_in">console</span>.log(<span class="string">"finish upload;"</span>)</div><div class="line">        &#125;,</div><div class="line">        <span class="attr">onAddFileSuccess</span>:<span class="function">(<span class="params">file</span>)=&gt;</span>&#123;</div><div class="line">          <span class="built_in">console</span>.log(file);</div><div class="line">          <span class="built_in">console</span>.log(<span class="string">"success add to queue"</span>);</div><div class="line">        &#125;</div><div class="line">      &#125;,</div><div class="line">      <span class="attr">reqopts</span>:&#123;</div><div class="line">        <span class="attr">formData</span>:&#123;</div><div class="line">          <span class="attr">tokens</span>:<span class="string">'tttttttttttttt'</span></div><div class="line">        &#125;,</div><div class="line">        <span class="attr">responseType</span>:<span class="string">'json'</span>,</div><div class="line">        <span class="attr">withCredentials</span>:<span class="literal">false</span></div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;,</div><div class="line">  <span class="attr">methods</span>:&#123;</div><div class="line">    doPost()&#123;</div><div class="line">      <span class="keyword">this</span>.$broadcast(UploadActions.DOPOST);</div><div class="line">    &#125;,</div><div class="line">    onStatus(file)&#123;</div><div class="line">      <span class="keyword">if</span>(file.isSuccess)&#123;</div><div class="line">        <span class="keyword">return</span> <span class="string">"上传成功"</span>;</div><div class="line">      &#125;<span class="keyword">else</span> <span class="keyword">if</span>(file.isError)&#123;</div><div class="line">        <span class="keyword">return</span> <span class="string">"上传失败"</span>;</div><div class="line">      &#125;<span class="keyword">else</span> <span class="keyword">if</span>(file.isUploading)&#123;</div><div class="line">        <span class="keyword">return</span> <span class="string">"正在上传"</span>;</div><div class="line">      &#125;<span class="keyword">else</span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="string">"待上传"</span>;</div><div class="line">      &#125;</div><div class="line">    &#125;,</div><div class="line">    uploadItem(file)&#123;</div><div class="line">      file.upload();</div><div class="line">    &#125;,</div><div class="line">    uploadAll()&#123;</div><div class="line">      <span class="keyword">this</span>.$broadcast(UploadActions.DOPOST);</div><div class="line">    &#125;</div><div class="line">  &#125;,</div><div class="line">  <span class="attr">components</span>:&#123;</div><div class="line">    VueFileUpload</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>首先引入vue-file-upload：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> VueFileUpload <span class="keyword">from</span> <span class="string">'../src/vue-file-upload.vue'</span>;</div></pre></td></tr></table></figure></p>
+<p>然后在data部分里进行文件绑定和其他属性的绑定。</p>
+<ul>
+<li><em>filters的部分可以对文件的类型进行过滤</em></li>
+<li><em>cbEvents里进行文件上传后的事件回调</em></li>
+<li><em>reqopts里写入上传文件时除文件以外的XHR传递参数</em></li>
+</ul>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/10/25/vue_file_upload/" class="archive-article-date">
+  	<time datetime="2016-10-25T02:24:28.808Z" itemprop="datePublished"><i class="icon-clock"></i>2016-10-25</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/">Vue</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2016/10/27/vue_router_transition/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          vue-router钩子函数的生命周期
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+	    <a class="jiathis_button_twitter"></a>
+	    <a class="jiathis_button_plus"></a> 
+	    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2019 Snapline
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    <script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: false,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		root: "/",
+		innerArchive: true
+	}
+</script>
+
+<script src="/./main.js"></script>
+
+
+    
+<div class="tools-col">
+  <ul class="btn-wrap">
+    
+      <li class="chose" data-hook="tools-section-all"><span class="text">全部</span><i class="icon-book"></i></li>
+    
+    
+      <li data-hook="tools-section-tag"><span class="text">标签</span><i class="icon-price-tags"></i></li>
+    
+    
+      <li data-hook="tools-section-friends"><span class="text">友链</span><i class="icon-link"></i></li>
+    
+    
+      <li data-hook="tools-section-me"><span class="text">我</span><i class="icon-smile"></i></li>
+    
+  </ul>
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all chose">
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-tag">
+    			<div class="widget tagcloud" id="js-tagcloud">
+    				<a href="/tags/ES6/" style="font-size: 10px;">ES6</a> <a href="/tags/JavaScript/" style="font-size: 15px;">JavaScript</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/Vue/" style="font-size: 20px;">Vue</a> <a href="/tags/notOnlyFE/" style="font-size: 10px;">notOnlyFE</a> <a href="/tags/wechatApp/" style="font-size: 10px;">wechatApp</a>
+    			</div>
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-friends">
+  		
+  			<div class="friends-wrap" id="js-friends">
+  			
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.zhangxinxu.com/wordpress/">张鑫旭</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.ruanyifeng.com/blog/">阮一峰</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.liaoxuefeng.com/">廖雪峰</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.imooc.com/">慕课网</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://gold.xitu.io/explore/frontend">掘金前端</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://codepen.io/">CodePen</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://cn.vuejs.org/">Vuejs</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="https://mp.weixin.qq.com/debug/wxadoc/dev/?t=1476197490824">微信小程序</a>
+  	        
+  	        </div>
+  		
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-me">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">毕业于香港城市大学&lt;br&gt;&lt;br&gt;苏州码农&lt;br&gt;&lt;br&gt;热爱摇滚乐</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>

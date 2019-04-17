@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <meta name="baidu-site-verification" content="s8Pe1TBqyy" />
+  <title>You are my JavaScript Queen</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="You are my JavaScript Queen">
+<meta property="og:url" content="http://snapline.github.io/index.html">
+<meta property="og:site_name" content="You are my JavaScript Queen">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="You are my JavaScript Queen">
+  
+    <link rel="alternative" href="/atom.xml" title="You are my JavaScript Queen" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <script src="/style.js"></script>
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="http://images4.fanpop.com/image/photos/21000000/Bob-Dylan-bob-dylan-21091275-116-120.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Snapline</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">温柔且酷</p>
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a class="js-smart-menu" data-idx="0" href="javascript:void(0)">所有文章</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="1" href="javascript:void(0)">标签</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="2" href="javascript:void(0)">友链</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="3" href="javascript:void(0)">关于我</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/Snapline" title="github">github</a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-list"></i></div>
+  		<h1 class="header-author js-mobile-header hide">Snapline</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img src="http://images4.fanpop.com/image/photos/21000000/Bob-Dylan-bob-dylan-21091275-116-120.jpg" class="js-avatar">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Snapline</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">温柔且酷</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/Snapline" title="github">github</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap">
+        
+  
+    <article id="post-git_transfer" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/15/git_transfer/">git仓库迁移的方法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>近日由于有项目迁移的需求, 所以研究了一下如何迁移Git。<br>要求是迁移的时候，保证所有的分支和提交记录都在，以便于查找和回档。</p>
+<ol>
+<li><p>直接新建项目，把原有的代码拷贝进去。<br>这种方法没有任何提交记录保留，不行。</p>
+</li>
+<li><p>把git文件夹复制过去，其他的项目代码保持不变。<br>这种方法很不“计算机”，而且一些冲突文件全覆盖会发现仓库记录将损坏，亲自测试过，所以该方法也不行。</p>
+</li>
+</ol>
+<p>其实本质上只要是把git所有的记录原封不动的放到新项目里，再把原项目的远程仓库地址变动一下就可以达成了。</p>
+<h3 id="步骤如下："><a href="#步骤如下：" class="headerlink" title="步骤如下："></a>步骤如下：</h3><h3 id="1-克隆原仓库的git镜像"><a href="#1-克隆原仓库的git镜像" class="headerlink" title="1. 克隆原仓库的git镜像"></a>1. 克隆原仓库的git镜像</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git clone --mirror https://github.com/yourname/oldProject.git</div></pre></td></tr></table></figure>
+<p>这里克隆的全是git的内容，并没有其他代码的东西。</p>
+<h3 id="2-在新的服务上创建新项目-newProject"><a href="#2-在新的服务上创建新项目-newProject" class="headerlink" title="2. 在新的服务上创建新项目 newProject"></a>2. 在新的服务上创建新项目 newProject</h3><h3 id="3-打开旧项目镜像的目录"><a href="#3-打开旧项目镜像的目录" class="headerlink" title="3. 打开旧项目镜像的目录"></a>3. 打开旧项目镜像的目录</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cd oldProject.git</div></pre></td></tr></table></figure>
+<h3 id="4-设置需要迁移的目标路径"><a href="#4-设置需要迁移的目标路径" class="headerlink" title="4. 设置需要迁移的目标路径"></a>4. 设置需要迁移的目标路径</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git remote set-url --push origin http://github.com/yourname/newProject.git</div></pre></td></tr></table></figure>
+<h3 id="5-推送到新项目"><a href="#5-推送到新项目" class="headerlink" title="5. 推送到新项目"></a>5. 推送到新项目</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git push --mirror</div></pre></td></tr></table></figure>
+<p>此时，新项目那里已经有了所有的提交记录和代码。但是我们正在维护的代码，之后的提交也必须提交到新仓库地址上。<br>还需要做的事是把本地项目代码所在工程的远程仓库地址迁移到新的仓库地址。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git remote set-url origin newURL</div></pre></td></tr></table></figure>
+<p>使用这个命令即可完成地址切换。</p>
+<p>想查看远程仓库地址的话使用git remote -v命令。</p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2017/09/15/git_transfer/" class="archive-article-date">
+  	<time datetime="2017-09-15T08:50:54.000Z" itemprop="datePublished"><i class="icon-clock"></i>2017-09-15</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/notOnlyFE/">notOnlyFE</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-write_call_and_apply" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/09/write_call_and_apply/">手写代码实现call和apply功能</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>call和apply的功能类似, 区别仅仅是传入的参数形式不同。<br>它们的作用都是使用指定的this值来调用某个函数，用来改变上下文环境。</p>
+<p>举例说明：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> foo = &#123;</div><div class="line">    <span class="attr">value</span>: <span class="number">1</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.value);</div><div class="line">&#125;</div><div class="line"></div><div class="line">bar.call(foo); <span class="comment">//输出1</span></div></pre></td></tr></table></figure></p>
+<p>call把this的指向改成指向foo, 但bar函数依旧执行了。</p>
+<h2 id="Step1"><a href="#Step1" class="headerlink" title="Step1"></a>Step1</h2><p>调用call的时候, 想当于把foo对象进行了一次改造:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> foo = &#123;</div><div class="line">    <span class="attr">value</span>: <span class="number">1</span>,</div><div class="line">    <span class="attr">bar</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.value)</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">foo.bar(); <span class="comment">// 1</span></div></pre></td></tr></table></figure></p>
+<p>等于把bar函数设为了foo对象的一个属性——&gt;执行bar函数——&gt;删除这个属性</p>
+<p>按照这个思路,可以写出一个call2模拟函数:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Function</span>.prototype.call2 = <span class="function"><span class="keyword">function</span>(<span class="params">context</span>)</span>&#123;</div><div class="line">    <span class="comment">//用this获取调用call的函数</span></div><div class="line">    context.fn = <span class="keyword">this</span>;</div><div class="line">    context.fn();</div><div class="line">    <span class="keyword">delete</span> context.fn;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//test</span></div><div class="line"><span class="keyword">var</span> foo = &#123;</div><div class="line">    <span class="attr">age</span>: <span class="number">12</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.age);</div><div class="line">&#125;</div><div class="line"></div><div class="line">bar.call2(foo);  <span class="comment">//输出12</span></div></pre></td></tr></table></figure></p>
+<p>但是这个模拟没有实现传参功能,所以需要进行改造。</p>
+<h2 id="Step2"><a href="#Step2" class="headerlink" title="Step2"></a>Step2</h2><p>关于传参, 举个栗子:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> foo = &#123;</div><div class="line">    <span class="attr">value</span>: <span class="number">1</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params">name, age</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(name)</div><div class="line">    <span class="built_in">console</span>.log(age)</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.value);</div><div class="line">&#125;</div><div class="line"></div><div class="line">bar.call(foo, <span class="string">'Snapline'</span>, <span class="number">28</span>);</div><div class="line"><span class="comment">//输出</span></div><div class="line"><span class="comment">//Snapline</span></div><div class="line"><span class="comment">//28</span></div><div class="line"><span class="comment">//1</span></div></pre></td></tr></table></figure></p>
+<p>call的传参是不定的, 用arguments来获取所有的参数。</p>
+<p>改造如下:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Function</span>.prototype.call2 = <span class="function"><span class="keyword">function</span>(<span class="params">context</span>)</span>&#123;</div><div class="line">    <span class="comment">//用this获取调用call的函数</span></div><div class="line">    context.fn = <span class="keyword">this</span>;</div><div class="line">    <span class="comment">//获取参数</span></div><div class="line">    <span class="keyword">const</span> args = [...arguments].slice(<span class="number">1</span>);</div><div class="line">    context.fn(...args);</div><div class="line">    <span class="keyword">delete</span> context.fn;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//test</span></div><div class="line"><span class="keyword">var</span> foo = &#123;</div><div class="line">    <span class="attr">value</span>: <span class="number">1</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params">name, age</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(name)</div><div class="line">    <span class="built_in">console</span>.log(age)</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.value);</div><div class="line">&#125;</div><div class="line"></div><div class="line">bar.call2(foo, <span class="string">'Snapline'</span>, <span class="number">28</span>);</div><div class="line"><span class="comment">//输出</span></div><div class="line"><span class="comment">//Snapline</span></div><div class="line"><span class="comment">//28</span></div><div class="line"><span class="comment">//1</span></div></pre></td></tr></table></figure>
+<h2 id="Step3"><a href="#Step3" class="headerlink" title="Step3"></a>Step3</h2><p>基本已经完成了模拟, 有几个小问题需要注意:</p>
+<ul>
+<li><p>1.this参数可以传null, 此时this指向window</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> value = <span class="number">1</span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.value);</div><div class="line">&#125;</div><div class="line"></div><div class="line">bar.call(<span class="literal">null</span>); <span class="comment">// 相当于window.value  输出1</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>2.函数可以有返回值</p>
+</li>
+</ul>
+<p>所以有如下call函数完全体:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Function</span>.prototype.call2 = <span class="function"><span class="keyword">function</span>(<span class="params">context</span>)</span>&#123;</div><div class="line">    <span class="comment">//传入的必须是函数</span></div><div class="line">    <span class="keyword">if</span>(<span class="keyword">typeof</span> <span class="keyword">this</span> !== <span class="string">'function'</span>)&#123;</div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">'Error'</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">//传入null的话,this指向window</span></div><div class="line">    context = context || <span class="built_in">window</span>;</div><div class="line"></div><div class="line">    <span class="comment">//用this获取调用call的函数</span></div><div class="line">    context.fn = <span class="keyword">this</span>;</div><div class="line">    <span class="comment">//获取参数</span></div><div class="line">    <span class="keyword">const</span> args = [...arguments].slice(<span class="number">1</span>);</div><div class="line">    <span class="comment">//创建result用来做返回值</span></div><div class="line">    <span class="keyword">const</span> result = context.fn(...args);</div><div class="line"></div><div class="line">    <span class="comment">//恢复默认的fn</span></div><div class="line">    <span class="keyword">delete</span> context.fn;</div><div class="line">    <span class="comment">//返回值</span></div><div class="line">    <span class="keyword">return</span> result;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//test</span></div><div class="line"><span class="keyword">var</span> value = <span class="number">2</span>;</div><div class="line"></div><div class="line"><span class="keyword">var</span> obj = &#123;</div><div class="line">    <span class="attr">value</span>: <span class="number">1</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params">name, age</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.value);</div><div class="line">    <span class="keyword">return</span> &#123;</div><div class="line">        <span class="attr">value</span>: <span class="keyword">this</span>.value,</div><div class="line">        <span class="attr">name</span>: name,</div><div class="line">        <span class="attr">age</span>: age</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">bar.call2(<span class="literal">null</span>); <span class="comment">// 2</span></div><div class="line"><span class="built_in">console</span>.log(bar.call2(obj, <span class="string">'Snapline'</span>, <span class="number">28</span>));</div><div class="line"><span class="comment">//输出</span></div><div class="line"><span class="comment">//1</span></div><div class="line"><span class="comment">//Object &#123;</span></div><div class="line"><span class="comment">//     value: 1,</span></div><div class="line"><span class="comment">//     name: 'Snapline',</span></div><div class="line"><span class="comment">//     age: 28</span></div><div class="line"><span class="comment">// &#125;</span></div></pre></td></tr></table></figure></p>
+<h2 id="实现apply"><a href="#实现apply" class="headerlink" title="实现apply"></a>实现apply</h2><p>实现了call以后实现apply就非常简单了, 只是参数形式不同。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//实现apply</span></div><div class="line"><span class="built_in">Function</span>.prototype.apply2 = <span class="function"><span class="keyword">function</span>(<span class="params">context</span>)</span>&#123;</div><div class="line">    <span class="comment">//传入的必须是函数</span></div><div class="line">    <span class="keyword">if</span>(<span class="keyword">typeof</span> <span class="keyword">this</span> !== <span class="string">'function'</span>)&#123;</div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">'Error'</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    context = context || <span class="built_in">window</span>;</div><div class="line">    context.fn = <span class="keyword">this</span>;</div><div class="line">    <span class="keyword">let</span> result;</div><div class="line">    <span class="keyword">if</span>(<span class="built_in">Array</span>.isArray(<span class="built_in">arguments</span>[<span class="number">1</span>])) &#123;</div><div class="line">        <span class="comment">// 通过...运算符将数组转换为用逗号分隔的参数序列</span></div><div class="line">        result = context.fn(...arguments[<span class="number">1</span>])</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        result = context.fn()</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">delete</span> context.fn;</div><div class="line">    <span class="keyword">return</span> result;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//test</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params">arg1, arg2</span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(arg1, arg2)</div><div class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.a, <span class="keyword">this</span>.b)</div><div class="line">&#125;</div><div class="line"></div><div class="line">test.apply2(&#123;</div><div class="line">  <span class="attr">a</span>: <span class="string">'a'</span>,</div><div class="line">  <span class="attr">b</span>: <span class="string">'b'</span></div><div class="line">&#125;, [<span class="number">1</span>, <span class="number">2</span>])</div><div class="line"><span class="comment">//(1,2)</span></div><div class="line"><span class="comment">//(a,b)</span></div></pre></td></tr></table></figure>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2017/08/09/write_call_and_apply/" class="archive-article-date">
+  	<time datetime="2017-08-09T02:32:54.000Z" itemprop="datePublished"><i class="icon-clock"></i>2017-08-09</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-forEach_and_map" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/01/forEach_and_map/">forEach和map的区别</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>js里关于数组有许多内置方法, forEach()和map()是对数组每个元素进行处理的常用方式, 前阵子加了一个前端技术群, 群主的入群问题就是forEach和map的区别。于是研究了一波。</p>
+<h2 id="forEach"><a href="#forEach" class="headerlink" title="forEach"></a>forEach</h2><h3 id="特点："><a href="#特点：" class="headerlink" title="特点："></a>特点：</h3><ul>
+<li>1.可以改变数组本身（并不完全，下文会说），且没有返回值；</li>
+<li>2.不能常规操作跳出循环；</li>
+<li>3.无法进行链式操作;</li>
+<li>4.每一次执行匿名函数的时候，还给其传递了三个参数值：数组中的当前项item,当前项的索引index,原始数组input</li>
+</ul>
+<p>刚才说到forEach可以改变数组本身，但不完全，是因为只有元素是引用类型的情况下才可以改变，可以看下面的例子：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> personArr = [</div><div class="line">   &#123;<span class="attr">name</span>:<span class="string">'王工'</span>,<span class="attr">age</span>:<span class="number">26</span>&#125;,</div><div class="line">   &#123;<span class="attr">name</span>:<span class="string">'张工'</span>,<span class="attr">age</span>:<span class="number">27</span>&#125;,</div><div class="line">   &#123;<span class="attr">name</span>:<span class="string">'李工'</span>,<span class="attr">age</span>:<span class="number">30</span>&#125;</div><div class="line">];</div><div class="line">personArr.forEach(<span class="function"><span class="params">item</span> =&gt;</span> &#123; </div><div class="line">  item.age = item.age + <span class="number">1</span>&#125;</div><div class="line">);</div><div class="line"><span class="built_in">console</span>.log(personArr)   <span class="comment">//[&#123;name:'王工',age:27&#125;,&#123;name:'张工',age:28&#125;,&#123;name:'李工',age:31&#125;]</span></div><div class="line"></div><div class="line"><span class="keyword">var</span> salaryArr = [<span class="number">10000</span>, <span class="number">15000</span>, <span class="number">20000</span>];</div><div class="line">salaryArr.forEach(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</div><div class="line">  item = item + <span class="number">2000</span></div><div class="line">&#125;)</div><div class="line"><span class="built_in">console</span>.log(salaryArr) <span class="comment">//[10000, 15000, 20000]</span></div></pre></td></tr></table></figure>
+<p>上述代码表示，工作一年后，三位工程师的年龄都长了一岁， 但salaryArr并没有改变，也就是很遗憾，每个人涨薪2000的程序没有按照原有的预想进行变化：）原因就是forEach并不能改变值类型元素的数组。</p>
+<h2 id="map"><a href="#map" class="headerlink" title="map"></a>map</h2><h3 id="特点：-1"><a href="#特点：-1" class="headerlink" title="特点："></a>特点：</h3><ul>
+<li>1.会新建一个数组，需要承载对象，也就意味着原始数组调用它后不会发生变化</li>
+<li>2.每一个元素都调用一个回调函数后返回结果</li>
+<li>3.不管是forEach还是map，都支持2个参数：回调函数（item,index,list）和上下文。第二个参数的意思是把匿名回调函数中的this进行修改。</li>
+</ul>
+<p>map的回调函数里必须有return，可以看一下下列代码<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> newArr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>].map(<span class="function"><span class="params">item</span> =&gt;</span> &#123; <span class="keyword">if</span>(item &gt; <span class="number">3</span>) <span class="keyword">return</span> item &#125;)</div><div class="line"><span class="comment">// =&gt; [undefined, undefined, undefined, 4, 5]</span></div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2017/07/01/forEach_and_map/" class="archive-article-date">
+  	<time datetime="2017-07-01T06:57:08.000Z" itemprop="datePublished"><i class="icon-clock"></i>2017-07-01</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-promise_analysis" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/08/promise_analysis/">一道关于Promise面试题的分析</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Promise已经成为前端界必须掌握的技能了，哪怕不了解promise的内部机制，也一定用过相关的api。那么一个promise和setTimeout结合的面试题就非常时候学习promise的内部机制了。</p>
+<p>首先，先看题目：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> first = <span class="function"><span class="params">()</span> =&gt;</span> (<span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resovle,reject</span>)=&gt;</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="number">3</span>);</div><div class="line">    <span class="keyword">let</span> p = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resovle, reject</span>)=&gt;</span>&#123;</div><div class="line">         <span class="built_in">console</span>.log(<span class="number">7</span>);</div><div class="line">        setTimeout(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</div><div class="line">           <span class="built_in">console</span>.log(<span class="number">5</span>);</div><div class="line">           resovle(<span class="number">6</span>); </div><div class="line">        &#125;,<span class="number">0</span>)</div><div class="line">        resovle(<span class="number">1</span>);</div><div class="line">    &#125;); </div><div class="line">    resovle(<span class="number">2</span>);</div><div class="line">    p.then(<span class="function">(<span class="params">arg</span>)=&gt;</span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(arg);</div><div class="line">    &#125;);</div><div class="line"></div><div class="line">&#125;));</div><div class="line"></div><div class="line">first().then(<span class="function">(<span class="params">arg</span>)=&gt;</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(arg);</div><div class="line">&#125;);</div><div class="line"><span class="built_in">console</span>.log(<span class="number">4</span>);</div></pre></td></tr></table></figure></p>
+<p>promise对象只有三种状态: <strong>pending</strong>,<strong>fulfilled</strong>和<strong>rejected</strong>。状态会变化且只会变化一次，有两种可能：从<strong>pending</strong>变成<strong>fulfilled</strong>；从<strong>pending</strong>变成<strong>rejeced</strong>。</p>
+<p>上述题目，调用处仅有一次，即:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">first().then(<span class="function">(<span class="params">arg</span>)=&gt;</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(arg);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>在任务流里，首先开启了一个first的new Promise操作，输出了<strong>3</strong>。然后遇到了p，开启另一个new Promise操作，输出了<strong>7</strong>，遇到定时器，定时器要放入下一轮的任务队列里。<br>接着往下走，是p的then(简称p.then)，加入队列任务，该任务是在定时器之前的。之后是first的then任务(简称f.then)。<br>延迟的任务队列排好以后，执行最后一行，输出<strong>4</strong>。<br>目前，顺序流执行下来，输出是<strong>3,7,4</strong>。<br>再执行排列的任务，p.then和f.then，输出<strong>1，2</strong>.<br>最后执行定时器，输出<strong>5</strong>。由于<strong>promise对象的状态只会变化一次</strong>，所以定时器里的resolve(6)是不会执行的。</p>
+<p>最终的输出结果是<strong>3,7,4,1,2,5</strong>。</p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2017/06/08/promise_analysis/" class="archive-article-date">
+  	<time datetime="2017-06-08T07:04:08.000Z" itemprop="datePublished"><i class="icon-clock"></i>2017-06-08</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES6/">ES6</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-some_focus_in_element-ui" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/05/10/some_focus_in_element-ui/">element-ui组件库使用心得</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>最近公司要做的项目基本都是后台管理，且业务越来越复杂和多变，我在这个过程中不再自己手写组件，一来开发效率低，二来容易有各种各样的问题，于是我采用了<a href="http://element.eleme.io/1.3/#/zh-CN" target="_blank" rel="external">Element-UI</a>来进行开发，在这个过程中，用到了很多组件库，记录一下心得和需要注意的地方。</p>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ul>
+<li><p>1.开发过程中一定要弄清楚版本号，不同版本对应的组件库数量不同，例如最新版的1.3.5有穿梭框组件，而上一版的1.2.9则没有，同时不同版本里组件的写法也是会略有不同。1.3.5版本的对话框demo在1.2.9版本里没有任何效果。</p>
+</li>
+<li><p>2.认真严格按照官方demo进行设置，不能只把精力放在template上，关于data的初始化设置也是必须的。如在Select组件，如果不设置data，则得不到正常的选择框效果。</p>
+</li>
+<li><p>3.form表单组件非常灵活，默认的必填选项，组件会自动在label前加上红色星号表明这是必填项，但是一旦是开发者自己定义的校验规则，则不带有红星号，为了样式统一，我一般全部采取自定义校验规则。</p>
+</li>
+<li><p>4.我在使用iView的时候遇到了一个场景，点击按钮，弹出弹窗，需要在弹窗里填写相应的字段进行提交，iView并没有去适配这个场景。但是在Element里，可以在弹窗（MessageBox）组件里进行填写和验证，但是也只适用于一般的邮箱电话的填写。如果是较为复杂的表单项，还是应该采取对话框（Dialog）的方式进行。</p>
+</li>
+<li><p>5.页码组件（Pagination）的总页数不是按照totalPage的方式来，而是按照总条数进行的，因为表格显示每一页的条数并不是固定的，所以使用总条数来计算总页数是更加准确的做法。</p>
+</li>
+<li><p>6.文件上传组件非常灵活，可以附带其他参数上传，整个上传过程有清晰的执行周期，根据每一个步骤的钩子函数可以定义相关的回调函数。在项目里遇到了一个场景，要同时上传两个name不同的文件和其他相关的文本字段，组件库只能做到一个name里传多个文件，但无法同时传两个不同name的文件。一个上传组件只能对应一个name。我采取的做法是先上传其他文本字段，服务器返回一个标志，然后将这个标志连同文件一起上传，第一个name的文件上传完毕后使用”on-success”钩子函数检测，成功后再上传第二个name的文件。整个过程若较慢，则用loading标志提醒用户等待。</p>
+</li>
+<li><p>7.对于多选框checkbox或者单选框radio，绑定的v-model一定要设置初始值，否则就无法显示勾选和反选的样式。</p>
+</li>
+<li><p>8.级联选择器很方便，但是都是在一个select里进行选择，如果场景要求多个单选select实现联动效果，则还是要使用单选select选择器，灵活处理选择器里内置的对象的数据结构。</p>
+</li>
+<li><p>9.默认的单项选择器Select都是会有一个“请选择”的空项，只有用户选择的时候才会有值。但是对于复杂的表单，我想省去这一个验证项，即初始化进入时该Select就有值，这个值是option里的第一项。那么就需要在data里设置。如果option是从后台获取的，整理好数据结构以后也一定要进行v-model的初始化设置。</p>
+</li>
+<li><p>10.日期选择器绑定的数据，并不是“所见即所得”。即你在日期选择器的输入框里看到了“2017-05-03”的字样时，它对应绑定的model并不是一个string类型的“2017-05-03”，而是一个date对象。这样如果后台接收date字段要求是string类型就无法正常进行。我的解决方法是使用日期选择器组件的“change”事件，因为用户一定要去选择日期，必然会触发这个事件，这个时候内置的event就是文本框里的string字段了，将这个event的值绑定到对应的data上即可。</p>
+</li>
+</ul>
+<p><strong>如果以后发现了新的坑，我会继续补充</strong></p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2017/05/10/some_focus_in_element-ui/" class="archive-article-date">
+  	<time datetime="2017-05-10T12:03:08.000Z" itemprop="datePublished"><i class="icon-clock"></i>2017-05-10</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/">Vue</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-wechatApp_page_send" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/10/wechatApp_page_send/">微信小程序实现多页面传参通信</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="一-驱动"><a href="#一-驱动" class="headerlink" title="一 驱动"></a>一 驱动</h3><p>今年年初做了一款很简单的pm2.5查询的小程序，进入首页，自动定位城市，同时用户可以点击城市区域，进入城市列表，选择任意城市，返回首页，读取选择城市的pm2.5情况。</p>
+<p>如图所示：</p>
+<p><img src="https://github.com/Snapline/MyMarkDownPhotos/blob/master/wxApp-event-send/home.png?raw=true" alt="&#39;首页&#39;" title="小程序首页"></p>
+<p><img src="https://github.com/Snapline/MyMarkDownPhotos/blob/master/wxApp-event-send/list.png?raw=true" alt="&#39;城市列表&#39;" title="城市列表"></p>
+<p>如果只是在web上，这样的需求非常容易解决。但是小程序的API接口里，从A页面进入B页面是可以带参数的，但是，反过来，从B页面退回A页面，是不允许带参数的。</p>
+<h3 id="二-解决方法"><a href="#二-解决方法" class="headerlink" title="二 解决方法"></a>二 解决方法</h3><p>我当时选择了把要传的参数（用户选择的城市）存入storage里，也就是使用微信的wx.setStorage方法进行存储，回到A页面的时候先检测storage里的数据。然后就把这个项目收尾了。</p>
+<p>之后看到了一篇<a href="http://www.wxapp-union.com/article-2142-1.html" target="_blank" rel="external">文章</a>，讲述了如何使用onfire.js这个js库来进行页面传输的方式。我自己动手试了一下，非常好用。</p>
+<h3 id="三-onfire-js介绍"><a href="#三-onfire-js介绍" class="headerlink" title="三 onfire.js介绍"></a>三 onfire.js介绍</h3><p>onfire.js的github地址<a href="https://github.com/hustcc/onfire.js" target="_blank" rel="external">在此</a>，只有0.9kb大小，非常轻便。</p>
+<p>它可用于：</p>
+<ul>
+<li>简单的事件分发；</li>
+<li>在 react / vue.js / angular 用于跨组件的轻量级实现；</li>
+<li>事件订阅和发布；</li>
+</ul>
+<p>应用在小程序里，思路如下：</p>
+<ol>
+<li>A页面先订阅一个事件，并定义处理方法。</li>
+<li>B页面返回时发送消息。</li>
+<li>A页面卸载时，解除订阅。</li>
+</ol>
+<h3 id="四-实践测试"><a href="#四-实践测试" class="headerlink" title="四  实践测试"></a>四  实践测试</h3><p>在A页面写入一个button，点击button可以跳转到B页面。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> onfire = <span class="built_in">require</span>(<span class="string">"../utils/onfire.js"</span>);</div><div class="line"><span class="keyword">var</span> eventObj = onfire.on(<span class="string">'testEvent'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">args</span>) </span>&#123;</div><div class="line"><span class="comment">//打印从B页面带来的参数</span></div><div class="line">    <span class="built_in">console</span>.log(args)</div><div class="line">&#125;);</div><div class="line"></div><div class="line">Page(&#123;</div><div class="line">  <span class="attr">data</span>: &#123;</div><div class="line">  &#125;,</div><div class="line">  <span class="comment">//跳转事件</span></div><div class="line">  gotoNext: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    wx.navigateTo(&#123;</div><div class="line">      <span class="attr">url</span>: <span class="string">'../test/test'</span>,</div><div class="line">      <span class="attr">success</span>: <span class="function"><span class="keyword">function</span>(<span class="params">res</span>)</span>&#123;</div><div class="line">      &#125;</div><div class="line">    &#125;)</div><div class="line">  &#125;,</div><div class="line">  <span class="attr">onLoad</span>: <span class="function"><span class="keyword">function</span>(<span class="params">options</span>) </span>&#123;</div><div class="line">    </div><div class="line">  &#125;,</div><div class="line">  <span class="attr">onUnload</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    onfire.un(<span class="string">'testEvent'</span>);</div><div class="line">    onfire.un(eventObj);</div><div class="line">  &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p>调用onfire.on方法订阅一个testEvent的消息，args是接收从B页面传来的参数。需要注意一定要在onUnload里取消订阅testEvent的消息，并取消绑定eventObj。</p>
+<p>在B页面里写入返回页面的API，并在回调的地方加入消息的分发。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">wx.navigateBack(&#123;</div><div class="line">     <span class="attr">success</span>: <span class="function"><span class="keyword">function</span>(<span class="params">res</span>)</span>&#123;</div><div class="line">         <span class="comment">//有参数时</span></div><div class="line">         onfire.fire(<span class="string">'testEvent'</span>,&#123;<span class="attr">name</span>:<span class="string">'111'</span>,<span class="attr">age</span>:<span class="number">12</span>&#125;);</div><div class="line">     &#125;,</div><div class="line">     <span class="attr">fail</span>: <span class="function"><span class="keyword">function</span>(<span class="params">res</span>) </span>&#123;</div><div class="line">       <span class="comment">// fail</span></div><div class="line">     &#125;,</div><div class="line">     <span class="attr">complete</span>: <span class="function"><span class="keyword">function</span>(<span class="params">res</span>) </span>&#123;</div><div class="line">       <span class="comment">// complete</span></div><div class="line">     &#125;</div><div class="line">   &#125;)</div></pre></td></tr></table></figure>
+<p>操作以后会发现回到A页面的时候，控制台打出了对应的Object为{name:’111’,age:12}，可以传数字，字符串，json对象。</p>
+<p>有了这个库，我们就可以实现页面之间的随意通信，从而控制ui对应的变化。也便于代码的阅读和后期的维护。</p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2017/04/10/wechatApp_page_send/" class="archive-article-date">
+  	<time datetime="2017-04-10T06:03:08.000Z" itemprop="datePublished"><i class="icon-clock"></i>2017-04-10</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/wechatApp/">wechatApp</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+    </nav>
+  
+
+
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2019 Snapline
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    <script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: false,
+		animate: true,
+		isHome: true,
+		isPost: false,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		root: "/",
+		innerArchive: true
+	}
+</script>
+
+<script src="/./main.js"></script>
+
+
+    
+<div class="tools-col">
+  <ul class="btn-wrap">
+    
+      <li class="chose" data-hook="tools-section-all"><span class="text">全部</span><i class="icon-book"></i></li>
+    
+    
+      <li data-hook="tools-section-tag"><span class="text">标签</span><i class="icon-price-tags"></i></li>
+    
+    
+      <li data-hook="tools-section-friends"><span class="text">友链</span><i class="icon-link"></i></li>
+    
+    
+      <li data-hook="tools-section-me"><span class="text">我</span><i class="icon-smile"></i></li>
+    
+  </ul>
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all chose">
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-tag">
+    			<div class="widget tagcloud" id="js-tagcloud">
+    				<a href="/tags/ES6/" style="font-size: 10px;">ES6</a> <a href="/tags/JavaScript/" style="font-size: 15px;">JavaScript</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/Vue/" style="font-size: 20px;">Vue</a> <a href="/tags/notOnlyFE/" style="font-size: 10px;">notOnlyFE</a> <a href="/tags/wechatApp/" style="font-size: 10px;">wechatApp</a>
+    			</div>
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-friends">
+  		
+  			<div class="friends-wrap" id="js-friends">
+  			
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.zhangxinxu.com/wordpress/">张鑫旭</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.ruanyifeng.com/blog/">阮一峰</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.liaoxuefeng.com/">廖雪峰</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.imooc.com/">慕课网</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://gold.xitu.io/explore/frontend">掘金前端</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://codepen.io/">CodePen</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://cn.vuejs.org/">Vuejs</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="https://mp.weixin.qq.com/debug/wxadoc/dev/?t=1476197490824">微信小程序</a>
+  	        
+  	        </div>
+  		
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-me">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">毕业于香港城市大学&lt;br&gt;&lt;br&gt;苏州码农&lt;br&gt;&lt;br&gt;热爱摇滚乐</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>
