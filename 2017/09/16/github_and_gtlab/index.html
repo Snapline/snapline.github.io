@@ -5,33 +5,24 @@
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <meta name="baidu-site-verification" content="s8Pe1TBqyy" />
-  <title>forEach和map的区别 | You are my JavaScript Queen</title>
+  <title>便捷地同时使用github和gitlab的方法 | You are my JavaScript Queen</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="js里关于数组有许多内置方法, forEach()和map()是对数组每个元素进行处理的常用方式, 前阵子加了一个前端技术群, 群主的入群问题就是forEach和map的区别。于是研究了一波。
-forEach特点：
-1.可以改变数组本身（并不完全，下文会说），且没有返回值；
-2.不能常规操作跳出循环；
-3.无法进行链式操作;
-4.每一次执行匿名函数的时候，还给其传递了三个参数值：数组中的当前项it">
+  <meta name="description" content="昨天完成了迁移，迁移时也换了新的gitlab账户，并绑定了新的ssh。更新博文后发现hexo d命令总是错误，原因是github的permission处于denied的状态，猜测一定是ssh的问题。
+由于按照网上给出的ssh生成命令进行，一路回车，等于对id_rsa文件的命名采取了默认状态，导致github在获取rsa的时候引起了错乱。
+那么优雅的使用github和gitlab的方法就是命名两个不">
 <meta property="og:type" content="article">
-<meta property="og:title" content="forEach和map的区别">
-<meta property="og:url" content="http://snapline.github.io/2017/07/01/forEach_and_map/index.html">
+<meta property="og:title" content="便捷地同时使用github和gitlab的方法">
+<meta property="og:url" content="http://snapline.github.io/2017/09/16/github_and_gtlab/index.html">
 <meta property="og:site_name" content="You are my JavaScript Queen">
-<meta property="og:description" content="js里关于数组有许多内置方法, forEach()和map()是对数组每个元素进行处理的常用方式, 前阵子加了一个前端技术群, 群主的入群问题就是forEach和map的区别。于是研究了一波。
-forEach特点：
-1.可以改变数组本身（并不完全，下文会说），且没有返回值；
-2.不能常规操作跳出循环；
-3.无法进行链式操作;
-4.每一次执行匿名函数的时候，还给其传递了三个参数值：数组中的当前项it">
-<meta property="og:updated_time" content="2019-04-11T06:45:15.010Z">
+<meta property="og:description" content="昨天完成了迁移，迁移时也换了新的gitlab账户，并绑定了新的ssh。更新博文后发现hexo d命令总是错误，原因是github的permission处于denied的状态，猜测一定是ssh的问题。
+由于按照网上给出的ssh生成命令进行，一路回车，等于对id_rsa文件的命名采取了默认状态，导致github在获取rsa的时候引起了错乱。
+那么优雅的使用github和gitlab的方法就是命名两个不">
+<meta property="og:updated_time" content="2019-04-17T05:41:29.760Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="forEach和map的区别">
-<meta name="twitter:description" content="js里关于数组有许多内置方法, forEach()和map()是对数组每个元素进行处理的常用方式, 前阵子加了一个前端技术群, 群主的入群问题就是forEach和map的区别。于是研究了一波。
-forEach特点：
-1.可以改变数组本身（并不完全，下文会说），且没有返回值；
-2.不能常规操作跳出循环；
-3.无法进行链式操作;
-4.每一次执行匿名函数的时候，还给其传递了三个参数值：数组中的当前项it">
+<meta name="twitter:title" content="便捷地同时使用github和gitlab的方法">
+<meta name="twitter:description" content="昨天完成了迁移，迁移时也换了新的gitlab账户，并绑定了新的ssh。更新博文后发现hexo d命令总是错误，原因是github的permission处于denied的状态，猜测一定是ssh的问题。
+由于按照网上给出的ssh生成命令进行，一路回车，等于对id_rsa文件的命名采取了默认状态，导致github在获取rsa的时候引起了错乱。
+那么优雅的使用github和gitlab的方法就是命名两个不">
   
     <link rel="alternative" href="/atom.xml" title="You are my JavaScript Queen" type="application/atom+xml">
   
@@ -143,7 +134,7 @@ forEach特点：
 </nav>
 
       <div class="body-wrap">
-        <article id="post-forEach_and_map" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-github_and_gtlab" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <input type="hidden" class="isFancy" />
@@ -153,7 +144,7 @@ forEach特点：
         
   
     <h1 class="article-title" itemprop="name">
-      forEach和map的区别
+      便捷地同时使用github和gitlab的方法
     </h1>
   
 
@@ -161,34 +152,33 @@ forEach特点：
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>js里关于数组有许多内置方法, forEach()和map()是对数组每个元素进行处理的常用方式, 前阵子加了一个前端技术群, 群主的入群问题就是forEach和map的区别。于是研究了一波。</p>
-<h2 id="forEach"><a href="#forEach" class="headerlink" title="forEach"></a>forEach</h2><h3 id="特点："><a href="#特点：" class="headerlink" title="特点："></a>特点：</h3><ul>
-<li>1.可以改变数组本身（并不完全，下文会说），且没有返回值；</li>
-<li>2.不能常规操作跳出循环；</li>
-<li>3.无法进行链式操作;</li>
-<li>4.每一次执行匿名函数的时候，还给其传递了三个参数值：数组中的当前项item,当前项的索引index,原始数组input</li>
-</ul>
-<p>刚才说到forEach可以改变数组本身，但不完全，是因为只有元素是引用类型的情况下才可以改变，可以看下面的例子：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> personArr = [</div><div class="line">   &#123;<span class="attr">name</span>:<span class="string">'王工'</span>,<span class="attr">age</span>:<span class="number">26</span>&#125;,</div><div class="line">   &#123;<span class="attr">name</span>:<span class="string">'张工'</span>,<span class="attr">age</span>:<span class="number">27</span>&#125;,</div><div class="line">   &#123;<span class="attr">name</span>:<span class="string">'李工'</span>,<span class="attr">age</span>:<span class="number">30</span>&#125;</div><div class="line">];</div><div class="line">personArr.forEach(<span class="function"><span class="params">item</span> =&gt;</span> &#123; </div><div class="line">  item.age = item.age + <span class="number">1</span>&#125;</div><div class="line">);</div><div class="line"><span class="built_in">console</span>.log(personArr)   <span class="comment">//[&#123;name:'王工',age:27&#125;,&#123;name:'张工',age:28&#125;,&#123;name:'李工',age:31&#125;]</span></div><div class="line"></div><div class="line"><span class="keyword">var</span> salaryArr = [<span class="number">10000</span>, <span class="number">15000</span>, <span class="number">20000</span>];</div><div class="line">salaryArr.forEach(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</div><div class="line">  item = item + <span class="number">2000</span></div><div class="line">&#125;)</div><div class="line"><span class="built_in">console</span>.log(salaryArr) <span class="comment">//[10000, 15000, 20000]</span></div></pre></td></tr></table></figure>
-<p>上述代码表示，工作一年后，三位工程师的年龄都长了一岁， 但salaryArr并没有改变，也就是很遗憾，每个人涨薪2000的程序没有按照原有的预想进行变化：）原因就是forEach并不能改变值类型元素的数组。</p>
-<h2 id="map"><a href="#map" class="headerlink" title="map"></a>map</h2><h3 id="特点：-1"><a href="#特点：-1" class="headerlink" title="特点："></a>特点：</h3><ul>
-<li>1.会新建一个数组，需要承载对象，也就意味着原始数组调用它后不会发生变化</li>
-<li>2.每一个元素都调用一个回调函数后返回结果</li>
-<li>3.不管是forEach还是map，都支持2个参数：回调函数（item,index,list）和上下文。第二个参数的意思是把匿名回调函数中的this进行修改。</li>
-</ul>
-<p>map的回调函数里必须有return，可以看一下下列代码<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> newArr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>].map(<span class="function"><span class="params">item</span> =&gt;</span> &#123; <span class="keyword">if</span>(item &gt; <span class="number">3</span>) <span class="keyword">return</span> item &#125;)</div><div class="line"><span class="comment">// =&gt; [undefined, undefined, undefined, 4, 5]</span></div></pre></td></tr></table></figure></p>
+        <p>昨天完成了迁移，迁移时也换了新的gitlab账户，并绑定了新的ssh。更新博文后发现hexo d命令总是错误，原因是github的permission处于denied的状态，猜测一定是ssh的问题。</p>
+<p>由于按照网上给出的ssh生成命令进行，一路回车，等于对id_rsa文件的命名采取了默认状态，导致github在获取rsa的时候引起了错乱。</p>
+<p>那么优雅的使用github和gitlab的方法就是命名两个不同的rsa文件分别进行绑定，然后用config文件来做配置区分。</p>
+<h1 id="步骤一：-生成密钥"><a href="#步骤一：-生成密钥" class="headerlink" title="步骤一： 生成密钥"></a>步骤一： 生成密钥</h1><p>首先要在~/ssh/目录下操作，直接把文件生成在本文件夹下。</p>
+<h2 id="gitlab密钥"><a href="#gitlab密钥" class="headerlink" title="gitlab密钥"></a>gitlab密钥</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">ssh-keygen -t rsa -C &quot;gitlab 用户邮箱地址&quot; ←┘</div><div class="line">Generating public/private rsa key pair.</div><div class="line">Enter file in which to save the key (/Users/user/.ssh/id_rsa): ←┘</div><div class="line">Enter passphrase (empty for no passphrase): ←┘</div><div class="line">Enter same passphrase again: ←┘</div></pre></td></tr></table></figure>
+<p>这时候生成的是一对名为id_rsa和id_rsa.pub的公私密钥文件。</p>
+<h2 id="github密钥"><a href="#github密钥" class="headerlink" title="github密钥"></a>github密钥</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">ssh-keygen -t rsa -C &quot;github 用户邮箱地址&quot; ←┘</div><div class="line">Generating public/private rsa key pair.</div><div class="line">Enter file in which to save the key (/Users/user/.ssh/id_rsa): id_rsa_github ←┘</div><div class="line">Enter passphrase (empty for no passphrase): ←┘</div><div class="line">Enter same passphrase again: ←┘</div></pre></td></tr></table></figure>
+<p>这时候生成的是一对名为id_rsa_github和id_rsa_github.pub的公私密钥文件。</p>
+<h2 id="ssh-目录下生成以下文件"><a href="#ssh-目录下生成以下文件" class="headerlink" title="~/.ssh/ 目录下生成以下文件:"></a>~/.ssh/ 目录下生成以下文件:</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">- id_rsa</div><div class="line">- id_rsa.pub </div><div class="line">- id_rsa_github</div><div class="line">- id_rsa_github.pub</div></pre></td></tr></table></figure>
+<p>分别将 id_rsa.pub 和 id_rsa_github.pub 内容复制到 gitlab 或 github 的 ssh key 中。</p>
+<h1 id="新建config文件"><a href="#新建config文件" class="headerlink" title="新建config文件"></a>新建config文件</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Host github.com</div><div class="line">    HostName github.com</div><div class="line">    IdentityFile ~/.ssh/id_rsa_github</div><div class="line"></div><div class="line">Host gitlab.com</div><div class="line">    HostName gitlab.shoukala.com</div><div class="line">    IdentityFile ~/.ssh/id_rsa</div></pre></td></tr></table></figure>
+<p>注意这里Host后面一定要写上 .com，不然hexo d的命令还是会失败。</p>
+<h1 id="测试连接"><a href="#测试连接" class="headerlink" title="测试连接"></a>测试连接</h1><p>使用ssh -T git@gitlab.com测试gitlab的连接，使用ssh -T git@github.com测试github的链接。</p>
+<p>会在 ~/.ssh/ 目录下自动生成 known_hosts 文件。</p>
+<p>此时，我们就能分别维护gitlab和github的项目了。</p>
 
       
     </div>
     <div class="article-info article-info-index">
       
-      <a href="/2017/07/01/forEach_and_map/" class="archive-article-date">
-  	<time datetime="2017-07-01T06:57:08.000Z" itemprop="datePublished"><i class="icon-clock"></i>2017-07-01</time>
+      <a href="/2017/09/16/github_and_gtlab/" class="archive-article-date">
+  	<time datetime="2017-09-16T05:50:54.000Z" itemprop="datePublished"><i class="icon-clock"></i>2017-09-16</time>
 </a>
       
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/notOnlyFE/">notOnlyFE</a></li></ul>
 	</div>
 
       
@@ -201,18 +191,9 @@ forEach特点：
   
 <nav id="article-nav">
   
-    <a href="/2017/08/09/write_call_and_apply/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          手写代码实现call和apply功能
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/06/08/promise_analysis/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">一道关于Promise面试题的分析</div>
+    <a href="/2017/09/15/git_transfer/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">git仓库迁移的方法</div>
       <i class="icon-circle-right"></i>
     </a>
   
