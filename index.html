@@ -126,6 +126,64 @@
       <div class="body-wrap">
         
   
+    <article id="post-write_bind" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/20/write_bind/">手写代码实现call和apply功能</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p> bind()方法主要就是将函数绑定到某个对象，bind()会创建一个函数，函数体内的this对象的值会被绑定到传入bind()中的第一个参数的值，例如：f.bind(obj)，实际上可以理解为obj.f()，这时f函数体内的this自然指向的是obj</p>
+<p>举例说明：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a = &#123;</div><div class="line">    <span class="attr">b</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">      <span class="keyword">var</span> func = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.c);</div><div class="line">      &#125;</div><div class="line">      func();</div><div class="line">    &#125;,</div><div class="line">    <span class="attr">c</span>: <span class="string">'hello'</span></div><div class="line">  &#125;</div><div class="line">a.b(); <span class="comment">// undefined 这里的this指向的是全局作用域</span></div><div class="line"><span class="built_in">console</span>.log(a.c); <span class="comment">// hello</span></div></pre></td></tr></table></figure></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a = &#123;</div><div class="line">    <span class="attr">b</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">      <span class="keyword">var</span> _this = <span class="keyword">this</span>; <span class="comment">// 通过赋值的方式将this赋值给that</span></div><div class="line">      <span class="keyword">var</span> func = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(_this.c);</div><div class="line">      &#125;</div><div class="line">      func();</div><div class="line">    &#125;,</div><div class="line">    <span class="attr">c</span>: <span class="string">'hello'</span></div><div class="line">  &#125;</div><div class="line">a.b(); <span class="comment">// hello</span></div><div class="line"><span class="built_in">console</span>.log(a.c); <span class="comment">// hello</span></div></pre></td></tr></table></figure>
+<h3 id="手写bind"><a href="#手写bind" class="headerlink" title="手写bind"></a>手写bind</h3><p>bind有两个特点:</p>
+<ul>
+<li>1.本身返回一个新的函数，所以要考虑new的情况</li>
+<li>2.可以“保留”参数，内部实现了参数的拼接</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Function</span>.prototype.bind2 = <span class="function"><span class="keyword">function</span>(<span class="params">context</span>)</span>&#123;</div><div class="line">    <span class="comment">//传入的必须是函数</span></div><div class="line">    <span class="keyword">if</span>(<span class="keyword">typeof</span> <span class="keyword">this</span> != <span class="string">'function'</span>)&#123;</div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">'Error'</span>)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">const</span> that = <span class="keyword">this</span></div><div class="line">    <span class="comment">//保留参数, 以便于之后拼接参数</span></div><div class="line">    <span class="keyword">const</span> args = [...arguments].slice(<span class="number">1</span>);</div><div class="line"></div><div class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">F</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="comment">//如果是被new创建的实例, 那么上下文不会改变</span></div><div class="line">        <span class="keyword">if</span>(<span class="keyword">this</span> <span class="keyword">instanceof</span> F)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> that(...argus, ...arguments)</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">// args.concat(...arguments): 拼接之前和现在的参数</span></div><div class="line">        <span class="comment">// 注意：arguments是个类Array的Object, 用解构运算符..., 直接拿值拼接</span></div><div class="line">        <span class="keyword">return</span> that.apply(context, args.concat(...arguments))</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//test</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params">arg1, arg2</span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(arg1, arg2)</div><div class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.a, <span class="keyword">this</span>.b)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">const</span> test2 = test.bind2(&#123;</div><div class="line">  <span class="attr">a</span>: <span class="string">'a'</span>,</div><div class="line">  <span class="attr">b</span>: <span class="string">'b'</span></div><div class="line">&#125;, <span class="number">1</span>) <span class="comment">// 参数 1</span></div><div class="line"></div><div class="line">test2(<span class="number">2</span>) <span class="comment">// 参数 2</span></div><div class="line"><span class="comment">//输出</span></div><div class="line"><span class="comment">//1 2</span></div><div class="line"><span class="comment">//a b</span></div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2017/09/20/write_bind/" class="archive-article-date">
+  	<time datetime="2017-09-20T06:12:54.000Z" itemprop="datePublished"><i class="icon-clock"></i>2017-09-20</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-github_and_gtlab" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -279,12 +337,12 @@
 <p>call把this的指向改成指向foo, 但bar函数依旧执行了。</p>
 <h2 id="Step1"><a href="#Step1" class="headerlink" title="Step1"></a>Step1</h2><p>调用call的时候, 想当于把foo对象进行了一次改造:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> foo = &#123;</div><div class="line">    <span class="attr">value</span>: <span class="number">1</span>,</div><div class="line">    <span class="attr">bar</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.value)</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">foo.bar(); <span class="comment">// 1</span></div></pre></td></tr></table></figure></p>
 <p>等于把bar函数设为了foo对象的一个属性——&gt;执行bar函数——&gt;删除这个属性</p>
-<p>按照这个思路,可以写出一个call2模拟函数:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Function</span>.prototype.call2 = <span class="function"><span class="keyword">function</span>(<span class="params">context</span>)</span>&#123;</div><div class="line">    <span class="comment">//用this获取调用call的函数</span></div><div class="line">    context.fn = <span class="keyword">this</span>;</div><div class="line">    context.fn();</div><div class="line">    <span class="keyword">delete</span> context.fn;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//test</span></div><div class="line"><span class="keyword">var</span> foo = &#123;</div><div class="line">    <span class="attr">age</span>: <span class="number">12</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.age);</div><div class="line">&#125;</div><div class="line"></div><div class="line">bar.call2(foo);  <span class="comment">//输出12</span></div></pre></td></tr></table></figure></p>
+<p>按照这个思路,可以写出一个call2模拟函数:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Function</span>.prototype.call2 = <span class="function"><span class="keyword">function</span>(<span class="params">context</span>)</span>&#123;</div><div class="line">    <span class="comment">//用this获取调用call的函数</span></div><div class="line">    context.fn = <span class="keyword">this</span>;</div><div class="line">    context.fn();</div><div class="line">    <span class="keyword">delete</span> context.fn;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//test</span></div><div class="line"><span class="keyword">var</span> foo = &#123;</div><div class="line">    <span class="attr">age</span>: <span class="number">12</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.age);</div><div class="line">&#125;</div><div class="line"></div><div class="line">bar.call2(foo);  <span class="comment">//输出12</span></div></pre></td></tr></table></figure>
 <p>但是这个模拟没有实现传参功能,所以需要进行改造。</p>
 <h2 id="Step2"><a href="#Step2" class="headerlink" title="Step2"></a>Step2</h2><p>关于传参, 举个栗子:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> foo = &#123;</div><div class="line">    <span class="attr">value</span>: <span class="number">1</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params">name, age</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(name)</div><div class="line">    <span class="built_in">console</span>.log(age)</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.value);</div><div class="line">&#125;</div><div class="line"></div><div class="line">bar.call(foo, <span class="string">'Snapline'</span>, <span class="number">28</span>);</div><div class="line"><span class="comment">//输出</span></div><div class="line"><span class="comment">//Snapline</span></div><div class="line"><span class="comment">//28</span></div><div class="line"><span class="comment">//1</span></div></pre></td></tr></table></figure></p>
 <p>call的传参是不定的, 用arguments来获取所有的参数。</p>
-<p>改造如下:</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Function</span>.prototype.call2 = <span class="function"><span class="keyword">function</span>(<span class="params">context</span>)</span>&#123;</div><div class="line">    <span class="comment">//用this获取调用call的函数</span></div><div class="line">    context.fn = <span class="keyword">this</span>;</div><div class="line">    <span class="comment">//获取参数</span></div><div class="line">    <span class="keyword">const</span> args = [...arguments].slice(<span class="number">1</span>);</div><div class="line">    context.fn(...args);</div><div class="line">    <span class="keyword">delete</span> context.fn;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//test</span></div><div class="line"><span class="keyword">var</span> foo = &#123;</div><div class="line">    <span class="attr">value</span>: <span class="number">1</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params">name, age</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(name)</div><div class="line">    <span class="built_in">console</span>.log(age)</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.value);</div><div class="line">&#125;</div><div class="line"></div><div class="line">bar.call2(foo, <span class="string">'Snapline'</span>, <span class="number">28</span>);</div><div class="line"><span class="comment">//输出</span></div><div class="line"><span class="comment">//Snapline</span></div><div class="line"><span class="comment">//28</span></div><div class="line"><span class="comment">//1</span></div></pre></td></tr></table></figure>
+<p>改造如下:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Function</span>.prototype.call2 = <span class="function"><span class="keyword">function</span>(<span class="params">context</span>)</span>&#123;</div><div class="line">    <span class="comment">//用this获取调用call的函数</span></div><div class="line">    context.fn = <span class="keyword">this</span>;</div><div class="line">    <span class="comment">//获取参数</span></div><div class="line">    <span class="keyword">const</span> args = [...arguments].slice(<span class="number">1</span>);</div><div class="line">    context.fn(...args);</div><div class="line">    <span class="keyword">delete</span> context.fn;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//test</span></div><div class="line"><span class="keyword">var</span> foo = &#123;</div><div class="line">    <span class="attr">value</span>: <span class="number">1</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params">name, age</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(name)</div><div class="line">    <span class="built_in">console</span>.log(age)</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.value);</div><div class="line">&#125;</div><div class="line"></div><div class="line">bar.call2(foo, <span class="string">'Snapline'</span>, <span class="number">28</span>);</div><div class="line"><span class="comment">//输出</span></div><div class="line"><span class="comment">//Snapline</span></div><div class="line"><span class="comment">//28</span></div><div class="line"><span class="comment">//1</span></div></pre></td></tr></table></figure></p>
 <h2 id="Step3"><a href="#Step3" class="headerlink" title="Step3"></a>Step3</h2><p>基本已经完成了模拟, 有几个小问题需要注意:</p>
 <ul>
 <li><p>1.this参数可以传null, 此时this指向window</p>
@@ -446,82 +504,9 @@
 
 
   
-    <article id="post-some_focus_in_element-ui" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/05/10/some_focus_in_element-ui/">element-ui组件库使用心得</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>最近公司要做的项目基本都是后台管理，且业务越来越复杂和多变，我在这个过程中不再自己手写组件，一来开发效率低，二来容易有各种各样的问题，于是我采用了<a href="http://element.eleme.io/1.3/#/zh-CN" target="_blank" rel="external">Element-UI</a>来进行开发，在这个过程中，用到了很多组件库，记录一下心得和需要注意的地方。</p>
-<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ul>
-<li><p>1.开发过程中一定要弄清楚版本号，不同版本对应的组件库数量不同，例如最新版的1.3.5有穿梭框组件，而上一版的1.2.9则没有，同时不同版本里组件的写法也是会略有不同。1.3.5版本的对话框demo在1.2.9版本里没有任何效果。</p>
-</li>
-<li><p>2.认真严格按照官方demo进行设置，不能只把精力放在template上，关于data的初始化设置也是必须的。如在Select组件，如果不设置data，则得不到正常的选择框效果。</p>
-</li>
-<li><p>3.form表单组件非常灵活，默认的必填选项，组件会自动在label前加上红色星号表明这是必填项，但是一旦是开发者自己定义的校验规则，则不带有红星号，为了样式统一，我一般全部采取自定义校验规则。</p>
-</li>
-<li><p>4.我在使用iView的时候遇到了一个场景，点击按钮，弹出弹窗，需要在弹窗里填写相应的字段进行提交，iView并没有去适配这个场景。但是在Element里，可以在弹窗（MessageBox）组件里进行填写和验证，但是也只适用于一般的邮箱电话的填写。如果是较为复杂的表单项，还是应该采取对话框（Dialog）的方式进行。</p>
-</li>
-<li><p>5.页码组件（Pagination）的总页数不是按照totalPage的方式来，而是按照总条数进行的，因为表格显示每一页的条数并不是固定的，所以使用总条数来计算总页数是更加准确的做法。</p>
-</li>
-<li><p>6.文件上传组件非常灵活，可以附带其他参数上传，整个上传过程有清晰的执行周期，根据每一个步骤的钩子函数可以定义相关的回调函数。在项目里遇到了一个场景，要同时上传两个name不同的文件和其他相关的文本字段，组件库只能做到一个name里传多个文件，但无法同时传两个不同name的文件。一个上传组件只能对应一个name。我采取的做法是先上传其他文本字段，服务器返回一个标志，然后将这个标志连同文件一起上传，第一个name的文件上传完毕后使用”on-success”钩子函数检测，成功后再上传第二个name的文件。整个过程若较慢，则用loading标志提醒用户等待。</p>
-</li>
-<li><p>7.对于多选框checkbox或者单选框radio，绑定的v-model一定要设置初始值，否则就无法显示勾选和反选的样式。</p>
-</li>
-<li><p>8.级联选择器很方便，但是都是在一个select里进行选择，如果场景要求多个单选select实现联动效果，则还是要使用单选select选择器，灵活处理选择器里内置的对象的数据结构。</p>
-</li>
-<li><p>9.默认的单项选择器Select都是会有一个“请选择”的空项，只有用户选择的时候才会有值。但是对于复杂的表单，我想省去这一个验证项，即初始化进入时该Select就有值，这个值是option里的第一项。那么就需要在data里设置。如果option是从后台获取的，整理好数据结构以后也一定要进行v-model的初始化设置。</p>
-</li>
-<li><p>10.日期选择器绑定的数据，并不是“所见即所得”。即你在日期选择器的输入框里看到了“2017-05-03”的字样时，它对应绑定的model并不是一个string类型的“2017-05-03”，而是一个date对象。这样如果后台接收date字段要求是string类型就无法正常进行。我的解决方法是使用日期选择器组件的“change”事件，因为用户一定要去选择日期，必然会触发这个事件，这个时候内置的event就是文本框里的string字段了，将这个event的值绑定到对应的data上即可。</p>
-</li>
-</ul>
-<p><strong>如果以后发现了新的坑，我会继续补充</strong></p>
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2017/05/10/some_focus_in_element-ui/" class="archive-article-date">
-  	<time datetime="2017-05-10T12:03:08.000Z" itemprop="datePublished"><i class="icon-clock"></i>2017-05-10</time>
-</a>
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/">Vue</a></li></ul>
-	</div>
-
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
   
 
@@ -584,7 +569,7 @@
     
     	<section class="tools-section tools-section-tag">
     			<div class="widget tagcloud" id="js-tagcloud">
-    				<a href="/tags/ES6/" style="font-size: 10px;">ES6</a> <a href="/tags/JavaScript/" style="font-size: 15px;">JavaScript</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/Vue/" style="font-size: 20px;">Vue</a> <a href="/tags/notOnlyFE/" style="font-size: 15px;">notOnlyFE</a> <a href="/tags/wechatApp/" style="font-size: 10px;">wechatApp</a>
+    				<a href="/tags/ES6/" style="font-size: 10px;">ES6</a> <a href="/tags/JavaScript/" style="font-size: 16.67px;">JavaScript</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/Vue/" style="font-size: 20px;">Vue</a> <a href="/tags/notOnlyFE/" style="font-size: 13.33px;">notOnlyFE</a> <a href="/tags/wechatApp/" style="font-size: 10px;">wechatApp</a>
     			</div>
     	</section>
     
