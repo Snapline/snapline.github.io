@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Vue," />
 
 
 
@@ -79,15 +79,16 @@
 
 
 
-<meta name="description" content="毕业于香港城市大学苏州码农热爱摇滚乐">
-<meta property="og:type" content="website">
-<meta property="og:title" content="You are my JavaScript Queen">
-<meta property="og:url" content="http://snapline.github.io/archives/page/3/index.html">
+<meta name="description" content="最近的项目里，首页放了很多跳转的元素，点击以后跳转到相应的页面。一个最典型的例子，点击下方的“关于我们”，会跳到介绍页面，但因为vue的spa单页面特性导致切换页面只是更换了对应的组件，滚动条的位置是不会发生改变的。因此需要每次切换一个页面的时候，都让滚动条回到最顶部。可以在app.vue文件下添加监听，监听$route的变化。1234567891011121314// App.vueexport">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue切换页面时保证滚动条在最顶部">
+<meta property="og:url" content="http://snapline.github.io/2017/11/30/scroll_top/index.html">
 <meta property="og:site_name" content="You are my JavaScript Queen">
-<meta property="og:description" content="毕业于香港城市大学苏州码农热爱摇滚乐">
+<meta property="og:description" content="最近的项目里，首页放了很多跳转的元素，点击以后跳转到相应的页面。一个最典型的例子，点击下方的“关于我们”，会跳到介绍页面，但因为vue的spa单页面特性导致切换页面只是更换了对应的组件，滚动条的位置是不会发生改变的。因此需要每次切换一个页面的时候，都让滚动条回到最顶部。可以在app.vue文件下添加监听，监听$route的变化。1234567891011121314// App.vueexport">
+<meta property="og:updated_time" content="2019-06-04T09:19:13.886Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="You are my JavaScript Queen">
-<meta name="twitter:description" content="毕业于香港城市大学苏州码农热爱摇滚乐">
+<meta name="twitter:title" content="vue切换页面时保证滚动条在最顶部">
+<meta name="twitter:description" content="最近的项目里，首页放了很多跳转的元素，点击以后跳转到相应的页面。一个最典型的例子，点击下方的“关于我们”，会跳到介绍页面，但因为vue的spa单页面特性导致切换页面只是更换了对应的组件，滚动条的位置是不会发生改变的。因此需要每次切换一个页面的时候，都让滚动条回到最顶部。可以在app.vue文件下添加监听，监听$route的变化。1234567891011121314// App.vueexport">
 
 
 
@@ -117,13 +118,13 @@
 
 
 
-  <link rel="canonical" href="http://snapline.github.io/archives/page/3/"/>
+  <link rel="canonical" href="http://snapline.github.io/2017/11/30/scroll_top/"/>
 
 
 
 
 
-  <title>归档 | You are my JavaScript Queen</title>
+  <title>vue切换页面时保证滚动条在最顶部 | You are my JavaScript Queen</title>
   
 
 
@@ -152,7 +153,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -236,152 +237,185 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-      <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://snapline.github.io/2017/11/30/scroll_top/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Snapline">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://images4.fanpop.com/image/photos/21000000/Bob-Dylan-bob-dylan-21091275-116-120.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="You are my JavaScript Queen">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h1 class="post-title" itemprop="name headline">vue切换页面时保证滚动条在最顶部</h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-30T17:23:54+08:00">
+                2017-11-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-        
-        嗯..! 目前共计 15 篇日志。 继续努力。
-      </span>
 
-      
-
-        
-        
-        
-
-        
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2016">2016</h1>
-          </div>
-        
-        
+            
+          
 
-        
+          
+          
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+          
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2016/11/09/unit_test_in_vue_webpack/" itemprop="url">
-              
-                <span itemprop="name">webpack构筑，Vue框架下的单元测试</span>
-              
-            </a>
-        
-      </h2>
+          
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-11-09T16:03:39+08:00"
-              content="2016-11-09" >
-          11-09
-        </time>
-      </div>
+          
 
-    </header>
-  </article>
+        </div>
+      </header>
+    
 
-
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2016/10/27/vue_router_transition/" itemprop="url">
-              
-                <span itemprop="name">vue-router钩子函数的生命周期</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-10-27T14:00:27+08:00"
-              content="2016-10-27" >
-          10-27
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2016/10/25/vue_file_upload/" itemprop="url">
-              
-                <span itemprop="name">在Vue框架下完成文件上传功能</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-10-25T10:24:28+08:00"
-              content="2016-10-25" >
-          10-25
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+      
+        <p>最近的项目里，首页放了很多跳转的元素，点击以后跳转到相应的页面。<br>一个最典型的例子，点击下方的“关于我们”，会跳到介绍页面，但因为vue的spa单页面特性导致切换页面只是更换了对应的组件，滚动条的位置是不会发生改变的。<br>因此需要每次切换一个页面的时候，都让滚动条回到最顶部。<br>可以在app.vue文件下添加监听，监听$route的变化。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// App.vue</span></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</div><div class="line">  <span class="attr">name</span>: <span class="string">'App'</span>,</div><div class="line">  <span class="attr">components</span>: &#123;</div><div class="line">    MHeader,</div><div class="line">    MFooter</div><div class="line">  &#125;,</div><div class="line">  <span class="attr">watch</span>:&#123;</div><div class="line">    <span class="string">'$route'</span>:<span class="function"><span class="keyword">function</span>(<span class="params">to,from</span>)</span>&#123;</div><div class="line">　    <span class="built_in">document</span>.body.scrollTop = <span class="number">0</span></div><div class="line">      <span class="built_in">document</span>.documentElement.scrollTop = <span class="number">0</span></div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>本文没有技术含量，纯粹是工作过程中的一次优化体验的记录:)</p>
 
       
-
     </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="https://github.com/Snapline/MyMarkDownPhotos/blob/master/other_images/wechat_qrcode.jpg?raw=true" alt="Snapline wechat" style="width: 200px; max-width: 100%;"/>
+    <div>扫码关注我的公众号“约翰柠檬的中场故事”</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Buy me a cup of Coffee</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="https://github.com/Snapline/MyMarkDownPhotos/blob/master/other_images/wechat_pay.png?raw=true" alt="Snapline 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="https://github.com/Snapline/MyMarkDownPhotos/blob/master/other_images/alipay1.jpg?raw=true" alt="Snapline 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Vue/" rel="tag"># Vue</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/23/md5/" rel="next" title="MD5加密的防范方法和crypto模块应用">
+                <i class="fa fa-chevron-left"></i> MD5加密的防范方法和crypto模块应用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/archives/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/archives/">1</a><a class="page-number" href="/archives/page/2/">2</a><span class="page-number current">3</span>
-  </nav>
+  </article>
 
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -389,6 +423,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -683,6 +721,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
