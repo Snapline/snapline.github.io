@@ -251,6 +251,336 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://snapline.github.io/2018/11/20/sorting_algo/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Snapline">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://images4.fanpop.com/image/photos/21000000/Bob-Dylan-bob-dylan-21091275-116-120.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="You are my JavaScript Queen">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/20/sorting_algo/" itemprop="url">常用排序算法汇总</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-20T10:23:54+08:00">
+                2018-11-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h2><h3 id="思想"><a href="#思想" class="headerlink" title="思想"></a>思想</h3><p>循环数组，比较当前元素和下一个元素，如果当前元素比下一个元素大，交换位置，这样最后一个元素就是最大数。</p>
+<p>继续重复上面的操作，不循环已经排好的元素。</p>
+<p>优化：当一次循环没有冒泡时，说明已经排序好了，可以停止循环。</p>
+<h3 id="复杂度"><a href="#复杂度" class="headerlink" title="复杂度"></a>复杂度</h3><p>时间复杂度： O(n2)</p>
+<p>空间复杂度:O(1)</p>
+<p>稳定</p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">bibbleSort</span>(<span class="params">array</span>)</span>&#123;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> j = <span class="number">0</span>; j&lt;array.length; j++)&#123;</div><div class="line">        <span class="keyword">let</span> complete = <span class="literal">true</span>; <span class="comment">//循环停止标识符</span></div><div class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i&lt;array.length - <span class="number">1</span> - j; i++)&#123;</div><div class="line">            <span class="comment">//比较相邻元素  (注意array.length要减一)</span></div><div class="line">            <span class="keyword">if</span>(array[i] &gt; array[i+<span class="number">1</span>])&#123;</div><div class="line">                [array[i], array[i+<span class="number">1</span>]] = [array[i+<span class="number">1</span>], array[i]];</div><div class="line">                complete = <span class="literal">false</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(complete)&#123;</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> array</div><div class="line">&#125;</div><div class="line"></div><div class="line">bubbleSort([<span class="number">9</span>,<span class="number">10</span>,<span class="number">222</span>,<span class="number">34</span>,<span class="number">5</span>,<span class="number">56</span>,<span class="number">234</span>,<span class="number">2</span>,<span class="number">33</span>,<span class="number">0</span>,<span class="number">456</span>,<span class="number">3</span>,<span class="number">44</span>,<span class="number">5</span>,<span class="number">22</span>,<span class="number">3</span>,<span class="number">44</span>,<span class="number">67</span>,<span class="number">34</span>])</div><div class="line"><span class="comment">//输出  [0, 2, 3, 3, 5, 5, 9, 10, 22, 33, 34, 34, 44, 44, 56, 67, 222, 234, 456]</span></div></pre></td></tr></table></figure>
+<h2 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h2><h3 id="思想-1"><a href="#思想-1" class="headerlink" title="思想"></a>思想</h3><p>通过一趟排序将要排序的数据分割成独立的两部分，其中一部分的所有数据比另一部分的所有数据要小，再按这种方法对这两部分数据分别进行快速排序，整个排序过程可以递归进行，使整个数据变成有序序列。<br>可以看出，快速排序用到了分治的思想（对小问题进行递归）</p>
+<h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><ul>
+<li>选择一个基准元素target（一般选择第一个数）</li>
+<li>将比target小的元素移动到数组左边，比target大的元素移动到数组右边</li>
+<li>分别对target左侧和右侧的元素进行快速排序</li>
+</ul>
+<h3 id="复杂度-1"><a href="#复杂度-1" class="headerlink" title="复杂度"></a>复杂度</h3><p>时间复杂度：平均O(nlogn)，最坏O(n2)，实际上大多数情况下小于O(nlogn)</p>
+<p>空间复杂度: O(logn)（递归调用消耗）</p>
+<p>不稳定</p>
+<h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><ul>
+<li><strong>写法1： 简单、但消耗空间</strong></li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">quickSort</span>(<span class="params">array</span>)</span>&#123;</div><div class="line">    <span class="keyword">if</span>(array.length &lt; <span class="number">2</span>)&#123;</div><div class="line">        <span class="keyword">return</span> array</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//选一个target</span></div><div class="line">    <span class="keyword">const</span> target = array[<span class="number">0</span>];</div><div class="line">    <span class="keyword">const</span> left = [];</div><div class="line">    <span class="keyword">const</span> right = [];</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">1</span>; i &lt; array.length; i++)&#123;</div><div class="line">        <span class="keyword">if</span>(array[i] &lt; target)&#123;</div><div class="line">            left.push(array[i]);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span> right.push(array[i]);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> quickSort(left).concat([target], quickSort(right));</div><div class="line">&#125;</div><div class="line">quickSort([<span class="number">9</span>,<span class="number">10</span>,<span class="number">222</span>,<span class="number">34</span>,<span class="number">5</span>,<span class="number">56</span>,<span class="number">234</span>,<span class="number">2</span>,<span class="number">33</span>,<span class="number">0</span>,<span class="number">456</span>,<span class="number">3</span>,<span class="number">44</span>,<span class="number">5</span>,<span class="number">22</span>,<span class="number">3</span>,<span class="number">44</span>,<span class="number">67</span>,<span class="number">34</span>])</div><div class="line"><span class="comment">//输出  [0, 2, 3, 3, 5, 5, 9, 10, 22, 33, 34, 34, 44, 44, 56, 67, 222, 234, 456]</span></div></pre></td></tr></table></figure>
+<ul>
+<li><strong>写法2： 节省空间，但稍微复杂</strong></li>
+</ul>
+<p>记录一个索引l从数组最左侧开始，记录一个索引r从数组右侧开始</p>
+<p>在l&lt;r的条件下，找到右侧小于target的值array[r]，并将其赋值到array[l]</p>
+<p>在l&lt;r的条件下，找到左侧大于target的值array[l]，并将其赋值到array[r]</p>
+<p>这样让l=r时，左侧的值全部小于target，右侧的值全部小于target，将target放到该位置</p>
+<p>这种方法需要先知道数组的长度</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">quickSort</span>(<span class="params">array, start, end</span>)</span>&#123;</div><div class="line">    <span class="keyword">if</span>(end - start &lt; <span class="number">1</span>)&#123;</div><div class="line">        <span class="keyword">return</span></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">const</span> target = array[start];</div><div class="line">    <span class="keyword">let</span> l = start;</div><div class="line">    <span class="keyword">let</span> r = end;</div><div class="line">    <span class="keyword">while</span>(l &lt; r)&#123;</div><div class="line">        <span class="keyword">while</span>(l &lt; r &amp;&amp; array[r] &gt;= target)&#123;</div><div class="line">          r--;</div><div class="line">        &#125;</div><div class="line">        array[l] = array[r];</div><div class="line">        <span class="keyword">while</span> (l &lt; r &amp;&amp; array[l] &lt; target) &#123;</div><div class="line">          l++;</div><div class="line">        &#125;</div><div class="line">        array[r] = array[l];</div><div class="line">    &#125;</div><div class="line">    array[l] = target;</div><div class="line">    quickSort(array, start, l - <span class="number">1</span>);</div><div class="line">    quickSort(array, l + <span class="number">1</span>, end);</div><div class="line">    <span class="keyword">return</span> array;</div><div class="line">&#125;</div><div class="line">quickSort([<span class="number">9</span>,<span class="number">10</span>,<span class="number">222</span>,<span class="number">34</span>,<span class="number">5</span>,<span class="number">56</span>,<span class="number">234</span>,<span class="number">2</span>,<span class="number">33</span>,<span class="number">0</span>,<span class="number">456</span>,<span class="number">3</span>,<span class="number">44</span>,<span class="number">5</span>,<span class="number">22</span>,<span class="number">3</span>,<span class="number">44</span>,<span class="number">67</span>,<span class="number">34</span>], <span class="number">0</span>, <span class="number">18</span>)</div><div class="line"><span class="comment">//输出  [0, 2, 3, 3, 5, 5, 9, 10, 22, 33, 34, 34, 44, 44, 56, 67, 222, 234, 456]</span></div></pre></td></tr></table></figure>
+<h2 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h2><h3 id="思想-2"><a href="#思想-2" class="headerlink" title="思想"></a>思想</h3><p><strong>将左侧序列看成一个有序序列</strong>，每次将一个数字插入该有序序列。</p>
+<p>插入时，从有序序列最右侧开始比较，若比较的数较大，后移一位。</p>
+<h3 id="复杂度-2"><a href="#复杂度-2" class="headerlink" title="复杂度"></a>复杂度</h3><p>时间复杂度： O(n2)</p>
+<p>空间复杂度:O(1)</p>
+<p>稳定</p>
+<h3 id="代码-2"><a href="#代码-2" class="headerlink" title="代码"></a>代码</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">insertSort</span>(<span class="params">array</span>)</span>&#123;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; array.length; i++)&#123;</div><div class="line">        <span class="keyword">let</span> target = i;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> j = i<span class="number">-1</span>; j &gt;= <span class="number">0</span>; j--)&#123;</div><div class="line">            <span class="keyword">if</span>(array[j] &gt; array[target])&#123;</div><div class="line">                [array[target], array[j]] = [array[j], array[target]];</div><div class="line">                <span class="comment">//一定要把target的索引交换, 否则会有大量浪费的比较</span></div><div class="line">                target = j;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span> <span class="keyword">break</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> array</div><div class="line">&#125;</div><div class="line">insertSort([<span class="number">9</span>,<span class="number">10</span>,<span class="number">222</span>,<span class="number">34</span>,<span class="number">5</span>,<span class="number">56</span>,<span class="number">234</span>,<span class="number">2</span>,<span class="number">33</span>,<span class="number">0</span>,<span class="number">456</span>,<span class="number">3</span>,<span class="number">44</span>,<span class="number">5</span>,<span class="number">22</span>,<span class="number">3</span>,<span class="number">44</span>,<span class="number">67</span>,<span class="number">34</span>])</div><div class="line"><span class="comment">//输出  [0, 2, 3, 3, 5, 5, 9, 10, 22, 33, 34, 34, 44, 44, 56, 67, 222, 234, 456]</span></div></pre></td></tr></table></figure>
+<h2 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h2><h3 id="思想-3"><a href="#思想-3" class="headerlink" title="思想"></a>思想</h3><p>每次循环选取一个最小的数字放到前面的有序序列中。</p>
+<h3 id="复杂度-3"><a href="#复杂度-3" class="headerlink" title="复杂度"></a>复杂度</h3><p>时间复杂度： O(n2)</p>
+<p>空间复杂度:O(1)</p>
+<p>不稳定</p>
+<h3 id="代码-3"><a href="#代码-3" class="headerlink" title="代码"></a>代码</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">selectionSort</span>(<span class="params">array</span>)</span>&#123;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; array.length - <span class="number">1</span>; i++)&#123;</div><div class="line">        <span class="keyword">let</span> minIndex = i;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> j = i + <span class="number">1</span>; j &lt; array.length; j++)&#123;</div><div class="line">            <span class="keyword">if</span>(array[j] &lt; array[minIndex])&#123;</div><div class="line">                <span class="comment">//索引号一定要修改  否则无法真正调换两个元素</span></div><div class="line">                minIndex = j;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        [array[minIndex], array[i]] = [array[i], array[minIndex]];</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> array</div><div class="line">&#125;</div><div class="line">selectionSort([<span class="number">9</span>,<span class="number">10</span>,<span class="number">222</span>,<span class="number">34</span>,<span class="number">5</span>,<span class="number">56</span>,<span class="number">234</span>,<span class="number">2</span>,<span class="number">33</span>,<span class="number">0</span>,<span class="number">456</span>,<span class="number">3</span>,<span class="number">44</span>,<span class="number">5</span>,<span class="number">22</span>,<span class="number">3</span>,<span class="number">44</span>,<span class="number">67</span>,<span class="number">34</span>])</div><div class="line"><span class="comment">//输出  [0, 2, 3, 3, 5, 5, 9, 10, 22, 33, 34, 34, 44, 44, 56, 67, 222, 234, 456]</span></div></pre></td></tr></table></figure>
+<h2 id="堆排序-较难"><a href="#堆排序-较难" class="headerlink" title="堆排序 (较难)"></a>堆排序 (较难)</h2><h3 id="思想-4"><a href="#思想-4" class="headerlink" title="思想"></a>思想</h3><p>创建一个大顶堆，大顶堆的堆顶一定是最大的元素。</p>
+<p>交换第一个元素和最后一个元素，让剩余的元素继续调整为大顶堆。</p>
+<p>从后往前以此和第一个元素交换并重新构建，排序完成。</p>
+<h3 id="堆的概念"><a href="#堆的概念" class="headerlink" title="堆的概念"></a>堆的概念</h3><p>堆排序是一种树形选择排序，在排序过程中可以把元素看成是一颗完全二叉树。</p>
+<p>每个节点都大（小）于它的两个子节点，当每个节点都大于等于它的两个子节点时，就称为大顶堆，也叫堆有序； 当每个节点都小于等于它的两个子节点时，就称为小顶堆。</p>
+<h3 id="复杂度-4"><a href="#复杂度-4" class="headerlink" title="复杂度"></a>复杂度</h3><p>时间复杂度： O(nlogn)</p>
+<p>空间复杂度:O(1)</p>
+<p>不稳定</p>
+<h3 id="代码-4"><a href="#代码-4" class="headerlink" title="代码"></a>代码</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">heapSort</span>(<span class="params">array</span>)</span>&#123;</div><div class="line">    <span class="comment">//创建大顶堆</span></div><div class="line">    createMaxHeap(array);</div><div class="line">    <span class="comment">//交换第一个和最后一个元素, 然后重新调整</span></div><div class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i = array.length<span class="number">-1</span>; i &gt; <span class="number">0</span>; i--)&#123;</div><div class="line">        [array[i], array[<span class="number">0</span>]] = [array[<span class="number">0</span>], array[i]];</div><div class="line">        adjust(array, <span class="number">0</span>, i);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> array;</div><div class="line">&#125;</div><div class="line"><span class="comment">//构建大顶端, 从第一个非子叶结点开始下沉操作</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">createMaxHeap</span>(<span class="params">array</span>)</span>&#123;</div><div class="line">    <span class="keyword">const</span> len = array.length;</div><div class="line">    <span class="keyword">const</span> start = <span class="built_in">parseInt</span>(len / <span class="number">2</span>) - <span class="number">1</span>;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i = start; i &gt;= <span class="number">0</span>; i--)&#123;</div><div class="line">        adjust(array, i, len);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">//将第target个元素进行下沉，孩子节点有比他大的就下沉</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">adjust</span>(<span class="params">array, target, len</span>) </span>&#123;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">2</span> * target + <span class="number">1</span>; i &lt; len; i = <span class="number">2</span> * i + <span class="number">1</span>) &#123;</div><div class="line">        <span class="comment">// 找到孩子节点中最大的</span></div><div class="line">        <span class="keyword">if</span> (i + <span class="number">1</span> &lt; len &amp;&amp; array[i + <span class="number">1</span>] &gt; array[i]) &#123;</div><div class="line">            i = i + <span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">// 下沉</span></div><div class="line">        <span class="keyword">if</span> (array[i] &gt; array[target]) &#123;</div><div class="line">            [array[i], array[target]] = [array[target], array[i]]</div><div class="line">            target = i;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">heapSort([<span class="number">9</span>,<span class="number">10</span>,<span class="number">222</span>,<span class="number">34</span>,<span class="number">5</span>,<span class="number">56</span>,<span class="number">234</span>,<span class="number">2</span>,<span class="number">33</span>,<span class="number">0</span>,<span class="number">456</span>,<span class="number">3</span>,<span class="number">44</span>,<span class="number">5</span>,<span class="number">22</span>,<span class="number">3</span>,<span class="number">44</span>,<span class="number">67</span>,<span class="number">34</span>])</div><div class="line"><span class="comment">//输出  [0, 2, 3, 3, 5, 5, 9, 10, 22, 33, 34, 34, 44, 44, 56, 67, 222, 234, 456]</span></div></pre></td></tr></table></figure>
+<h2 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h2><h3 id="思想-5"><a href="#思想-5" class="headerlink" title="思想"></a>思想</h3><p>分治法的一个典型应用。</p>
+<ul>
+<li>将已有序的子序列合并，得到完全有序的序列</li>
+<li>即先使每个子序列有序，再使子序列段间有序</li>
+<li>若将两个有序表合并成一个有序表，称为二路归并</li>
+</ul>
+<p>分割:</p>
+<ul>
+<li>将数组从中点进行分割，分为左、右两个数组</li>
+<li>递归分割左、右数组，直到数组长度小于2</li>
+</ul>
+<p>归并:</p>
+<p>如果需要合并，那么左右两数组已经有序了。</p>
+<p>创建一个临时存储数组temp，比较两数组第一个元素，将较小的元素加入临时数组</p>
+<p>若左右数组有一个为空，那么此时另一个数组一定大于temp中的所有元素，直接将其所有元素加入temp</p>
+<h3 id="复杂度-5"><a href="#复杂度-5" class="headerlink" title="复杂度"></a>复杂度</h3><p>时间复杂度： O(nlogn)</p>
+<p>空间复杂度: O(n)</p>
+<p>稳定</p>
+<h3 id="代码-5"><a href="#代码-5" class="headerlink" title="代码"></a>代码</h3><ul>
+<li><strong>写法1： 简单、但消耗空间</strong></li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">mergeSort</span>(<span class="params">array</span>)</span>&#123;</div><div class="line">    <span class="keyword">if</span>(array.length &lt; <span class="number">2</span>)&#123;</div><div class="line">        <span class="keyword">return</span> array</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">const</span> mid = <span class="built_in">Math</span>.floor(array.length / <span class="number">2</span>);</div><div class="line">    <span class="keyword">const</span> front = array.slice(<span class="number">0</span>, mid);</div><div class="line">    <span class="keyword">const</span> end = array.slice(mid);</div><div class="line">    <span class="keyword">return</span> merge(mergeSort(front), mergeSort(end));</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">merge</span>(<span class="params">front, end</span>)</span>&#123;</div><div class="line">    <span class="keyword">const</span> temp = [];</div><div class="line">    <span class="keyword">while</span>(front.length &amp;&amp; end.length)&#123;</div><div class="line">        <span class="keyword">if</span>(front[<span class="number">0</span>]&lt;end[<span class="number">0</span>])&#123;</div><div class="line">            temp.push(front.shift());</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span> temp.push(end.shift());</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">while</span>(front.length)&#123;</div><div class="line">        temp.push(front.shift());</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">while</span>(end.length)&#123;</div><div class="line">        temp.push(end.shift());</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> temp</div><div class="line">&#125;</div><div class="line"></div><div class="line">mergeSort([<span class="number">9</span>,<span class="number">10</span>,<span class="number">222</span>,<span class="number">34</span>,<span class="number">5</span>,<span class="number">56</span>,<span class="number">234</span>,<span class="number">2</span>,<span class="number">33</span>,<span class="number">0</span>,<span class="number">456</span>,<span class="number">3</span>,<span class="number">44</span>,<span class="number">5</span>,<span class="number">22</span>,<span class="number">3</span>,<span class="number">44</span>,<span class="number">67</span>,<span class="number">34</span>])</div><div class="line"><span class="comment">//输出  [0, 2, 3, 3, 5, 5, 9, 10, 22, 33, 34, 34, 44, 44, 56, 67, 222, 234, 456]</span></div></pre></td></tr></table></figure>
+<ul>
+<li><strong>写法2： 记录数组的索引，使用left、right两个索引来限定当前分割的数组。</strong></li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">mergeSort</span>(<span class="params">array, left, right, temp</span>) </span>&#123;</div><div class="line">    <span class="keyword">if</span> (left &lt; right) &#123;</div><div class="line">    <span class="keyword">const</span> mid = <span class="built_in">Math</span>.floor((left + right) / <span class="number">2</span>);</div><div class="line">    mergeSort(array, left, mid, temp)</div><div class="line">    mergeSort(array, mid + <span class="number">1</span>, right, temp)</div><div class="line">    merge(array, left, right, temp);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> array;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">merge</span>(<span class="params">array, left, right, temp</span>) </span>&#123;</div><div class="line">    <span class="keyword">const</span> mid = <span class="built_in">Math</span>.floor((left + right) / <span class="number">2</span>);</div><div class="line">    <span class="keyword">let</span> leftIndex = left;</div><div class="line">    <span class="keyword">let</span> rightIndex = mid + <span class="number">1</span>;</div><div class="line">    <span class="keyword">let</span> tempIndex = <span class="number">0</span>;</div><div class="line">    <span class="keyword">while</span> (leftIndex &lt;= mid &amp;&amp; rightIndex &lt;= right) &#123;</div><div class="line">    <span class="keyword">if</span> (array[leftIndex] &lt; array[rightIndex]) &#123;</div><div class="line">        temp[tempIndex++] = array[leftIndex++]</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        temp[tempIndex++] = array[rightIndex++]</div><div class="line">    &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">while</span> (leftIndex &lt;= mid) &#123;</div><div class="line">    temp[tempIndex++] = array[leftIndex++]</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">while</span> (rightIndex &lt;= right) &#123;</div><div class="line">    temp[tempIndex++] = array[rightIndex++]</div><div class="line">    &#125;</div><div class="line">    tempIndex = <span class="number">0</span>;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = left; i &lt;= right; i++) &#123;</div><div class="line">    array[i] = temp[tempIndex++];</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">mergeSort([<span class="number">9</span>,<span class="number">10</span>,<span class="number">222</span>,<span class="number">34</span>,<span class="number">5</span>,<span class="number">56</span>,<span class="number">234</span>,<span class="number">2</span>,<span class="number">33</span>,<span class="number">0</span>,<span class="number">456</span>,<span class="number">3</span>,<span class="number">44</span>,<span class="number">5</span>,<span class="number">22</span>,<span class="number">3</span>,<span class="number">44</span>,<span class="number">67</span>,<span class="number">34</span>], <span class="number">0</span>, <span class="number">18</span>, [])</div><div class="line"><span class="comment">//输出  [0, 2, 3, 3, 5, 5, 9, 10, 22, 33, 34, 34, 44, 44, 56, 67, 222, 234, 456]</span></div></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://snapline.github.io/2018/10/16/vue源码/1. ready_intro/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Snapline">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://images4.fanpop.com/image/photos/21000000/Bob-Dylan-bob-dylan-21091275-116-120.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="You are my JavaScript Queen">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/16/vue源码/1. ready_intro/" itemprop="url">vue源码学习系列1:前期准备工作</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-16T15:23:54+08:00">
+                2018-10-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="类型检查工具Flow"><a href="#类型检查工具Flow" class="headerlink" title="类型检查工具Flow"></a>类型检查工具Flow</h2><p>Flow是Facebook出品的静态类型检查工具。</p>
+<h3 id="Flow的工作方式"><a href="#Flow的工作方式" class="headerlink" title="Flow的工作方式"></a>Flow的工作方式</h3><p>通常类型检查分成 2 种方式：</p>
+<ul>
+<li><p><strong>类型推断</strong>：通过变量的使用上下文来推断出变量类型，然后根据这些推断来检查类型。</p>
+</li>
+<li><p><strong>类型注释</strong>：事先注释好我们期待的类型，Flow 会基于这些注释来判断。</p>
+</li>
+</ul>
+<h3 id="在vue源码里找Flow"><a href="#在vue源码里找Flow" class="headerlink" title="在vue源码里找Flow"></a>在vue源码里找Flow</h3><p>在Vue的主目录下，有一个 <code>.flowconfig</code> 文件，这是Flow的配置文件，其中<code>[libs]</code>按照官方文档是来描述指定库定义的目录，可以看出配置的是<code>flow</code>。<br>接着我们可以找到flow文件夹，可以看到文件如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">flow</div><div class="line">├── compiler.js        # 编译相关</div><div class="line">├── component.js       # 组件数据结构</div><div class="line">├── global-api.js      # Global API 结构</div><div class="line">├── modules.js         # 第三方库定义</div><div class="line">├── options.js         # 选项相关</div><div class="line">├── ssr.js             # 服务端渲染相关</div><div class="line">├── vnode.js           # 虚拟 node 相关</div></pre></td></tr></table></figure></p>
+<p><strong>在阅读源码的过程中，如果对于某个自定义类型的数据结构有疑问，可以翻阅对应的文件部分进行查阅</strong></p>
+<p>同时，在查阅Flow的资料时，发现很多同行认为TypeScript比Flow更先进，对于TypeScript可以在以后进行深入学习。</p>
+<h2 id="vue源码目录结构"><a href="#vue源码目录结构" class="headerlink" title="vue源码目录结构"></a>vue源码目录结构</h2><p>vue的源码都在src的目录下，结构如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">src</div><div class="line">├── compiler        # 编译相关 </div><div class="line">├── core            # 核心代码 </div><div class="line">├── platforms       # 不同平台的支持</div><div class="line">├── server          # 服务端渲染</div><div class="line">├── sfc             # .vue 文件解析</div><div class="line">├── shared          # 共享代码</div></pre></td></tr></table></figure></p>
+<h4 id="compiler"><a href="#compiler" class="headerlink" title="compiler"></a>compiler</h4><p>编译相关。具有把模板解析成ast语法树，对ast语法树的优化，代码生成等功能。</p>
+<h4 id="cores"><a href="#cores" class="headerlink" title="cores"></a>cores</h4><p>vue的核心代码就在这里，包括我们熟知的全局API、Vue实例化、虚拟DOM、工具函数等等。<br>这里是vue的灵魂。s</p>
+<h4 id="platform"><a href="#platform" class="headerlink" title="platform"></a>platform</h4><p>我们已经知道阿里开发了weex，用来实现vue跑在原生客户端上。<br>platform 是 Vue.js 的入口，2 个目录代表 2 个主要入口，分别打包成运行在 web 上和 weex 上的 Vue.js。</p>
+<h4 id="server"><a href="#server" class="headerlink" title="server"></a>server</h4><p>从vue2.0开始支持了服务端渲染，主要的工作是把组件渲染为服务器端的 HTML 字符串，将它们直接发送到浏览器，最后将静态标记”混合”为客户端上完全交互的应用程序。</p>
+<h4 id="sfc"><a href="#sfc" class="headerlink" title="sfc"></a>sfc</h4><p>这个目录下的代码逻辑会把 .vue 文件内容解析成一个 JavaScript 的对象。</p>
+<h4 id="shared"><a href="#shared" class="headerlink" title="shared"></a>shared</h4><p>Vue.js 会定义一些工具方法，这里定义的工具方法都是会被浏览器端的 Vue.js 和服务端的 Vue.js 所共享的。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://snapline.github.io/2017/11/30/scroll_top/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -765,282 +1095,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://snapline.github.io/2017/09/15/git_transfer/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Snapline">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://images4.fanpop.com/image/photos/21000000/Bob-Dylan-bob-dylan-21091275-116-120.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="You are my JavaScript Queen">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/15/git_transfer/" itemprop="url">git仓库迁移的方法</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-15T16:50:54+08:00">
-                2017-09-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>近日由于有项目迁移的需求, 所以研究了一下如何迁移Git。<br>要求是迁移的时候，保证所有的分支和提交记录都在，以便于查找和回档。</p>
-<ol>
-<li><p>直接新建项目，把原有的代码拷贝进去。<br>这种方法没有任何提交记录保留，不行。</p>
-</li>
-<li><p>把git文件夹复制过去，其他的项目代码保持不变。<br>这种方法很不“计算机”，而且一些冲突文件全覆盖会发现仓库记录将损坏，亲自测试过，所以该方法也不行。</p>
-</li>
-</ol>
-<p>其实本质上只要是把git所有的记录原封不动的放到新项目里，再把原项目的远程仓库地址变动一下就可以达成了。</p>
-<h3 id="步骤如下："><a href="#步骤如下：" class="headerlink" title="步骤如下："></a>步骤如下：</h3><h3 id="1-克隆原仓库的git镜像"><a href="#1-克隆原仓库的git镜像" class="headerlink" title="1. 克隆原仓库的git镜像"></a>1. 克隆原仓库的git镜像</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git clone --mirror https://github.com/yourname/oldProject.git</div></pre></td></tr></table></figure>
-<p>这里克隆的全是git的内容，并没有其他代码的东西。</p>
-<h3 id="2-在新的服务上创建新项目-newProject"><a href="#2-在新的服务上创建新项目-newProject" class="headerlink" title="2. 在新的服务上创建新项目 newProject"></a>2. 在新的服务上创建新项目 newProject</h3><h3 id="3-打开旧项目镜像的目录"><a href="#3-打开旧项目镜像的目录" class="headerlink" title="3. 打开旧项目镜像的目录"></a>3. 打开旧项目镜像的目录</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cd oldProject.git</div></pre></td></tr></table></figure>
-<h3 id="4-设置需要迁移的目标路径"><a href="#4-设置需要迁移的目标路径" class="headerlink" title="4. 设置需要迁移的目标路径"></a>4. 设置需要迁移的目标路径</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git remote set-url --push origin http://github.com/yourname/newProject.git</div></pre></td></tr></table></figure>
-<h3 id="5-推送到新项目"><a href="#5-推送到新项目" class="headerlink" title="5. 推送到新项目"></a>5. 推送到新项目</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git push --mirror</div></pre></td></tr></table></figure>
-<p>此时，新项目那里已经有了所有的提交记录和代码。但是我们正在维护的代码，之后的提交也必须提交到新仓库地址上。<br>还需要做的事是把本地项目代码所在工程的远程仓库地址迁移到新的仓库地址。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git remote set-url origin newURL</div></pre></td></tr></table></figure>
-<p>使用这个命令即可完成地址切换。</p>
-<p>想查看远程仓库地址的话使用git remote -v命令。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://snapline.github.io/2017/08/09/write_call_and_apply/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Snapline">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://images4.fanpop.com/image/photos/21000000/Bob-Dylan-bob-dylan-21091275-116-120.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="You are my JavaScript Queen">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/08/09/write_call_and_apply/" itemprop="url">手写代码实现call和apply功能</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-09T10:32:54+08:00">
-                2017-08-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>call和apply的功能类似, 区别仅仅是传入的参数形式不同。<br>它们的作用都是使用指定的this值来调用某个函数，用来改变上下文环境。</p>
-<p>举例说明：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> foo = &#123;</div><div class="line">    <span class="attr">value</span>: <span class="number">1</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.value);</div><div class="line">&#125;</div><div class="line"></div><div class="line">bar.call(foo); <span class="comment">//输出1</span></div></pre></td></tr></table></figure></p>
-<p>call把this的指向改成指向foo, 但bar函数依旧执行了。</p>
-<h2 id="Step1"><a href="#Step1" class="headerlink" title="Step1"></a>Step1</h2><p>调用call的时候, 想当于把foo对象进行了一次改造:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> foo = &#123;</div><div class="line">    <span class="attr">value</span>: <span class="number">1</span>,</div><div class="line">    <span class="attr">bar</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.value)</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">foo.bar(); <span class="comment">// 1</span></div></pre></td></tr></table></figure></p>
-<p>等于把bar函数设为了foo对象的一个属性——&gt;执行bar函数——&gt;删除这个属性</p>
-<p>按照这个思路,可以写出一个call2模拟函数:</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Function</span>.prototype.call2 = <span class="function"><span class="keyword">function</span>(<span class="params">context</span>)</span>&#123;</div><div class="line">    <span class="comment">//用this获取调用call的函数</span></div><div class="line">    context.fn = <span class="keyword">this</span>;</div><div class="line">    context.fn();</div><div class="line">    <span class="keyword">delete</span> context.fn;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//test</span></div><div class="line"><span class="keyword">var</span> foo = &#123;</div><div class="line">    <span class="attr">age</span>: <span class="number">12</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.age);</div><div class="line">&#125;</div><div class="line"></div><div class="line">bar.call2(foo);  <span class="comment">//输出12</span></div></pre></td></tr></table></figure>
-<p>但是这个模拟没有实现传参功能,所以需要进行改造。</p>
-<h2 id="Step2"><a href="#Step2" class="headerlink" title="Step2"></a>Step2</h2><p>关于传参, 举个栗子:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> foo = &#123;</div><div class="line">    <span class="attr">value</span>: <span class="number">1</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params">name, age</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(name)</div><div class="line">    <span class="built_in">console</span>.log(age)</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.value);</div><div class="line">&#125;</div><div class="line"></div><div class="line">bar.call(foo, <span class="string">'Snapline'</span>, <span class="number">28</span>);</div><div class="line"><span class="comment">//输出</span></div><div class="line"><span class="comment">//Snapline</span></div><div class="line"><span class="comment">//28</span></div><div class="line"><span class="comment">//1</span></div></pre></td></tr></table></figure></p>
-<p>call的传参是不定的, 用arguments来获取所有的参数。</p>
-<p>改造如下:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Function</span>.prototype.call2 = <span class="function"><span class="keyword">function</span>(<span class="params">context</span>)</span>&#123;</div><div class="line">    <span class="comment">//用this获取调用call的函数</span></div><div class="line">    context.fn = <span class="keyword">this</span>;</div><div class="line">    <span class="comment">//获取参数</span></div><div class="line">    <span class="keyword">const</span> args = [...arguments].slice(<span class="number">1</span>);</div><div class="line">    context.fn(...args);</div><div class="line">    <span class="keyword">delete</span> context.fn;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//test</span></div><div class="line"><span class="keyword">var</span> foo = &#123;</div><div class="line">    <span class="attr">value</span>: <span class="number">1</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params">name, age</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(name)</div><div class="line">    <span class="built_in">console</span>.log(age)</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.value);</div><div class="line">&#125;</div><div class="line"></div><div class="line">bar.call2(foo, <span class="string">'Snapline'</span>, <span class="number">28</span>);</div><div class="line"><span class="comment">//输出</span></div><div class="line"><span class="comment">//Snapline</span></div><div class="line"><span class="comment">//28</span></div><div class="line"><span class="comment">//1</span></div></pre></td></tr></table></figure></p>
-<h2 id="Step3"><a href="#Step3" class="headerlink" title="Step3"></a>Step3</h2><p>基本已经完成了模拟, 有几个小问题需要注意:</p>
-<ul>
-<li><p>1.this参数可以传null, 此时this指向window</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> value = <span class="number">1</span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.value);</div><div class="line">&#125;</div><div class="line"></div><div class="line">bar.call(<span class="literal">null</span>); <span class="comment">// 相当于window.value  输出1</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>2.函数可以有返回值</p>
-</li>
-</ul>
-<p>所以有如下call函数完全体:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Function</span>.prototype.call2 = <span class="function"><span class="keyword">function</span>(<span class="params">context</span>)</span>&#123;</div><div class="line">    <span class="comment">//传入的必须是函数</span></div><div class="line">    <span class="keyword">if</span>(<span class="keyword">typeof</span> <span class="keyword">this</span> !== <span class="string">'function'</span>)&#123;</div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">'Error'</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">//传入null的话,this指向window</span></div><div class="line">    context = context || <span class="built_in">window</span>;</div><div class="line"></div><div class="line">    <span class="comment">//用this获取调用call的函数</span></div><div class="line">    context.fn = <span class="keyword">this</span>;</div><div class="line">    <span class="comment">//获取参数</span></div><div class="line">    <span class="keyword">const</span> args = [...arguments].slice(<span class="number">1</span>);</div><div class="line">    <span class="comment">//创建result用来做返回值</span></div><div class="line">    <span class="keyword">const</span> result = context.fn(...args);</div><div class="line"></div><div class="line">    <span class="comment">//恢复默认的fn</span></div><div class="line">    <span class="keyword">delete</span> context.fn;</div><div class="line">    <span class="comment">//返回值</span></div><div class="line">    <span class="keyword">return</span> result;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//test</span></div><div class="line"><span class="keyword">var</span> value = <span class="number">2</span>;</div><div class="line"></div><div class="line"><span class="keyword">var</span> obj = &#123;</div><div class="line">    <span class="attr">value</span>: <span class="number">1</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params">name, age</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.value);</div><div class="line">    <span class="keyword">return</span> &#123;</div><div class="line">        <span class="attr">value</span>: <span class="keyword">this</span>.value,</div><div class="line">        <span class="attr">name</span>: name,</div><div class="line">        <span class="attr">age</span>: age</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">bar.call2(<span class="literal">null</span>); <span class="comment">// 2</span></div><div class="line"><span class="built_in">console</span>.log(bar.call2(obj, <span class="string">'Snapline'</span>, <span class="number">28</span>));</div><div class="line"><span class="comment">//输出</span></div><div class="line"><span class="comment">//1</span></div><div class="line"><span class="comment">//Object &#123;</span></div><div class="line"><span class="comment">//     value: 1,</span></div><div class="line"><span class="comment">//     name: 'Snapline',</span></div><div class="line"><span class="comment">//     age: 28</span></div><div class="line"><span class="comment">// &#125;</span></div></pre></td></tr></table></figure></p>
-<h2 id="实现apply"><a href="#实现apply" class="headerlink" title="实现apply"></a>实现apply</h2><p>实现了call以后实现apply就非常简单了, 只是参数形式不同。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//实现apply</span></div><div class="line"><span class="built_in">Function</span>.prototype.apply2 = <span class="function"><span class="keyword">function</span>(<span class="params">context</span>)</span>&#123;</div><div class="line">    <span class="comment">//传入的必须是函数</span></div><div class="line">    <span class="keyword">if</span>(<span class="keyword">typeof</span> <span class="keyword">this</span> !== <span class="string">'function'</span>)&#123;</div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">'Error'</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    context = context || <span class="built_in">window</span>;</div><div class="line">    context.fn = <span class="keyword">this</span>;</div><div class="line">    <span class="keyword">let</span> result;</div><div class="line">    <span class="keyword">if</span>(<span class="built_in">Array</span>.isArray(<span class="built_in">arguments</span>[<span class="number">1</span>])) &#123;</div><div class="line">        <span class="comment">// 通过...运算符将数组转换为用逗号分隔的参数序列</span></div><div class="line">        result = context.fn(...arguments[<span class="number">1</span>])</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        result = context.fn()</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">delete</span> context.fn;</div><div class="line">    <span class="keyword">return</span> result;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//test</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params">arg1, arg2</span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(arg1, arg2)</div><div class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.a, <span class="keyword">this</span>.b)</div><div class="line">&#125;</div><div class="line"></div><div class="line">test.apply2(&#123;</div><div class="line">  <span class="attr">a</span>: <span class="string">'a'</span>,</div><div class="line">  <span class="attr">b</span>: <span class="string">'b'</span></div><div class="line">&#125;, [<span class="number">1</span>, <span class="number">2</span>])</div><div class="line"><span class="comment">//(1,2)</span></div><div class="line"><span class="comment">//(a,b)</span></div></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1095,7 +1149,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1108,7 +1162,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
