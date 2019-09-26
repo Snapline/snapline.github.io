@@ -79,16 +79,40 @@
 
 
 
-<meta name="description" content="最近的项目里，首页放了很多跳转的元素，点击以后跳转到相应的页面。一个最典型的例子，点击下方的“关于我们”，会跳到介绍页面，但因为vue的spa单页面特性导致切换页面只是更换了对应的组件，滚动条的位置是不会发生改变的。因此需要每次切换一个页面的时候，都让滚动条回到最顶部。可以在app.vue文件下添加监听，监听$route的变化。1234567891011121314// App.vueexport">
+<meta name="description" content="类型检查工具FlowFlow是Facebook出品的静态类型检查工具。
+Flow的工作方式通常类型检查分成 2 种方式：
+
+类型推断：通过变量的使用上下文来推断出变量类型，然后根据这些推断来检查类型。
+
+类型注释：事先注释好我们期待的类型，Flow 会基于这些注释来判断。
+
+
+在vue源码里找Flow在Vue的主目录下，有一个 .flowconfig 文件，这是Flow的配置文件，其中[libs]">
 <meta property="og:type" content="article">
-<meta property="og:title" content="vue切换页面时保证滚动条在最顶部">
-<meta property="og:url" content="http://snapline.github.io/2017/11/30/scroll_top/index.html">
+<meta property="og:title" content="vue源码学习的前期准备工作">
+<meta property="og:url" content="http://snapline.github.io/2017/12/26/vue源码/1. ready_intro/index.html">
 <meta property="og:site_name" content="You are my JavaScript Queen">
-<meta property="og:description" content="最近的项目里，首页放了很多跳转的元素，点击以后跳转到相应的页面。一个最典型的例子，点击下方的“关于我们”，会跳到介绍页面，但因为vue的spa单页面特性导致切换页面只是更换了对应的组件，滚动条的位置是不会发生改变的。因此需要每次切换一个页面的时候，都让滚动条回到最顶部。可以在app.vue文件下添加监听，监听$route的变化。1234567891011121314// App.vueexport">
-<meta property="og:updated_time" content="2019-06-04T09:19:13.886Z">
+<meta property="og:description" content="类型检查工具FlowFlow是Facebook出品的静态类型检查工具。
+Flow的工作方式通常类型检查分成 2 种方式：
+
+类型推断：通过变量的使用上下文来推断出变量类型，然后根据这些推断来检查类型。
+
+类型注释：事先注释好我们期待的类型，Flow 会基于这些注释来判断。
+
+
+在vue源码里找Flow在Vue的主目录下，有一个 .flowconfig 文件，这是Flow的配置文件，其中[libs]">
+<meta property="og:updated_time" content="2019-09-26T09:02:12.171Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="vue切换页面时保证滚动条在最顶部">
-<meta name="twitter:description" content="最近的项目里，首页放了很多跳转的元素，点击以后跳转到相应的页面。一个最典型的例子，点击下方的“关于我们”，会跳到介绍页面，但因为vue的spa单页面特性导致切换页面只是更换了对应的组件，滚动条的位置是不会发生改变的。因此需要每次切换一个页面的时候，都让滚动条回到最顶部。可以在app.vue文件下添加监听，监听$route的变化。1234567891011121314// App.vueexport">
+<meta name="twitter:title" content="vue源码学习的前期准备工作">
+<meta name="twitter:description" content="类型检查工具FlowFlow是Facebook出品的静态类型检查工具。
+Flow的工作方式通常类型检查分成 2 种方式：
+
+类型推断：通过变量的使用上下文来推断出变量类型，然后根据这些推断来检查类型。
+
+类型注释：事先注释好我们期待的类型，Flow 会基于这些注释来判断。
+
+
+在vue源码里找Flow在Vue的主目录下，有一个 .flowconfig 文件，这是Flow的配置文件，其中[libs]">
 
 
 
@@ -118,13 +142,13 @@
 
 
 
-  <link rel="canonical" href="http://snapline.github.io/2017/11/30/scroll_top/"/>
+  <link rel="canonical" href="http://snapline.github.io/2017/12/26/vue源码/1. ready_intro/"/>
 
 
 
 
 
-  <title>vue切换页面时保证滚动条在最顶部 | You are my JavaScript Queen</title>
+  <title>vue源码学习的前期准备工作 | You are my JavaScript Queen</title>
   
 
 
@@ -251,7 +275,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://snapline.github.io/2017/11/30/scroll_top/">
+    <link itemprop="mainEntityOfPage" href="http://snapline.github.io/2017/12/26/vue源码/1. ready_intro/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Snapline">
@@ -268,7 +292,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">vue切换页面时保证滚动条在最顶部</h1>
+          <h1 class="post-title" itemprop="name headline">vue源码学习的前期准备工作</h1>
         
 
         <div class="post-meta">
@@ -280,8 +304,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-30T17:23:54+08:00">
-                2017-11-30
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-26T15:23:54+08:00">
+                2017-12-26
               </time>
             
 
@@ -318,8 +342,24 @@
       
 
       
-        <p>最近的项目里，首页放了很多跳转的元素，点击以后跳转到相应的页面。<br>一个最典型的例子，点击下方的“关于我们”，会跳到介绍页面，但因为vue的spa单页面特性导致切换页面只是更换了对应的组件，滚动条的位置是不会发生改变的。<br>因此需要每次切换一个页面的时候，都让滚动条回到最顶部。<br>可以在app.vue文件下添加监听，监听$route的变化。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// App.vue</span></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</div><div class="line">  <span class="attr">name</span>: <span class="string">'App'</span>,</div><div class="line">  <span class="attr">components</span>: &#123;</div><div class="line">    MHeader,</div><div class="line">    MFooter</div><div class="line">  &#125;,</div><div class="line">  <span class="attr">watch</span>:&#123;</div><div class="line">    <span class="string">'$route'</span>:<span class="function"><span class="keyword">function</span>(<span class="params">to,from</span>)</span>&#123;</div><div class="line">　    <span class="built_in">document</span>.body.scrollTop = <span class="number">0</span></div><div class="line">      <span class="built_in">document</span>.documentElement.scrollTop = <span class="number">0</span></div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>本文没有技术含量，纯粹是工作过程中的一次优化体验的记录:)</p>
+        <h2 id="类型检查工具Flow"><a href="#类型检查工具Flow" class="headerlink" title="类型检查工具Flow"></a>类型检查工具Flow</h2><p>Flow是Facebook出品的静态类型检查工具。</p>
+<h3 id="Flow的工作方式"><a href="#Flow的工作方式" class="headerlink" title="Flow的工作方式"></a>Flow的工作方式</h3><p>通常类型检查分成 2 种方式：</p>
+<ul>
+<li><p><strong>类型推断</strong>：通过变量的使用上下文来推断出变量类型，然后根据这些推断来检查类型。</p>
+</li>
+<li><p><strong>类型注释</strong>：事先注释好我们期待的类型，Flow 会基于这些注释来判断。</p>
+</li>
+</ul>
+<h3 id="在vue源码里找Flow"><a href="#在vue源码里找Flow" class="headerlink" title="在vue源码里找Flow"></a>在vue源码里找Flow</h3><p>在Vue的主目录下，有一个 <code>.flowconfig</code> 文件，这是Flow的配置文件，其中<code>[libs]</code>按照官方文档是来描述指定库定义的目录，可以看出配置的是<code>flow</code>。<br>接着我们可以找到flow文件夹，可以看到文件如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">flow</div><div class="line">├── compiler.js        # 编译相关</div><div class="line">├── component.js       # 组件数据结构</div><div class="line">├── global-api.js      # Global API 结构</div><div class="line">├── modules.js         # 第三方库定义</div><div class="line">├── options.js         # 选项相关</div><div class="line">├── ssr.js             # 服务端渲染相关</div><div class="line">├── vnode.js           # 虚拟 node 相关</div></pre></td></tr></table></figure></p>
+<p><strong>在阅读源码的过程中，如果对于某个自定义类型的数据结构有疑问，可以翻阅对应的文件部分进行查阅</strong></p>
+<p>同时，在查阅Flow的资料时，发现很多同行认为TypeScript比Flow更先进，对于TypeScript可以在以后进行深入学习。</p>
+<h2 id="vue源码目录结构"><a href="#vue源码目录结构" class="headerlink" title="vue源码目录结构"></a>vue源码目录结构</h2><p>vue的源码都在src的目录下，结构如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">src</div><div class="line">├── compiler        # 编译相关 </div><div class="line">├── core            # 核心代码 </div><div class="line">├── platforms       # 不同平台的支持</div><div class="line">├── server          # 服务端渲染</div><div class="line">├── sfc             # .vue 文件解析</div><div class="line">├── shared          # 共享代码</div></pre></td></tr></table></figure></p>
+<h4 id="compiler"><a href="#compiler" class="headerlink" title="compiler"></a>compiler</h4><p>编译相关。具有把模板解析成ast语法树，对ast语法树的优化，代码生成等功能。</p>
+<h4 id="cores"><a href="#cores" class="headerlink" title="cores"></a>cores</h4><p>vue的核心代码就在这里，包括我们熟知的全局API、Vue实例化、虚拟DOM、工具函数等等。<br>这里是vue的灵魂。s</p>
+<h4 id="platform"><a href="#platform" class="headerlink" title="platform"></a>platform</h4><p>我们已经知道阿里开发了weex，用来实现vue跑在原生客户端上。<br>platform 是 Vue.js 的入口，2 个目录代表 2 个主要入口，分别打包成运行在 web 上和 weex 上的 Vue.js。</p>
+<h4 id="server"><a href="#server" class="headerlink" title="server"></a>server</h4><p>从vue2.0开始支持了服务端渲染，主要的工作是把组件渲染为服务器端的 HTML 字符串，将它们直接发送到浏览器，最后将静态标记”混合”为客户端上完全交互的应用程序。</p>
+<h4 id="sfc"><a href="#sfc" class="headerlink" title="sfc"></a>sfc</h4><p>这个目录下的代码逻辑会把 .vue 文件内容解析成一个 JavaScript 的对象。</p>
+<h4 id="shared"><a href="#shared" class="headerlink" title="shared"></a>shared</h4><p>Vue.js 会定义一些工具方法，这里定义的工具方法都是会被浏览器端的 Vue.js 和服务端的 Vue.js 所共享的。</p>
 
       
     </div>
@@ -387,8 +427,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/10/23/md5/" rel="next" title="MD5加密的防范方法和crypto模块应用">
-                <i class="fa fa-chevron-left"></i> MD5加密的防范方法和crypto模块应用
+              <a href="/2017/11/30/scroll_top/" rel="next" title="vue切换页面时保证滚动条在最顶部">
+                <i class="fa fa-chevron-left"></i> vue切换页面时保证滚动条在最顶部
               </a>
             
           </div>
@@ -397,8 +437,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/12/26/vue源码/1. ready_intro/" rel="prev" title="vue源码学习的前期准备工作">
-                vue源码学习的前期准备工作 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/01/13/sorting_algo/" rel="prev" title="常用排序算法汇总">
+                常用排序算法汇总 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -451,8 +491,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -565,6 +614,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#类型检查工具Flow"><span class="nav-number">1.</span> <span class="nav-text">类型检查工具Flow</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Flow的工作方式"><span class="nav-number">1.1.</span> <span class="nav-text">Flow的工作方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在vue源码里找Flow"><span class="nav-number">1.2.</span> <span class="nav-text">在vue源码里找Flow</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vue源码目录结构"><span class="nav-number">2.</span> <span class="nav-text">vue源码目录结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#compiler"><span class="nav-number">2.0.1.</span> <span class="nav-text">compiler</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#cores"><span class="nav-number">2.0.2.</span> <span class="nav-text">cores</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#platform"><span class="nav-number">2.0.3.</span> <span class="nav-text">platform</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#server"><span class="nav-number">2.0.4.</span> <span class="nav-text">server</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sfc"><span class="nav-number">2.0.5.</span> <span class="nav-text">sfc</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#shared"><span class="nav-number">2.0.6.</span> <span class="nav-text">shared</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
