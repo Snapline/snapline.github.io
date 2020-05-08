@@ -251,6 +251,139 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://snapline.github.io/2018/07/20/nuxt_project_summary/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Snapline">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://images4.fanpop.com/image/photos/21000000/Bob-Dylan-bob-dylan-21091275-116-120.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="You are my JavaScript Queen">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/20/nuxt_project_summary/" itemprop="url">公司某个nuxt项目的经验总结</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-20T15:35:30+08:00">
+                2018-07-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>最近花了四个月完成了一个nuxt项目的开发，组件库为iview。现在对项目中累积的经验做一个总结和记录。</p>
+<h3 id="1-开工前准备"><a href="#1-开工前准备" class="headerlink" title="1.开工前准备"></a>1.开工前准备</h3><p>本项目功能众多且复杂，需要先理顺整个业务逻辑。<br>先花了一整天的时间画出了思维导图，确定开发模块的顺序。<br>然后找出需要做的共用组件，用工厂模式开发组件。</p>
+<h3 id="2-nuxt的配置"><a href="#2-nuxt的配置" class="headerlink" title="2.nuxt的配置"></a>2.nuxt的配置</h3><p>已经不是第一次用nuxt了，现在对于nuxt的配置已经很娴熟。现把本次项目用到的配置和含义记录如下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> isProdMode = <span class="built_in">Object</span>.is(process.env.NODE_ENV, <span class="string">'production'</span>);</div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</div><div class="line">  <span class="attr">mode</span>: <span class="string">'universal'</span>, <span class="comment">//默认是universal，如果不需要服务端渲染则设置spa，但不需要服务端渲染又何必用nuxt，所以这一项配置基本不用关心</span></div><div class="line">  head: &#123;</div><div class="line">    <span class="attr">title</span>: <span class="string">''</span>, <span class="comment">//网站标签页的标题</span></div><div class="line">    meta: [</div><div class="line">      &#123; <span class="attr">charset</span>: <span class="string">'utf-8'</span> &#125;,</div><div class="line">      &#123; <span class="attr">name</span>: <span class="string">'viewport'</span>, <span class="attr">content</span>: <span class="string">'width=device-width, initial-scale=1'</span> &#125;,</div><div class="line">      &#123; <span class="attr">hid</span>: <span class="string">'keywords'</span>, <span class="attr">name</span>: <span class="string">'keywords'</span>, <span class="attr">content</span>: <span class="string">''</span> &#125;,</div><div class="line">      &#123; <span class="attr">hid</span>: <span class="string">'description'</span>, <span class="attr">name</span>: <span class="string">'description'</span>, <span class="attr">content</span>: <span class="string">''</span> &#125;</div><div class="line">    ], <span class="comment">//常用的meta设置，方便SEO</span></div><div class="line">    link: [</div><div class="line">      &#123; <span class="attr">rel</span>: <span class="string">'icon'</span>, <span class="attr">type</span>: <span class="string">'image/x-icon'</span>, <span class="attr">href</span>: <span class="string">'/favicon.ico'</span> &#125;  <span class="comment">//favicon放置在static文件夹里</span></div><div class="line">    ], </div><div class="line">    <span class="attr">script</span>: [</div><div class="line">      &#123; <span class="attr">src</span>: <span class="string">''</span> &#125;, <span class="comment">//引入需要的脚本文件，如百度统计文件</span></div><div class="line">    ]</div><div class="line">  &#125;,</div><div class="line">  <span class="attr">loading</span>: &#123; <span class="attr">color</span>: <span class="string">'#fff'</span> &#125;, <span class="comment">//每个页面加载的进度条的颜色</span></div><div class="line">  css: [</div><div class="line">    &#123; <span class="attr">src</span>:<span class="string">'@/static/css/reset.scss'</span>, <span class="attr">lang</span>:<span class="string">'scss'</span>&#125;, <span class="comment">//公用初始化设置css文件</span></div><div class="line">  ],</div><div class="line">  <span class="attr">plugins</span>: [</div><div class="line">    &#123; <span class="attr">src</span>: <span class="string">'~/plugins/iview'</span>, <span class="attr">ssr</span>: <span class="literal">true</span> &#125;, <span class="comment">//引入的plugin，如组件库，iconfont，axios等，ssr为true的时候表示服务端渲染，建议涉及到window和document的部分ssr设置为false</span></div><div class="line">  ],</div><div class="line">  <span class="attr">modules</span>: [<span class="string">"@nuxtjs/axios"</span>, <span class="string">"@nuxtjs/proxy"</span>], <span class="comment">//需要引入的模块，前者是网络请求axios必须，后者为开发模式下代理请求的必须</span></div><div class="line">  axios: &#123; <span class="attr">prefix</span>: <span class="string">'/api/'</span>, <span class="attr">proxy</span>: <span class="literal">true</span> &#125;, <span class="comment">//请求的前缀</span></div><div class="line">  proxy: [</div><div class="line">    [</div><div class="line">      <span class="string">"/api/"</span>,</div><div class="line">      &#123;</div><div class="line">        <span class="attr">target</span>: <span class="string">"http://xxx"</span>, <span class="comment">// 后端服务地址</span></div><div class="line">        changeOrigin: <span class="literal">true</span>,</div><div class="line">        <span class="attr">pathRewrite</span>: &#123; <span class="string">"^/api/"</span>: <span class="string">"/"</span> &#125;</div><div class="line">      &#125;</div><div class="line">    ]</div><div class="line">  ],</div><div class="line">  <span class="attr">dev</span>: isProdMode,</div><div class="line">  <span class="attr">env</span>:&#123;</div><div class="line">    <span class="attr">BASE_API</span>: <span class="string">'/api'</span>  <span class="comment">//请求前缀，可根据开发环境和生产环境的不同做不同的设置</span></div><div class="line">  &#125;,</div><div class="line">  <span class="attr">build</span>: &#123;</div><div class="line">    extend(config, ctx) &#123;</div><div class="line">      config.resolve.extensions.push(<span class="string">'.less'</span>) <span class="comment">//对less类型的文件做处理</span></div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="3-iview的定制主题"><a href="#3-iview的定制主题" class="headerlink" title="3.iview的定制主题"></a>3.iview的定制主题</h3><p>很多组件库的UI并不符合我们的设计稿，所以需要对iview的样式做全局修改。<br>在<code>iview</code>的github地址可以看到<a href="https://github.com/view-design/ViewUI/blob/master/src/styles/custom.less" target="_blank" rel="external">iview的全局样式设置</a>，可以看到是less格式的，所以项目必须支持less的解析。<br>使用<code>npm install less-loader</code>安装less-loader，如果解析失败，可能是less版本问题导致，详细参考<a href="https://www.cnblogs.com/zhengshize/p/10033896.html" target="_blank" rel="external">本篇文章</a>。<br>在plugins下建立ui文件夹，目录如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">ui</div><div class="line">├── index.js        # 入口文件</div><div class="line">├── theme.less       # 自定义覆盖变量</div></pre></td></tr></table></figure></p>
+<p>然后在<code>nuxt.config.js</code>文件的<code>plugins</code>里引入ui。</p>
+<h3 id="4-如何在nuxt项目中添加iconfont"><a href="#4-如何在nuxt项目中添加iconfont" class="headerlink" title="4.如何在nuxt项目中添加iconfont"></a>4.如何在nuxt项目中添加iconfont</h3><p>本质上和正常的项目添加一样，主要是需要把css文件里的路径调整一致。<br>详情可以参考<a href="https://www.cnblogs.com/xinci/p/10529399.html" target="_blank" rel="external">Nuxt使用iconfont矢量图标</a></p>
+<h3 id="5-scss做计算的方法"><a href="#5-scss做计算的方法" class="headerlink" title="5.scss做计算的方法"></a>5.scss做计算的方法</h3><p>假定定义变量$a = ‘20px’，若要使用calc，直接calc(100% - a)这么用是不行的，需要按如下使用方法：　　calc(100% - #{a})</p>
+<h3 id="6-做两个互相关联的datepicker"><a href="#6-做两个互相关联的datepicker" class="headerlink" title="6.做两个互相关联的datepicker"></a>6.做两个互相关联的datepicker</h3><p>iview本身的datepicker如果要选择日期范围（即type为daterange），但是设计图稿要求用两个datepicker框来表示，这时候就需要用到data里绑定的属性值来做计算。<br>因为要用到this，所以disabledDate要用箭头函数表示。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">DatePicker</span> <span class="attr">type</span>=<span class="string">"date"</span> <span class="attr">v-model</span>=<span class="string">"startDate"</span> <span class="attr">:options</span>=<span class="string">"startOption"</span> <span class="attr">format</span>=<span class="string">"yyyy-MM-dd"</span> <span class="attr">style</span>=<span class="string">"width: 160px"</span>&gt;</span><span class="tag">&lt;/<span class="name">DatePicker</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">style</span>=<span class="string">"margin:0 3px"</span>&gt;</span>至<span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">DatePicker</span> <span class="attr">type</span>=<span class="string">"date"</span> <span class="attr">v-model</span>=<span class="string">"endDate"</span> <span class="attr">:options</span>=<span class="string">"endOption"</span> <span class="attr">format</span>=<span class="string">"yyyy-MM-dd"</span> <span class="attr">style</span>=<span class="string">"width: 160px"</span>&gt;</span><span class="tag">&lt;/<span class="name">DatePicker</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</div><div class="line">    data()&#123;</div><div class="line">        <span class="keyword">return</span>&#123;</div><div class="line">            <span class="attr">startDate</span>:<span class="string">''</span>,</div><div class="line">            <span class="attr">endDate</span>:<span class="string">''</span>,</div><div class="line">            <span class="attr">startOption</span>:&#123;</div><div class="line">                <span class="attr">disabledDate</span>: <span class="function"><span class="params">date</span> =&gt;</span> &#123;</div><div class="line">                    <span class="keyword">return</span> date &amp;&amp; date.valueOf() &gt; <span class="built_in">Date</span>.now() || date.valueOf()&gt;<span class="keyword">this</span>.endDate;</div><div class="line">                &#125;</div><div class="line">            &#125;,</div><div class="line">            <span class="attr">endOption</span>:&#123;</div><div class="line">                <span class="attr">disabledDate</span>: <span class="function"><span class="params">date</span> =&gt;</span> &#123;</div><div class="line">                <span class="keyword">return</span> date &amp;&amp; date.valueOf() &gt; <span class="built_in">Date</span>.now() || date.valueOf()&lt;<span class="keyword">this</span>.startDate;</div><div class="line">                &#125;</div><div class="line">             &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="7-封装axios的注意事项"><a href="#7-封装axios的注意事项" class="headerlink" title="7.封装axios的注意事项"></a>7.封装axios的注意事项</h3><p>大部分请求都需要token，但对于不涉及用户权限和登录的接口是无需token的，那么在封装axios的时候就需要区别对待。<br>这次采取的方法是创建白名单，在白名单里的url就不从Cookie里拿token。</p>
+<p>刷新token如何做？<br>比如token的有效期是1小时，用户有长达50分钟的时间内没有进行任何操作，此时用户进行刷新页面等操作需要刷新token来重新计算session时间。<br>后端接口会返回code为501，告知我需要刷新token进行更新。<br>对于刷新接口的操作采用“防抖”机制。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 是否正在刷新的标记</span></div><div class="line"><span class="keyword">let</span> isRefreshing = <span class="literal">false</span>;</div><div class="line"> <span class="keyword">if</span>(response.data.code==<span class="string">"501"</span>)&#123;</div><div class="line">    <span class="keyword">if</span> (!isRefreshing) &#123;</div><div class="line">        isRefreshing = <span class="literal">true</span></div><div class="line">        <span class="keyword">return</span> refreshToken().then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</div><div class="line">            <span class="keyword">if</span> (res.code === <span class="number">200</span>) &#123;</div><div class="line">                Cookies.set(<span class="string">'token'</span>, res.data.token);</div><div class="line">            &#125;</div><div class="line">        &#125;).finally(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">            isRefreshing = <span class="literal">false</span></div><div class="line">        &#125;)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="8-组件全局注册"><a href="#8-组件全局注册" class="headerlink" title="8.组件全局注册"></a>8.组件全局注册</h3><p>抽象出的组件可能会在许多其他组件里使用，每次使用都引入注册很麻烦，索性全局注册。<br>全局注册的文件放在plugins目录下，需要特别注意的是在<code>nuxt.config.js</code>里引入的时候ssr必须为true，否则服务端渲染和客户端渲染不一致 会导致组件的生命周期被执行两次。</p>
+<h3 id="9-组件网络请求放在mounted里"><a href="#9-组件网络请求放在mounted里" class="headerlink" title="9.组件网络请求放在mounted里"></a>9.组件网络请求放在mounted里</h3><p>网络请求应该出现在mounted的生命周期里, 在created中的话, 因为还没有渲染出来, 会导致一个非常奇怪的ERROR connect ECONNREFUSED 127.0.0.1:80 的网络错误。<br>开发模式下没什么问题, 但是一旦打包 就会有很大的错误。</p>
+<h3 id="10-防止document和window对象的报错"><a href="#10-防止document和window对象的报错" class="headerlink" title="10.防止document和window对象的报错"></a>10.防止document和window对象的报错</h3><p>防止报document or window is not defined的方法是做一个if(process.client)的判断：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span>(process.client)&#123; </div><div class="line">  <span class="comment">//写涉及到document和window相关的代码</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://snapline.github.io/2018/01/13/sorting_algo/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -961,140 +1094,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://snapline.github.io/2017/09/16/github_and_gtlab/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Snapline">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://images4.fanpop.com/image/photos/21000000/Bob-Dylan-bob-dylan-21091275-116-120.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="You are my JavaScript Queen">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/16/github_and_gtlab/" itemprop="url">便捷地同时使用github和gitlab的方法</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-16T13:50:54+08:00">
-                2017-09-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>昨天完成了迁移，迁移时也换了新的gitlab账户，并绑定了新的ssh。更新博文后发现hexo d命令总是错误，原因是github的permission处于denied的状态，猜测一定是ssh的问题。</p>
-<p>由于按照网上给出的ssh生成命令进行，一路回车，等于对id_rsa文件的命名采取了默认状态，导致github在获取rsa的时候引起了错乱。</p>
-<p>那么优雅的使用github和gitlab的方法就是命名两个不同的rsa文件分别进行绑定，然后用config文件来做配置区分。</p>
-<h1 id="步骤一：-生成密钥"><a href="#步骤一：-生成密钥" class="headerlink" title="步骤一： 生成密钥"></a>步骤一： 生成密钥</h1><p>首先要在~/ssh/目录下操作，直接把文件生成在本文件夹下。</p>
-<h2 id="gitlab密钥"><a href="#gitlab密钥" class="headerlink" title="gitlab密钥"></a>gitlab密钥</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">ssh-keygen -t rsa -C &quot;gitlab 用户邮箱地址&quot; ←┘</div><div class="line">Generating public/private rsa key pair.</div><div class="line">Enter file in which to save the key (/Users/user/.ssh/id_rsa): ←┘</div><div class="line">Enter passphrase (empty for no passphrase): ←┘</div><div class="line">Enter same passphrase again: ←┘</div></pre></td></tr></table></figure>
-<p>这时候生成的是一对名为id_rsa和id_rsa.pub的公私密钥文件。</p>
-<h2 id="github密钥"><a href="#github密钥" class="headerlink" title="github密钥"></a>github密钥</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">ssh-keygen -t rsa -C &quot;github 用户邮箱地址&quot; ←┘</div><div class="line">Generating public/private rsa key pair.</div><div class="line">Enter file in which to save the key (/Users/user/.ssh/id_rsa): id_rsa_github ←┘</div><div class="line">Enter passphrase (empty for no passphrase): ←┘</div><div class="line">Enter same passphrase again: ←┘</div></pre></td></tr></table></figure>
-<p>这时候生成的是一对名为id_rsa_github和id_rsa_github.pub的公私密钥文件。</p>
-<h2 id="ssh-目录下生成以下文件"><a href="#ssh-目录下生成以下文件" class="headerlink" title="~/.ssh/ 目录下生成以下文件:"></a>~/.ssh/ 目录下生成以下文件:</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">- id_rsa</div><div class="line">- id_rsa.pub </div><div class="line">- id_rsa_github</div><div class="line">- id_rsa_github.pub</div></pre></td></tr></table></figure>
-<p>分别将 id_rsa.pub 和 id_rsa_github.pub 内容复制到 gitlab 或 github 的 ssh key 中。</p>
-<h1 id="新建config文件"><a href="#新建config文件" class="headerlink" title="新建config文件"></a>新建config文件</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Host github.com</div><div class="line">    HostName github.com</div><div class="line">    IdentityFile ~/.ssh/id_rsa_github</div><div class="line"></div><div class="line">Host gitlab.com</div><div class="line">    HostName gitlab.shoukala.com</div><div class="line">    IdentityFile ~/.ssh/id_rsa</div></pre></td></tr></table></figure>
-<p>注意这里Host后面一定要写上 .com，不然hexo d的命令还是会失败。</p>
-<h1 id="测试连接"><a href="#测试连接" class="headerlink" title="测试连接"></a>测试连接</h1><p>使用ssh -T git@gitlab.com测试gitlab的连接，使用ssh -T git@github.com测试github的链接。</p>
-<p>会在 ~/.ssh/ 目录下自动生成 known_hosts 文件。</p>
-<p>此时，我们就能分别维护gitlab和github的项目了。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1149,7 +1148,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1257,7 +1256,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

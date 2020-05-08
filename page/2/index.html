@@ -251,6 +251,140 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://snapline.github.io/2017/09/16/github_and_gtlab/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Snapline">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://images4.fanpop.com/image/photos/21000000/Bob-Dylan-bob-dylan-21091275-116-120.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="You are my JavaScript Queen">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/16/github_and_gtlab/" itemprop="url">便捷地同时使用github和gitlab的方法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-16T13:50:54+08:00">
+                2017-09-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>昨天完成了迁移，迁移时也换了新的gitlab账户，并绑定了新的ssh。更新博文后发现hexo d命令总是错误，原因是github的permission处于denied的状态，猜测一定是ssh的问题。</p>
+<p>由于按照网上给出的ssh生成命令进行，一路回车，等于对id_rsa文件的命名采取了默认状态，导致github在获取rsa的时候引起了错乱。</p>
+<p>那么优雅的使用github和gitlab的方法就是命名两个不同的rsa文件分别进行绑定，然后用config文件来做配置区分。</p>
+<h1 id="步骤一：-生成密钥"><a href="#步骤一：-生成密钥" class="headerlink" title="步骤一： 生成密钥"></a>步骤一： 生成密钥</h1><p>首先要在~/ssh/目录下操作，直接把文件生成在本文件夹下。</p>
+<h2 id="gitlab密钥"><a href="#gitlab密钥" class="headerlink" title="gitlab密钥"></a>gitlab密钥</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">ssh-keygen -t rsa -C &quot;gitlab 用户邮箱地址&quot; ←┘</div><div class="line">Generating public/private rsa key pair.</div><div class="line">Enter file in which to save the key (/Users/user/.ssh/id_rsa): ←┘</div><div class="line">Enter passphrase (empty for no passphrase): ←┘</div><div class="line">Enter same passphrase again: ←┘</div></pre></td></tr></table></figure>
+<p>这时候生成的是一对名为id_rsa和id_rsa.pub的公私密钥文件。</p>
+<h2 id="github密钥"><a href="#github密钥" class="headerlink" title="github密钥"></a>github密钥</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">ssh-keygen -t rsa -C &quot;github 用户邮箱地址&quot; ←┘</div><div class="line">Generating public/private rsa key pair.</div><div class="line">Enter file in which to save the key (/Users/user/.ssh/id_rsa): id_rsa_github ←┘</div><div class="line">Enter passphrase (empty for no passphrase): ←┘</div><div class="line">Enter same passphrase again: ←┘</div></pre></td></tr></table></figure>
+<p>这时候生成的是一对名为id_rsa_github和id_rsa_github.pub的公私密钥文件。</p>
+<h2 id="ssh-目录下生成以下文件"><a href="#ssh-目录下生成以下文件" class="headerlink" title="~/.ssh/ 目录下生成以下文件:"></a>~/.ssh/ 目录下生成以下文件:</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">- id_rsa</div><div class="line">- id_rsa.pub </div><div class="line">- id_rsa_github</div><div class="line">- id_rsa_github.pub</div></pre></td></tr></table></figure>
+<p>分别将 id_rsa.pub 和 id_rsa_github.pub 内容复制到 gitlab 或 github 的 ssh key 中。</p>
+<h1 id="新建config文件"><a href="#新建config文件" class="headerlink" title="新建config文件"></a>新建config文件</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Host github.com</div><div class="line">    HostName github.com</div><div class="line">    IdentityFile ~/.ssh/id_rsa_github</div><div class="line"></div><div class="line">Host gitlab.com</div><div class="line">    HostName gitlab.shoukala.com</div><div class="line">    IdentityFile ~/.ssh/id_rsa</div></pre></td></tr></table></figure>
+<p>注意这里Host后面一定要写上 .com，不然hexo d的命令还是会失败。</p>
+<h1 id="测试连接"><a href="#测试连接" class="headerlink" title="测试连接"></a>测试连接</h1><p>使用ssh -T git@gitlab.com测试gitlab的连接，使用ssh -T git@github.com测试github的链接。</p>
+<p>会在 ~/.ssh/ 目录下自动生成 known_hosts 文件。</p>
+<p>此时，我们就能分别维护gitlab和github的项目了。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://snapline.github.io/2017/09/15/git_transfer/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -917,151 +1051,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://snapline.github.io/2017/04/10/wechatApp_page_send/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Snapline">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://images4.fanpop.com/image/photos/21000000/Bob-Dylan-bob-dylan-21091275-116-120.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="You are my JavaScript Queen">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/04/10/wechatApp_page_send/" itemprop="url">微信小程序实现多页面传参通信</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-10T14:03:08+08:00">
-                2017-04-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="一-驱动"><a href="#一-驱动" class="headerlink" title="一 驱动"></a>一 驱动</h3><p>今年年初做了一款很简单的pm2.5查询的小程序，进入首页，自动定位城市，同时用户可以点击城市区域，进入城市列表，选择任意城市，返回首页，读取选择城市的pm2.5情况。</p>
-<p>如图所示：</p>
-<p><img src="https://github.com/Snapline/MyMarkDownPhotos/blob/master/wxApp-event-send/home.png?raw=true" alt="&#39;首页&#39;" title="小程序首页"></p>
-<p><img src="https://github.com/Snapline/MyMarkDownPhotos/blob/master/wxApp-event-send/list.png?raw=true" alt="&#39;城市列表&#39;" title="城市列表"></p>
-<p>如果只是在web上，这样的需求非常容易解决。但是小程序的API接口里，从A页面进入B页面是可以带参数的，但是，反过来，从B页面退回A页面，是不允许带参数的。</p>
-<h3 id="二-解决方法"><a href="#二-解决方法" class="headerlink" title="二 解决方法"></a>二 解决方法</h3><p>我当时选择了把要传的参数（用户选择的城市）存入storage里，也就是使用微信的wx.setStorage方法进行存储，回到A页面的时候先检测storage里的数据。然后就把这个项目收尾了。</p>
-<p>之后看到了一篇<a href="http://www.wxapp-union.com/article-2142-1.html" target="_blank" rel="external">文章</a>，讲述了如何使用onfire.js这个js库来进行页面传输的方式。我自己动手试了一下，非常好用。</p>
-<h3 id="三-onfire-js介绍"><a href="#三-onfire-js介绍" class="headerlink" title="三 onfire.js介绍"></a>三 onfire.js介绍</h3><p>onfire.js的github地址<a href="https://github.com/hustcc/onfire.js" target="_blank" rel="external">在此</a>，只有0.9kb大小，非常轻便。</p>
-<p>它可用于：</p>
-<ul>
-<li>简单的事件分发；</li>
-<li>在 react / vue.js / angular 用于跨组件的轻量级实现；</li>
-<li>事件订阅和发布；</li>
-</ul>
-<p>应用在小程序里，思路如下：</p>
-<ol>
-<li>A页面先订阅一个事件，并定义处理方法。</li>
-<li>B页面返回时发送消息。</li>
-<li>A页面卸载时，解除订阅。</li>
-</ol>
-<h3 id="四-实践测试"><a href="#四-实践测试" class="headerlink" title="四  实践测试"></a>四  实践测试</h3><p>在A页面写入一个button，点击button可以跳转到B页面。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> onfire = <span class="built_in">require</span>(<span class="string">"../utils/onfire.js"</span>);</div><div class="line"><span class="keyword">var</span> eventObj = onfire.on(<span class="string">'testEvent'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">args</span>) </span>&#123;</div><div class="line"><span class="comment">//打印从B页面带来的参数</span></div><div class="line">    <span class="built_in">console</span>.log(args)</div><div class="line">&#125;);</div><div class="line"></div><div class="line">Page(&#123;</div><div class="line">  <span class="attr">data</span>: &#123;</div><div class="line">  &#125;,</div><div class="line">  <span class="comment">//跳转事件</span></div><div class="line">  gotoNext: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    wx.navigateTo(&#123;</div><div class="line">      <span class="attr">url</span>: <span class="string">'../test/test'</span>,</div><div class="line">      <span class="attr">success</span>: <span class="function"><span class="keyword">function</span>(<span class="params">res</span>)</span>&#123;</div><div class="line">      &#125;</div><div class="line">    &#125;)</div><div class="line">  &#125;,</div><div class="line">  <span class="attr">onLoad</span>: <span class="function"><span class="keyword">function</span>(<span class="params">options</span>) </span>&#123;</div><div class="line">    </div><div class="line">  &#125;,</div><div class="line">  <span class="attr">onUnload</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    onfire.un(<span class="string">'testEvent'</span>);</div><div class="line">    onfire.un(eventObj);</div><div class="line">  &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
-<p>调用onfire.on方法订阅一个testEvent的消息，args是接收从B页面传来的参数。需要注意一定要在onUnload里取消订阅testEvent的消息，并取消绑定eventObj。</p>
-<p>在B页面里写入返回页面的API，并在回调的地方加入消息的分发。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">wx.navigateBack(&#123;</div><div class="line">     <span class="attr">success</span>: <span class="function"><span class="keyword">function</span>(<span class="params">res</span>)</span>&#123;</div><div class="line">         <span class="comment">//有参数时</span></div><div class="line">         onfire.fire(<span class="string">'testEvent'</span>,&#123;<span class="attr">name</span>:<span class="string">'111'</span>,<span class="attr">age</span>:<span class="number">12</span>&#125;);</div><div class="line">     &#125;,</div><div class="line">     <span class="attr">fail</span>: <span class="function"><span class="keyword">function</span>(<span class="params">res</span>) </span>&#123;</div><div class="line">       <span class="comment">// fail</span></div><div class="line">     &#125;,</div><div class="line">     <span class="attr">complete</span>: <span class="function"><span class="keyword">function</span>(<span class="params">res</span>) </span>&#123;</div><div class="line">       <span class="comment">// complete</span></div><div class="line">     &#125;</div><div class="line">   &#125;)</div></pre></td></tr></table></figure>
-<p>操作以后会发现回到A页面的时候，控制台打出了对应的Object为{name:’111’,age:12}，可以传数字，字符串，json对象。</p>
-<p>有了这个库，我们就可以实现页面之间的随意通信，从而控制ui对应的变化。也便于代码的阅读和后期的维护。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1116,7 +1105,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1224,7 +1213,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
