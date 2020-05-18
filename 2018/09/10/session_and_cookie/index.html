@@ -79,37 +79,22 @@
 
 
 
-<meta name="description" content="近日由于有项目迁移的需求, 所以研究了一下如何迁移Git。要求是迁移的时候，保证所有的分支和提交记录都在，以便于查找和回档。
+<meta name="description" content="背景在公司的多个项目里，有的使用了session做会话管理，前端无需做特殊处理，只要让后端朋友处理即可。有的使用了token，需要后端传来一个token，让前端来传入。于是想针对会话管理做一个总结。
 
-直接新建项目，把原有的代码拷贝进去。这种方法没有任何提交记录保留，不行。
-
-把git文件夹复制过去，其他的项目代码保持不变。这种方法很不“计算机”，而且一些冲突文件全覆盖会发现仓库记录将损坏，亲自测试过，所以该方法也不行。
-
-
-其实本质上只要是把git所有的记录原封不动的">
+http是一个无状态协议什么是无状态呢？就是说这一次请求和上一次请求是没有任何关系的，互不认识的，没有关联的。这种无状态的的好处是快速。坏处是假如我们想要把www.zhihu.com/login.h">
 <meta property="og:type" content="article">
-<meta property="og:title" content="git仓库迁移的方法">
-<meta property="og:url" content="http://snapline.github.io/2017/09/15/git_transfer/index.html">
+<meta property="og:title" content="session, cookie和token的一个总结">
+<meta property="og:url" content="http://snapline.github.io/2018/09/10/session_and_cookie/index.html">
 <meta property="og:site_name" content="You are my JavaScript Queen">
-<meta property="og:description" content="近日由于有项目迁移的需求, 所以研究了一下如何迁移Git。要求是迁移的时候，保证所有的分支和提交记录都在，以便于查找和回档。
+<meta property="og:description" content="背景在公司的多个项目里，有的使用了session做会话管理，前端无需做特殊处理，只要让后端朋友处理即可。有的使用了token，需要后端传来一个token，让前端来传入。于是想针对会话管理做一个总结。
 
-直接新建项目，把原有的代码拷贝进去。这种方法没有任何提交记录保留，不行。
-
-把git文件夹复制过去，其他的项目代码保持不变。这种方法很不“计算机”，而且一些冲突文件全覆盖会发现仓库记录将损坏，亲自测试过，所以该方法也不行。
-
-
-其实本质上只要是把git所有的记录原封不动的">
-<meta property="og:updated_time" content="2019-04-16T09:47:44.680Z">
+http是一个无状态协议什么是无状态呢？就是说这一次请求和上一次请求是没有任何关系的，互不认识的，没有关联的。这种无状态的的好处是快速。坏处是假如我们想要把www.zhihu.com/login.h">
+<meta property="og:updated_time" content="2020-05-18T06:24:48.985Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="git仓库迁移的方法">
-<meta name="twitter:description" content="近日由于有项目迁移的需求, 所以研究了一下如何迁移Git。要求是迁移的时候，保证所有的分支和提交记录都在，以便于查找和回档。
+<meta name="twitter:title" content="session, cookie和token的一个总结">
+<meta name="twitter:description" content="背景在公司的多个项目里，有的使用了session做会话管理，前端无需做特殊处理，只要让后端朋友处理即可。有的使用了token，需要后端传来一个token，让前端来传入。于是想针对会话管理做一个总结。
 
-直接新建项目，把原有的代码拷贝进去。这种方法没有任何提交记录保留，不行。
-
-把git文件夹复制过去，其他的项目代码保持不变。这种方法很不“计算机”，而且一些冲突文件全覆盖会发现仓库记录将损坏，亲自测试过，所以该方法也不行。
-
-
-其实本质上只要是把git所有的记录原封不动的">
+http是一个无状态协议什么是无状态呢？就是说这一次请求和上一次请求是没有任何关系的，互不认识的，没有关联的。这种无状态的的好处是快速。坏处是假如我们想要把www.zhihu.com/login.h">
 
 
 
@@ -139,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="http://snapline.github.io/2017/09/15/git_transfer/"/>
+  <link rel="canonical" href="http://snapline.github.io/2018/09/10/session_and_cookie/"/>
 
 
 
 
 
-  <title>git仓库迁移的方法 | You are my JavaScript Queen</title>
+  <title>session, cookie和token的一个总结 | You are my JavaScript Queen</title>
   
 
 
@@ -272,7 +257,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://snapline.github.io/2017/09/15/git_transfer/">
+    <link itemprop="mainEntityOfPage" href="http://snapline.github.io/2018/09/10/session_and_cookie/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Snapline">
@@ -289,7 +274,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">git仓库迁移的方法</h1>
+          <h1 class="post-title" itemprop="name headline">session, cookie和token的一个总结</h1>
         
 
         <div class="post-meta">
@@ -301,8 +286,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-15T16:50:54+08:00">
-                2017-09-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-10T11:14:24+08:00">
+                2018-09-10
               </time>
             
 
@@ -339,23 +324,55 @@
       
 
       
-        <p>近日由于有项目迁移的需求, 所以研究了一下如何迁移Git。<br>要求是迁移的时候，保证所有的分支和提交记录都在，以便于查找和回档。</p>
-<ol>
-<li><p>直接新建项目，把原有的代码拷贝进去。<br>这种方法没有任何提交记录保留，不行。</p>
-</li>
-<li><p>把git文件夹复制过去，其他的项目代码保持不变。<br>这种方法很不“计算机”，而且一些冲突文件全覆盖会发现仓库记录将损坏，亲自测试过，所以该方法也不行。</p>
-</li>
-</ol>
-<p>其实本质上只要是把git所有的记录原封不动的放到新项目里，再把原项目的远程仓库地址变动一下就可以达成了。</p>
-<h3 id="步骤如下："><a href="#步骤如下：" class="headerlink" title="步骤如下："></a>步骤如下：</h3><h3 id="1-克隆原仓库的git镜像"><a href="#1-克隆原仓库的git镜像" class="headerlink" title="1. 克隆原仓库的git镜像"></a>1. 克隆原仓库的git镜像</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git clone --mirror https://github.com/yourname/oldProject.git</div></pre></td></tr></table></figure>
-<p>这里克隆的全是git的内容，并没有其他代码的东西。</p>
-<h3 id="2-在新的服务上创建新项目-newProject"><a href="#2-在新的服务上创建新项目-newProject" class="headerlink" title="2. 在新的服务上创建新项目 newProject"></a>2. 在新的服务上创建新项目 newProject</h3><h3 id="3-打开旧项目镜像的目录"><a href="#3-打开旧项目镜像的目录" class="headerlink" title="3. 打开旧项目镜像的目录"></a>3. 打开旧项目镜像的目录</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cd oldProject.git</div></pre></td></tr></table></figure>
-<h3 id="4-设置需要迁移的目标路径"><a href="#4-设置需要迁移的目标路径" class="headerlink" title="4. 设置需要迁移的目标路径"></a>4. 设置需要迁移的目标路径</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git remote set-url --push origin http://github.com/yourname/newProject.git</div></pre></td></tr></table></figure>
-<h3 id="5-推送到新项目"><a href="#5-推送到新项目" class="headerlink" title="5. 推送到新项目"></a>5. 推送到新项目</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git push --mirror</div></pre></td></tr></table></figure>
-<p>此时，新项目那里已经有了所有的提交记录和代码。但是我们正在维护的代码，之后的提交也必须提交到新仓库地址上。<br>还需要做的事是把本地项目代码所在工程的远程仓库地址迁移到新的仓库地址。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git remote set-url origin newURL</div></pre></td></tr></table></figure>
-<p>使用这个命令即可完成地址切换。</p>
-<p>想查看远程仓库地址的话使用git remote -v命令。</p>
+        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>在公司的多个项目里，有的使用了session做会话管理，前端无需做特殊处理，只要让后端朋友处理即可。有的使用了token，需要后端传来一个token，让前端来传入。<br>于是想针对会话管理做一个总结。</p>
+<hr>
+<h2 id="http是一个无状态协议"><a href="#http是一个无状态协议" class="headerlink" title="http是一个无状态协议"></a>http是一个无状态协议</h2><p>什么是无状态呢？就是说这一次请求和上一次请求是没有任何关系的，互不认识的，没有关联的。这种无状态的的好处是快速。坏处是假如我们想要把<code>www.zhihu.com/login.html</code>和<code>www.zhihu.com/index.html</code>关联起来，必须使用某些手段和工具</p>
+<hr>
+<h2 id="cookie和session"><a href="#cookie和session" class="headerlink" title="cookie和session"></a>cookie和session</h2><p>由于http的无状态性，为了使某个域名下的所有网页能够共享某些数据，session和cookie出现了。客户端访问服务器的流程如下:</p>
+<ul>
+<li>首先，客户端会发送一个http请求到服务器端。</li>
+<li>服务器端接受客户端请求后，建立一个session，并发送一个http响应到客户端，这个响应头，其中就包含Set-Cookie头部。该头部包含了sessionId。Set-Cookie格式:<code>Set-Cookie: value[; expires=date][; domain=domain][; path=path][; secure]</code></li>
+<li>在客户端发起的第二次请求，假如服务器给了set-Cookie，浏览器会自动在请求头中添加cookie</li>
+<li>务器接收请求，分解cookie，验证信息，核对成功后返回response给客户端</li>
+</ul>
+<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><ul>
+<li>cookie只是实现session的其中一种方案。虽然是最常用的，但并不是唯一的方法。禁用cookie后还有其他方法存储，比如放在url中</li>
+<li>现在大多都是Session + Cookie，但是只用session不用cookie，或是只用cookie，不用session在理论上都可以保持会话状态。可是实际中因为多种原因，一般不会单独使用</li>
+<li>用session只需要在客户端保存一个id，实际上大量数据都是保存在服务端。如果全部用cookie，数据量大的时候客户端是没有那么多空间的。</li>
+<li>如果只用cookie不用session，那么账户信息全部保存在客户端，一旦被劫持，全部信息都会泄露。并且客户端数据量变大，网络传输的数据量也会变大</li>
+</ul>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p><strong>简而言之, session 有如用户信息档案表, 里面包含了用户的认证信息和登录状态等信息. 而 cookie 就是用户通行证</strong></p>
+<hr>
+<h2 id="token"><a href="#token" class="headerlink" title="token"></a>token</h2><p>token 也称作令牌，由uid+time+sign[+固定参数]<br>token 的认证方式类似于<strong>临时的证书签名</strong>, 并且是一种服务端无状态的认证方式, 非常适合于 REST API 的场景. 所谓无状态就是服务端并不会保存身份认证相关的数据。</p>
+<h3 id="组成"><a href="#组成" class="headerlink" title="组成"></a>组成</h3><ul>
+<li>uid: 用户唯一身份标识</li>
+<li>time: 当前时间的时间戳</li>
+<li>sign: 签名, 使用 hash/encrypt 压缩成定长的十六进制字符串，以防止第三方恶意拼接</li>
+<li>固定参数(可选): 将一些常用的固定参数加入到 token 中是为了避免重复查库</li>
+</ul>
+<h3 id="存放"><a href="#存放" class="headerlink" title="存放"></a>存放</h3><p>token在客户端一般存放于localStorage，cookie，或sessionStorage中。在服务器一般存于数据库中</p>
+<h3 id="token认证流程"><a href="#token认证流程" class="headerlink" title="token认证流程"></a>token认证流程</h3><p>token 的认证流程与cookie很相似</p>
+<ul>
+<li>用户登录，成功后服务器返回Token给客户端。</li>
+<li>客户端收到数据后保存在客户端</li>
+<li>客户端再次访问服务器，将token放入headers中</li>
+<li>服务器端采用filter过滤器校验。校验成功则返回请求数据，校验失败则返回错误码</li>
+</ul>
+<hr>
+<h2 id="token可以抵抗csrf，cookie-session不行"><a href="#token可以抵抗csrf，cookie-session不行" class="headerlink" title="token可以抵抗csrf，cookie+session不行"></a>token可以抵抗csrf，cookie+session不行</h2><p>假如用户正在登陆银行网页，同时登陆了攻击者的网页，并且银行网页未对csrf攻击进行防护。攻击者就可以在网页放一个表单，该表单提交src为<code>http://www.bank.com/api/transfer</code>，body为<code>count=1000&amp;to=Tom</code>。倘若是session+cookie，用户打开网页的时候就已经转给Tom1000元了.因为form 发起的 POST 请求并不受到浏览器同源策略的限制，因此可以任意地使用其他域的 Cookie 向其他域发送 POST 请求，形成 CSRF 攻击。在post请求的瞬间，cookie会被浏览器自动添加到请求头中。但token不同，token是开发者为了防范csrf而特别设计的令牌，浏览器不会自动添加到headers里，攻击者也无法访问用户的token，所以提交的表单无法通过服务器过滤，也就无法形成攻击。</p>
+<hr>
+<h2 id="分布式情况下的session和token"><a href="#分布式情况下的session和token" class="headerlink" title="分布式情况下的session和token"></a>分布式情况下的session和token</h2><p>我们已经知道session是有状态的，一般存于服务器内存或硬盘中，当服务器采用分布式或集群时，session就会面对负载均衡问题。</p>
+<ul>
+<li>负载均衡多服务器的情况，不好确认当前用户是否登录，因为多服务器不共享session。这个问题也可以将session存在一个服务器中来解决，但是就不能完全达到负载均衡的效果。<br>而token是无状态的，token字符串里就保存了所有的用户信息</li>
+<li>客户端登陆传递信息给服务端，服务端收到后把用户信息加密（token）传给客户端，客户端将token存放于localStroage等容器中。客户端每次访问都传递token，服务端解密token，就知道这个用户是谁了。通过cpu加解密，服务端就不需要存储session占用存储空间，就很好的解决负载均衡多服务器的问题了。这个方法叫做<code>JWT(Json Web Token)</code></li>
+</ul>
+<hr>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li>session存储于服务器，可以理解为一个状态列表，拥有一个唯一识别符号sessionId，通常存放于cookie中。服务器收到cookie后解析出sessionId，再去session列表中查找，才能找到相应session。依赖cookie</li>
+<li>cookie类似一个令牌，装有sessionId，存储在客户端，浏览器通常会自动添加。</li>
+<li>token也类似一个令牌，无状态，用户信息都被加密到token中，服务器收到token后解密就可知道是哪个用户。需要开发者手动添加。</li>
+<li>jwt只是一个跨域认证的方案</li>
+</ul>
 
       
     </div>
@@ -423,8 +440,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/08/09/write_call_and_apply/" rel="next" title="手写代码实现call和apply功能">
-                <i class="fa fa-chevron-left"></i> 手写代码实现call和apply功能
+              <a href="/2018/07/20/nuxt_project_summary/" rel="next" title="公司某个nuxt项目的经验总结">
+                <i class="fa fa-chevron-left"></i> 公司某个nuxt项目的经验总结
               </a>
             
           </div>
@@ -432,10 +449,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/09/16/github_and_gtlab/" rel="prev" title="便捷地同时使用github和gitlab的方法">
-                便捷地同时使用github和gitlab的方法 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -620,7 +633,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤如下："><span class="nav-number">1.</span> <span class="nav-text">步骤如下：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-克隆原仓库的git镜像"><span class="nav-number">2.</span> <span class="nav-text">1. 克隆原仓库的git镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-在新的服务上创建新项目-newProject"><span class="nav-number">3.</span> <span class="nav-text">2. 在新的服务上创建新项目 newProject</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-打开旧项目镜像的目录"><span class="nav-number">4.</span> <span class="nav-text">3. 打开旧项目镜像的目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-设置需要迁移的目标路径"><span class="nav-number">5.</span> <span class="nav-text">4. 设置需要迁移的目标路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-推送到新项目"><span class="nav-number">6.</span> <span class="nav-text">5. 推送到新项目</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#http是一个无状态协议"><span class="nav-number">2.</span> <span class="nav-text">http是一个无状态协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cookie和session"><span class="nav-number">3.</span> <span class="nav-text">cookie和session</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#注意"><span class="nav-number">3.1.</span> <span class="nav-text">注意</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-number">3.2.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#token"><span class="nav-number">4.</span> <span class="nav-text">token</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#组成"><span class="nav-number">4.1.</span> <span class="nav-text">组成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#存放"><span class="nav-number">4.2.</span> <span class="nav-text">存放</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#token认证流程"><span class="nav-number">4.3.</span> <span class="nav-text">token认证流程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#token可以抵抗csrf，cookie-session不行"><span class="nav-number">5.</span> <span class="nav-text">token可以抵抗csrf，cookie+session不行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分布式情况下的session和token"><span class="nav-number">6.</span> <span class="nav-text">分布式情况下的session和token</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">7.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
