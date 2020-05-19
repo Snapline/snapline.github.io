@@ -251,6 +251,131 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://snapline.github.io/2017/06/08/promise_analysis/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Snapline">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://images4.fanpop.com/image/photos/21000000/Bob-Dylan-bob-dylan-21091275-116-120.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="You are my JavaScript Queen">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/06/08/promise_analysis/" itemprop="url">一道关于Promise面试题的分析</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-08T15:04:08+08:00">
+                2017-06-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Promise已经成为前端界必须掌握的技能了，哪怕不了解promise的内部机制，也一定用过相关的api。那么一个promise和setTimeout结合的面试题就非常时候学习promise的内部机制了。</p>
+<p>首先，先看题目：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> first = <span class="function"><span class="params">()</span> =&gt;</span> (<span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resovle,reject</span>)=&gt;</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="number">3</span>);</div><div class="line">    <span class="keyword">let</span> p = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resovle, reject</span>)=&gt;</span>&#123;</div><div class="line">         <span class="built_in">console</span>.log(<span class="number">7</span>);</div><div class="line">        setTimeout(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</div><div class="line">           <span class="built_in">console</span>.log(<span class="number">5</span>);</div><div class="line">           resovle(<span class="number">6</span>); </div><div class="line">        &#125;,<span class="number">0</span>)</div><div class="line">        resovle(<span class="number">1</span>);</div><div class="line">    &#125;); </div><div class="line">    resovle(<span class="number">2</span>);</div><div class="line">    p.then(<span class="function">(<span class="params">arg</span>)=&gt;</span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(arg);</div><div class="line">    &#125;);</div><div class="line"></div><div class="line">&#125;));</div><div class="line"></div><div class="line">first().then(<span class="function">(<span class="params">arg</span>)=&gt;</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(arg);</div><div class="line">&#125;);</div><div class="line"><span class="built_in">console</span>.log(<span class="number">4</span>);</div></pre></td></tr></table></figure></p>
+<p>promise对象只有三种状态: <strong>pending</strong>,<strong>fulfilled</strong>和<strong>rejected</strong>。状态会变化且只会变化一次，有两种可能：从<strong>pending</strong>变成<strong>fulfilled</strong>；从<strong>pending</strong>变成<strong>rejeced</strong>。</p>
+<p>上述题目，调用处仅有一次，即:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">first().then(<span class="function">(<span class="params">arg</span>)=&gt;</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(arg);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>在任务流里，首先开启了一个first的new Promise操作，输出了<strong>3</strong>。然后遇到了p，开启另一个new Promise操作，输出了<strong>7</strong>，遇到定时器，定时器要放入下一轮的任务队列里。<br>接着往下走，是p的then(简称p.then)，加入队列任务，该任务是在定时器之前的。之后是first的then任务(简称f.then)。<br>延迟的任务队列排好以后，执行最后一行，输出<strong>4</strong>。<br>目前，顺序流执行下来，输出是<strong>3,7,4</strong>。<br>再执行排列的任务，p.then和f.then，输出<strong>1，2</strong>.<br>最后执行定时器，输出<strong>5</strong>。由于<strong>promise对象的状态只会变化一次</strong>，所以定时器里的resolve(6)是不会执行的。</p>
+<p>最终的输出结果是<strong>3,7,4,1,2,5</strong>。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://snapline.github.io/2017/05/10/some_focus_in_element-ui/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -963,186 +1088,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://snapline.github.io/2016/10/27/vue_router_transition/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Snapline">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://images4.fanpop.com/image/photos/21000000/Bob-Dylan-bob-dylan-21091275-116-120.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="You are my JavaScript Queen">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2016/10/27/vue_router_transition/" itemprop="url">vue-router钩子函数的生命周期</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-10-27T14:00:27+08:00">
-                2016-10-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="场景描述"><a href="#场景描述" class="headerlink" title="场景描述"></a>场景描述</h3><p>近日碰到了一个项目需求，使我不得不去研究vue-router里路由切换的具体过程，在这个过程中发生了什么事情。</p>
-<p>场景大概如下：在一个表单页面里，用户可以选择提交，也可以选择不提交而离开。产品经理要求数据不保存在本地浏览器里，在用户提交成功后销毁表单数据；或者用户离开页面（点击取消或者其他tab）时，出现弹窗，提醒用户表单数据还未提交，是否放弃。</p>
-<p><em>在这个场景里，难点在于：1. 如何监听用户离开页面或者关闭页面的事件; 2.如何在用户选择放弃提交以后还能正确指向之前点击的路由目标。</em></p>
-<p><img src="https://github.com/Snapline/MyMarkDownPhotos/blob/master/vue-router-transition/20161028095332.png?raw=true" alt="&#39;场景截图&#39;"></p>
-<p>如上图所示，用户可以点击取消，或者任何侧边dashboard的tab，这就说明，modal弹窗的“取消”按钮上不能增加固定的路由链接，因为无法确定用户会点击哪个路径。只能通过先记录点击路径，然后绑定到取消按钮上。</p>
-<h3 id="轮子分析"><a href="#轮子分析" class="headerlink" title="轮子分析"></a>轮子分析</h3><h4 id="1-在轮子中解决"><a href="#1-在轮子中解决" class="headerlink" title="1.在轮子中解决"></a>1.在轮子中解决</h4><p>首先，内置location对象是可以使用的，但造成的问题是与vue-router分离性太强，同时也无法做到简洁的数据绑定。因此，最佳的方案还是在vue-router本身的功能中解决。<br>在之前我对于vue-router的了解并不多，一般只是用来做一些基本的路由控制和页面跳转传参，类似如下代码：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> Foo = &#123;</div><div class="line">    <span class="attr">template</span>: <span class="string">'&lt;p&gt;This is foo!&lt;/p&gt;'</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> Bar = &#123;</div><div class="line">    <span class="attr">template</span>: <span class="string">'&lt;p&gt;This is bar!&lt;/p&gt;'</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> App = &#123;&#125;</div><div class="line"></div><div class="line"><span class="comment">// 创建一个路由器实例</span></div><div class="line"><span class="keyword">var</span> router = <span class="keyword">new</span> VueRouter()</div><div class="line"></div><div class="line"><span class="comment">// 定义路由规则</span></div><div class="line">router.map(&#123;</div><div class="line">    <span class="string">'/foo'</span>: &#123;</div><div class="line">        <span class="attr">component</span>: Foo</div><div class="line">    &#125;,</div><div class="line">    <span class="string">'/bar'</span>: &#123;</div><div class="line">        <span class="attr">component</span>: Bar</div><div class="line">    &#125;</div><div class="line">&#125;)</div><div class="line"></div><div class="line"><span class="comment">// 路由器会创建一个 App 实例，并且挂载到选择符 #app 匹配的元素上。</span></div><div class="line">router.start(App, <span class="string">'#app'</span>)</div></pre></td></tr></table></figure>
-<p><em>同时会用到一些路由嵌套，参数传递，大多数情况下，这些功能已经足够覆盖很多项目需求了。</em></p>
-<h4 id="2-vue-router钩子函数生命周期"><a href="#2-vue-router钩子函数生命周期" class="headerlink" title="2.vue-router钩子函数生命周期"></a>2.vue-router钩子函数生命周期</h4><p>搞懂了vue路由里钩子函数的运转过程，就可以轻松解决各种跳转需求。<br>路由的切换过程，本质上是执行一系列路由钩子函数，钩子函数总体上分为两大类：</p>
-<blockquote>
-<ul>
-<li>全局的钩子函数</li>
-<li>组件的钩子函数</li>
-</ul>
-</blockquote>
-<p>全局的钩子函数定义在全局的路由对象中，组件的钩子函数则定义在组件的route选项中。</p>
-<p><strong>全局钩子函数</strong></p>
-<p>全局钩子函数有2个：</p>
-<blockquote>
-<ul>
-<li>beforeEach：在路由切换开始时调用</li>
-<li>afterEach：在每次路由切换成功进入激活阶段时被调用</li>
-</ul>
-</blockquote>
-<p><strong>组件钩子函数</strong></p>
-<p>组件的钩子函数一共6个：</p>
-<blockquote>
-<ul>
-<li>data：可以设置组件的data</li>
-<li>activate：激活组件</li>
-<li>deactivate：禁用组件</li>
-<li>canActivate：组件是否可以被激活</li>
-<li>canDeactivate：组件是否可以被禁用</li>
-<li>canReuse：组件是否可以被重用</li>
-</ul>
-</blockquote>
-<p><strong>切换对象</strong></p>
-<p>每个切换钩子函数都会接受一个 transition 对象作为参数。这个切换对象包含以下函数和方法：</p>
-<blockquote>
-<ul>
-<li><strong>transition.to</strong><br>表示将要切换到的路径的路由对象。</li>
-<li><strong>transition.from</strong><br>代表当前路径的路由对象。</li>
-<li><strong>transition.next()</strong><br>调用此函数处理切换过程的下一步。</li>
-<li><strong>transition.abort([reason])</strong><br>调用此函数来终止或者拒绝此次切换。</li>
-<li><strong>transition.redirect(path)</strong><br>取消当前切换并重定向到另一个路由。</li>
-</ul>
-</blockquote>
-<p>具体的分析过程可以查看官方文档，也可以看这位仁兄的<a href="http://www.cnblogs.com/keepfool/p/5690366.html" target="_blank" rel="external">详细教学</a>。</p>
-<p>附一张详细教学里的生命周期图片:</p>
-<p><img src="http://i.imgur.com/9P42U9O.png?_=5690366" alt="&#39;生命周期&#39;"></p>
-<h4 id="3-实战解决"><a href="#3-实战解决" class="headerlink" title="3.实战解决"></a>3.实战解决</h4><p>首先，对我目前的这一个组件绑定一个新的data：completeSubmit。根据这个data的布尔值来判断是否应该跳出询问的弹窗。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//页面跳转的时候，需要进行询问。</span></div><div class="line">deactivate: <span class="function"><span class="keyword">function</span> (<span class="params">transition</span>) </span>&#123;</div><div class="line">	<span class="keyword">if</span>(!<span class="keyword">this</span>.completeSubmit)&#123;</div><div class="line">		<span class="comment">//未完成提交，出现提示信息</span></div><div class="line">		<span class="keyword">this</span>.confirmModalJump = <span class="literal">true</span>;</div><div class="line">		transition.abort();</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">else</span>&#123;</div><div class="line">		transition.next();</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>出现弹窗的时候，一定要加transition.abort()这行代码，这样router就不会继续前进，地址栏的url也不会进行变化。</p>
-<p>那么，如何记录用户即将前往的页面router呢。我们此时先把transition打印出来看一下具体的内容：</p>
-<p><img src="https://github.com/Snapline/MyMarkDownPhotos/blob/master/vue-router-transition/traision.png?raw=true" alt="transition对象"></p>
-<p>可以看到，transition里就有关于目的地的记录。那么只要在组件的data里绑定一个新的数据就可以进行记录了。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//页面跳转的时候，需要进行询问。</span></div><div class="line">deactivate: <span class="function"><span class="keyword">function</span> (<span class="params">transition</span>) </span>&#123;</div><div class="line">	<span class="keyword">this</span>.toPage = transition.to.name;</div><div class="line">	<span class="keyword">if</span>(!<span class="keyword">this</span>.completeSubmit)&#123;</div><div class="line">		<span class="comment">//未完成提交，出现提示信息</span></div><div class="line">		<span class="keyword">this</span>.confirmModalJump = <span class="literal">true</span>;</div><div class="line">		transition.abort();</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">else</span>&#123;</div><div class="line">		transition.next();</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>通过this.toPage我们就可以拿到目的地了。</p>
-<p>modal组件里，通过$dispatch来传递事件。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</div><div class="line">     data () &#123;</div><div class="line">        <span class="keyword">return</span> &#123;</div><div class="line">            ...</div><div class="line">        &#125;</div><div class="line">    &#125;,</div><div class="line">    <span class="attr">methods</span>: &#123;</div><div class="line">    	<span class="attr">leaveConfirm</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    		<span class="keyword">this</span>.$dispatch(<span class="string">'confirmLeave'</span>, <span class="literal">true</span>)</div><div class="line">    	&#125;,</div><div class="line">    	<span class="attr">cancleBtn</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    		<span class="keyword">this</span>.$dispatch(<span class="string">'clickDeleteLayer'</span>, <span class="literal">true</span>)</div><div class="line">    	&#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>然后在本组件里进行事件的接收<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">events: &#123;</div><div class="line">	<span class="string">'confirmLeave'</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">		<span class="keyword">this</span>.confirmModalJump = <span class="literal">false</span>;</div><div class="line">		<span class="keyword">this</span>.completeSubmit = <span class="literal">true</span>;</div><div class="line">		<span class="keyword">this</span>.$route.router.go(&#123; <span class="attr">name</span>: <span class="keyword">this</span>.toPage&#125;);</div><div class="line">		<span class="built_in">window</span>.localStorage.removeItem(<span class="string">'addServerInfo'</span>);</div><div class="line">	&#125;,</div><div class="line">	<span class="string">'clickDeleteLayer'</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">		<span class="keyword">this</span>.confirmModalJump = <span class="literal">false</span>;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>在用户确定离开的时候，我们首先把modal隐藏，接着把this.completeSubmit的布尔值进行更改（否则router部分的transition无法进行next()），然后通过this.toPage拿到之前用户的点击地址，在router的对象里进行操作。</p>
-<p>关于router的编码式导航，请一定仔细看文档，并区分vue-router的版本号。2.0版本和0.7版本的写法有明显不同。但二者都是支持编码式导航的（另一种方式是常见的html标签式导航）。</p>
-<p>最后，清空用户的填写记录，就大功告成啦。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1197,7 +1142,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="JavaScript," />
+  <meta name="keywords" content="Vue," />
 
 
 
@@ -79,31 +79,25 @@
 
 
 
-<meta name="description" content="js里关于数组有许多内置方法, forEach()和map()是对数组每个元素进行处理的常用方式, 前阵子加了一个前端技术群, 群主的入群问题就是forEach和map的区别。于是研究了一波。
-forEach特点：
-1.可以改变数组本身（并不完全，下文会说），且没有返回值；
-2.不能常规操作跳出循环；
-3.无法进行链式操作;
-4.每一次执行匿名函数的时候，还给其传递了三个参数值：数组中的当前项it">
+<meta name="description" content="vue-cli升级到3了，整体看了下感觉是封装的更简洁了，而且支持typescript、pwd等新特性。不过从vue-cli2时代过来的我，还是习惯用2，可以看到整体的配置选项，根据业务需要自己来添加。现在来大概概括一下2代和3代的区别。
+vue-cli脚手架的使用
+使用vue-cli可以快速搭建vue的开发环境，和webpack的配置
+安装vue脚手架： npm install -g@vue/c">
 <meta property="og:type" content="article">
-<meta property="og:title" content="forEach和map的区别">
-<meta property="og:url" content="http://snapline.github.io/2017/07/01/forEach_and_map/index.html">
+<meta property="og:title" content="vue-cli2和vue-cli3的区别">
+<meta property="og:url" content="http://snapline.github.io/2018/10/20/vue_cli/index.html">
 <meta property="og:site_name" content="You are my JavaScript Queen">
-<meta property="og:description" content="js里关于数组有许多内置方法, forEach()和map()是对数组每个元素进行处理的常用方式, 前阵子加了一个前端技术群, 群主的入群问题就是forEach和map的区别。于是研究了一波。
-forEach特点：
-1.可以改变数组本身（并不完全，下文会说），且没有返回值；
-2.不能常规操作跳出循环；
-3.无法进行链式操作;
-4.每一次执行匿名函数的时候，还给其传递了三个参数值：数组中的当前项it">
-<meta property="og:updated_time" content="2019-04-29T01:44:46.779Z">
+<meta property="og:description" content="vue-cli升级到3了，整体看了下感觉是封装的更简洁了，而且支持typescript、pwd等新特性。不过从vue-cli2时代过来的我，还是习惯用2，可以看到整体的配置选项，根据业务需要自己来添加。现在来大概概括一下2代和3代的区别。
+vue-cli脚手架的使用
+使用vue-cli可以快速搭建vue的开发环境，和webpack的配置
+安装vue脚手架： npm install -g@vue/c">
+<meta property="og:updated_time" content="2020-05-19T03:06:38.092Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="forEach和map的区别">
-<meta name="twitter:description" content="js里关于数组有许多内置方法, forEach()和map()是对数组每个元素进行处理的常用方式, 前阵子加了一个前端技术群, 群主的入群问题就是forEach和map的区别。于是研究了一波。
-forEach特点：
-1.可以改变数组本身（并不完全，下文会说），且没有返回值；
-2.不能常规操作跳出循环；
-3.无法进行链式操作;
-4.每一次执行匿名函数的时候，还给其传递了三个参数值：数组中的当前项it">
+<meta name="twitter:title" content="vue-cli2和vue-cli3的区别">
+<meta name="twitter:description" content="vue-cli升级到3了，整体看了下感觉是封装的更简洁了，而且支持typescript、pwd等新特性。不过从vue-cli2时代过来的我，还是习惯用2，可以看到整体的配置选项，根据业务需要自己来添加。现在来大概概括一下2代和3代的区别。
+vue-cli脚手架的使用
+使用vue-cli可以快速搭建vue的开发环境，和webpack的配置
+安装vue脚手架： npm install -g@vue/c">
 
 
 
@@ -133,13 +127,13 @@ forEach特点：
 
 
 
-  <link rel="canonical" href="http://snapline.github.io/2017/07/01/forEach_and_map/"/>
+  <link rel="canonical" href="http://snapline.github.io/2018/10/20/vue_cli/"/>
 
 
 
 
 
-  <title>forEach和map的区别 | You are my JavaScript Queen</title>
+  <title>vue-cli2和vue-cli3的区别 | You are my JavaScript Queen</title>
   
 
 
@@ -266,7 +260,7 @@ forEach特点：
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://snapline.github.io/2017/07/01/forEach_and_map/">
+    <link itemprop="mainEntityOfPage" href="http://snapline.github.io/2018/10/20/vue_cli/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Snapline">
@@ -283,7 +277,7 @@ forEach特点：
 
         
         
-          <h1 class="post-title" itemprop="name headline">forEach和map的区别</h1>
+          <h1 class="post-title" itemprop="name headline">vue-cli2和vue-cli3的区别</h1>
         
 
         <div class="post-meta">
@@ -295,8 +289,8 @@ forEach特点：
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-01T14:57:08+08:00">
-                2017-07-01
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-20T14:28:30+08:00">
+                2018-10-20
               </time>
             
 
@@ -333,22 +327,30 @@ forEach特点：
       
 
       
-        <p>js里关于数组有许多内置方法, forEach()和map()是对数组每个元素进行处理的常用方式, 前阵子加了一个前端技术群, 群主的入群问题就是forEach和map的区别。于是研究了一波。</p>
-<h2 id="forEach"><a href="#forEach" class="headerlink" title="forEach"></a>forEach</h2><h3 id="特点："><a href="#特点：" class="headerlink" title="特点："></a>特点：</h3><ul>
-<li>1.可以改变数组本身（并不完全，下文会说），且没有返回值；</li>
-<li>2.不能常规操作跳出循环；</li>
-<li>3.无法进行链式操作;</li>
-<li>4.每一次执行匿名函数的时候，还给其传递了三个参数值：数组中的当前项item,当前项的索引index,原始数组input</li>
+        <p>vue-cli升级到3了，整体看了下感觉是封装的更简洁了，而且支持typescript、pwd等新特性。<br>不过从vue-cli2时代过来的我，还是习惯用2，可以看到整体的配置选项，根据业务需要自己来添加。<br>现在来大概概括一下2代和3代的区别。</p>
+<h3 id="vue-cli脚手架的使用"><a href="#vue-cli脚手架的使用" class="headerlink" title="vue-cli脚手架的使用"></a>vue-cli脚手架的使用</h3><ul>
+<li>使用vue-cli可以快速搭建vue的开发环境，和webpack的配置</li>
+<li>安装vue脚手架： npm install -g@vue/cli</li>
+<li>上面安装的是vue cli3的版本，如果需要想按照vue cli2的方式初始化项目是不可以的，我们必须要拉取2.x的模板，需要安装全局的桥接工具(官方查看)</li>
+<li>Vue CLI2 初始化项目 <code>vue init webpack my-project</code></li>
+<li>Vue CLI3 初始化项目 <code>vue create my-project</code></li>
 </ul>
-<p>刚才说到forEach可以改变数组本身，但不完全，是因为只有元素是引用类型的情况下才可以改变，可以看下面的例子：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> personArr = [</div><div class="line">   &#123;<span class="attr">name</span>:<span class="string">'王工'</span>,<span class="attr">age</span>:<span class="number">26</span>&#125;,</div><div class="line">   &#123;<span class="attr">name</span>:<span class="string">'张工'</span>,<span class="attr">age</span>:<span class="number">27</span>&#125;,</div><div class="line">   &#123;<span class="attr">name</span>:<span class="string">'李工'</span>,<span class="attr">age</span>:<span class="number">30</span>&#125;</div><div class="line">];</div><div class="line">personArr.forEach(<span class="function"><span class="params">item</span> =&gt;</span> &#123; </div><div class="line">  item.age = item.age + <span class="number">1</span>&#125;</div><div class="line">);</div><div class="line"><span class="built_in">console</span>.log(personArr)   <span class="comment">//[&#123;name:'王工',age:27&#125;,&#123;name:'张工',age:28&#125;,&#123;name:'李工',age:31&#125;]</span></div><div class="line"></div><div class="line"><span class="keyword">var</span> salaryArr = [<span class="number">10000</span>, <span class="number">15000</span>, <span class="number">20000</span>];</div><div class="line">salaryArr.forEach(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</div><div class="line">  item = item + <span class="number">2000</span></div><div class="line">&#125;)</div><div class="line"><span class="built_in">console</span>.log(salaryArr) <span class="comment">//[10000, 15000, 20000]</span></div></pre></td></tr></table></figure>
-<p>上述代码表示，工作一年后，三位工程师的年龄都长了一岁， 但salaryArr并没有改变，也就是很遗憾，每个人涨薪2000的程序没有按照原有的预想进行变化：）原因就是forEach并不能改变值类型元素的数组。</p>
-<h2 id="map"><a href="#map" class="headerlink" title="map"></a>map</h2><h3 id="特点：-1"><a href="#特点：-1" class="headerlink" title="特点："></a>特点：</h3><ul>
-<li>1.会新建一个数组，需要承载对象，也就意味着原始数组调用它后不会发生变化</li>
-<li>2.每一个元素都调用一个回调函数后返回结果</li>
-<li>3.不管是forEach还是map，都支持2个参数：回调函数（item,index,list）和上下文。第二个参数的意思是把匿名回调函数中的this进行修改。</li>
+<h2 id="CLI2的使用"><a href="#CLI2的使用" class="headerlink" title="CLI2的使用"></a>CLI2的使用</h2> <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">初始化项目：web init webpack mytest（根据这个创建项目文件名），初始化出现配置选项：</div><div class="line"> //项目名称</div><div class="line"> Project name ...</div><div class="line"> //作者的信息，会默认从git中读取信息</div><div class="line"> Project description ...</div><div class="line"> Author ...</div><div class="line"> //vue创建的选项 1.runtime-compiler   2.runtime-only</div><div class="line"> vue build ...(一般选runtime-only)</div><div class="line"> //是否安装vue-router</div><div class="line"> Install vue-router？ ..</div><div class="line"> //是否使用ESLint检测代码规范</div><div class="line"> use ESLint to link your code</div><div class="line"> //是否写单元测试 （一般不使用）</div><div class="line"> Set up unit tests</div><div class="line"> //是否使用Nightwatch来进行e2e测试 （2代表to  e to e 点对点）</div><div class="line"> Setup e2e <span class="built_in">test</span> with Nightwatch？</div><div class="line"> //使用npm或者yarn包管理工具</div><div class="line"> use npm</div><div class="line"> use yarn</div></pre></td></tr></table></figure>
+<p><code>Runtime-Compiler</code>和<code>Runtime-only</code>的区别?</p>
+<ul>
+<li>runtime-compiler（v1）(运行过程)): template -&gt; ast -&gt; render -&gt; vdom -&gt; UI</li>
+<li>runtime-only(v2 1.性能更高， 2.代码量更少)：render -&gt; vdom -&gt; UI</li>
+<li>那.vue文件中的template是由谁处理的呢？ 是由vue-template-compiler这个开发时 工具依赖来处理的，他将.vue文件解析成了render函数，解析之后，是没有tamplate这个 东西的</li>
 </ul>
-<p>map的回调函数里必须有return，可以看一下下列代码<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> newArr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>].map(<span class="function"><span class="params">item</span> =&gt;</span> &#123; <span class="keyword">if</span>(item &gt; <span class="number">3</span>) <span class="keyword">return</span> item &#125;)</div><div class="line"><span class="comment">// =&gt; [undefined, undefined, undefined, 4, 5]</span></div></pre></td></tr></table></figure></p>
+<p><strong>总结</strong></p>
+<ul>
+<li>如果在开发中，依然使用template，就需要选择Runtime-Compiler</li>
+<li>如果在开发中，使用的是.vue文件夹开发，那么可以选择Runtime-Only</li>
+</ul>
+<p><strong>render函数的使用</strong><br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> Vue(&#123;</div><div class="line">  <span class="attr">el</span>:<span class="string">'#app'</span>,</div><div class="line">  <span class="attr">render</span>:<span class="function">(<span class="params">createElement</span>) =&gt;</span>&#123;</div><div class="line">    <span class="comment">//使用方式一：</span></div><div class="line">    <span class="keyword">return</span> createElement(<span class="string">'标签'</span>,<span class="string">'相关数据对象(可以不传)'</span>,[<span class="string">'内容数组'</span>])</div><div class="line">    <span class="comment">//1.1render函数的基本使用</span></div><div class="line">    <span class="keyword">return</span> createElement(<span class="string">'div'</span>,&#123;<span class="attr">class</span>:<span class="string">'box'</span>&#125;,[<span class="string">'xiaohuang'</span>])</div><div class="line">    <span class="comment">//1.2嵌套render函数</span></div><div class="line">    <span class="keyword">return</span> createElement(<span class="string">'div'</span>,&#123;<span class="attr">class</span>:<span class="string">'box'</span>&#125;,[<span class="string">'小黄'</span>,createElement(<span class="string">'h2'</span>,[<span class="string">'标题啊'</span>])])</div><div class="line">  &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="string">`Runtime-Compiler`</span>和<span class="string">`Runtime-only`</span>在main.js中的不同使用：</div><div class="line"></div><div class="line">  <span class="number">1.</span><span class="string">`Runtime-Compiler`</span>中</div><div class="line">  <span class="keyword">const</span> cpn =Vue.component(<span class="string">'cpn'</span>,&#123;</div><div class="line">    <span class="attr">template</span>:<span class="string">'&lt;div&gt;我是cpn组件 &lt;/div&gt;'</span>，</div><div class="line">    data()&#123;</div><div class="line">      <span class="keyword">return</span>&#123;</div><div class="line"></div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;)</div><div class="line"></div><div class="line">  <span class="number">2.</span><span class="string">`Runtime-only`</span>中</div><div class="line">  <span class="keyword">new</span> Vue(&#123;</div><div class="line">    <span class="attr">el</span>:<span class="string">'#app'</span></div><div class="line">    render:<span class="function">(<span class="params">createElement</span>)=&gt;</span>&#123;</div><div class="line">      <span class="comment">//使用方法二：传入一个组件对象</span></div><div class="line">      <span class="keyword">return</span> createElement(cpn)</div><div class="line">    &#125;</div><div class="line">  &#125;)</div></pre></td></tr></table></figure>
+<h2 id="cLI3的使用"><a href="#cLI3的使用" class="headerlink" title="cLI3的使用"></a>cLI3的使用</h2><p>1.初始化项目：<code>vue create my-project</code><br>2.<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">//选择一个配置方式</div><div class="line"> please pick a perset  (一般选最后一个Manually select features（手动选择特性） )</div><div class="line"> //选择对于你的工程所需要的特性 （用空格选择）</div><div class="line"> check the features needed <span class="keyword">for</span> your project</div><div class="line"> //对应的配置文件单独生成还是放在package.json里</div><div class="line"> <span class="built_in">where</span> <span class="keyword">do</span> you prefer placing config <span class="keyword">for</span> babel</div><div class="line"> //要不要把刚才自己选择的配置保存下来</div><div class="line"> save this as a preset <span class="keyword">for</span> future projects?</div></pre></td></tr></table></figure></p>
+<p>3.pubilc文件相当于CLI2中的static目录<br>4.配置都去哪里了，可以启动配置服务器 vue ui 查看（全局命令）</p>
 
       
     </div>
@@ -403,7 +405,7 @@ forEach特点：
       
         <div class="post-tags">
           
-            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+            <a href="/tags/Vue/" rel="tag"># Vue</a>
           
         </div>
       
@@ -416,8 +418,8 @@ forEach特点：
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/06/08/promise_analysis/" rel="next" title="一道关于Promise面试题的分析">
-                <i class="fa fa-chevron-left"></i> 一道关于Promise面试题的分析
+              <a href="/2018/09/10/session_and_cookie/" rel="next" title="session, cookie和token的一个总结">
+                <i class="fa fa-chevron-left"></i> session, cookie和token的一个总结
               </a>
             
           </div>
@@ -425,10 +427,6 @@ forEach特点：
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/08/09/write_call_and_apply/" rel="prev" title="手写代码实现call和apply功能">
-                手写代码实现call和apply功能 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -613,7 +611,7 @@ forEach特点：
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#forEach"><span class="nav-number">1.</span> <span class="nav-text">forEach</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#特点："><span class="nav-number">1.1.</span> <span class="nav-text">特点：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#map"><span class="nav-number">2.</span> <span class="nav-text">map</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#特点：-1"><span class="nav-number">2.1.</span> <span class="nav-text">特点：</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#vue-cli脚手架的使用"><span class="nav-number">1.</span> <span class="nav-text">vue-cli脚手架的使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CLI2的使用"><span class="nav-number"></span> <span class="nav-text">CLI2的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cLI3的使用"><span class="nav-number"></span> <span class="nav-text">cLI3的使用</span></a></div>
             
 
           </div>
