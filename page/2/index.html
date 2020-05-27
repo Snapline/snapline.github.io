@@ -251,6 +251,127 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://snapline.github.io/2017/11/30/scroll_top/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Snapline">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://images4.fanpop.com/image/photos/21000000/Bob-Dylan-bob-dylan-21091275-116-120.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="You are my JavaScript Queen">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/11/30/scroll_top/" itemprop="url">vue切换页面时保证滚动条在最顶部</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-30T17:23:54+08:00">
+                2017-11-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>最近的项目里，首页放了很多跳转的元素，点击以后跳转到相应的页面。<br>一个最典型的例子，点击下方的“关于我们”，会跳到介绍页面，但因为vue的spa单页面特性导致切换页面只是更换了对应的组件，滚动条的位置是不会发生改变的。<br>因此需要每次切换一个页面的时候，都让滚动条回到最顶部。<br>可以在app.vue文件下添加监听，监听$route的变化。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// App.vue</span></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</div><div class="line">  <span class="attr">name</span>: <span class="string">'App'</span>,</div><div class="line">  <span class="attr">components</span>: &#123;</div><div class="line">    MHeader,</div><div class="line">    MFooter</div><div class="line">  &#125;,</div><div class="line">  <span class="attr">watch</span>:&#123;</div><div class="line">    <span class="string">'$route'</span>:<span class="function"><span class="keyword">function</span>(<span class="params">to,from</span>)</span>&#123;</div><div class="line">　    <span class="built_in">document</span>.body.scrollTop = <span class="number">0</span></div><div class="line">      <span class="built_in">document</span>.documentElement.scrollTop = <span class="number">0</span></div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>本文没有技术含量，纯粹是工作过程中的一次优化体验的记录:)</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://snapline.github.io/2017/10/23/md5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -920,141 +1041,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://snapline.github.io/2017/07/01/forEach_and_map/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Snapline">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://images4.fanpop.com/image/photos/21000000/Bob-Dylan-bob-dylan-21091275-116-120.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="You are my JavaScript Queen">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/07/01/forEach_and_map/" itemprop="url">forEach和map的区别</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-01T14:57:08+08:00">
-                2017-07-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>js里关于数组有许多内置方法, forEach()和map()是对数组每个元素进行处理的常用方式, 前阵子加了一个前端技术群, 群主的入群问题就是forEach和map的区别。于是研究了一波。</p>
-<h2 id="forEach"><a href="#forEach" class="headerlink" title="forEach"></a>forEach</h2><h3 id="特点："><a href="#特点：" class="headerlink" title="特点："></a>特点：</h3><ul>
-<li>1.可以改变数组本身（并不完全，下文会说），且没有返回值；</li>
-<li>2.不能常规操作跳出循环；</li>
-<li>3.无法进行链式操作;</li>
-<li>4.每一次执行匿名函数的时候，还给其传递了三个参数值：数组中的当前项item,当前项的索引index,原始数组input</li>
-</ul>
-<p>刚才说到forEach可以改变数组本身，但不完全，是因为只有元素是引用类型的情况下才可以改变，可以看下面的例子：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> personArr = [</div><div class="line">   &#123;<span class="attr">name</span>:<span class="string">'王工'</span>,<span class="attr">age</span>:<span class="number">26</span>&#125;,</div><div class="line">   &#123;<span class="attr">name</span>:<span class="string">'张工'</span>,<span class="attr">age</span>:<span class="number">27</span>&#125;,</div><div class="line">   &#123;<span class="attr">name</span>:<span class="string">'李工'</span>,<span class="attr">age</span>:<span class="number">30</span>&#125;</div><div class="line">];</div><div class="line">personArr.forEach(<span class="function"><span class="params">item</span> =&gt;</span> &#123; </div><div class="line">  item.age = item.age + <span class="number">1</span>&#125;</div><div class="line">);</div><div class="line"><span class="built_in">console</span>.log(personArr)   <span class="comment">//[&#123;name:'王工',age:27&#125;,&#123;name:'张工',age:28&#125;,&#123;name:'李工',age:31&#125;]</span></div><div class="line"></div><div class="line"><span class="keyword">var</span> salaryArr = [<span class="number">10000</span>, <span class="number">15000</span>, <span class="number">20000</span>];</div><div class="line">salaryArr.forEach(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</div><div class="line">  item = item + <span class="number">2000</span></div><div class="line">&#125;)</div><div class="line"><span class="built_in">console</span>.log(salaryArr) <span class="comment">//[10000, 15000, 20000]</span></div></pre></td></tr></table></figure>
-<p>上述代码表示，工作一年后，三位工程师的年龄都长了一岁， 但salaryArr并没有改变，也就是很遗憾，每个人涨薪2000的程序没有按照原有的预想进行变化：）原因就是forEach并不能改变值类型元素的数组。</p>
-<h2 id="map"><a href="#map" class="headerlink" title="map"></a>map</h2><h3 id="特点：-1"><a href="#特点：-1" class="headerlink" title="特点："></a>特点：</h3><ul>
-<li>1.会新建一个数组，需要承载对象，也就意味着原始数组调用它后不会发生变化</li>
-<li>2.每一个元素都调用一个回调函数后返回结果</li>
-<li>3.不管是forEach还是map，都支持2个参数：回调函数（item,index,list）和上下文。第二个参数的意思是把匿名回调函数中的this进行修改。</li>
-</ul>
-<p>map的回调函数里必须有return，可以看一下下列代码<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> newArr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>].map(<span class="function"><span class="params">item</span> =&gt;</span> &#123; <span class="keyword">if</span>(item &gt; <span class="number">3</span>) <span class="keyword">return</span> item &#125;)</div><div class="line"><span class="comment">// =&gt; [undefined, undefined, undefined, 4, 5]</span></div></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1109,7 +1095,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
