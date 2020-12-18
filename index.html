@@ -251,6 +251,151 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://snapline.github.io/2019/01/12/linkelist_js/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Snapline">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://images4.fanpop.com/image/photos/21000000/Bob-Dylan-bob-dylan-21091275-116-120.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="You are my JavaScript Queen">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/12/linkelist_js/" itemprop="url">用JS实现一个单链表和常用操作方法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-12T17:14:24+08:00">
+                2019-01-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h2><p>用一组任意存储的单元来存储线性表的数据元素。一个对象存储着本身的值和下一个元素的地址。</p>
+<ul>
+<li>需要遍历才能查询到元素，查询慢。</li>
+<li>插入元素只需断开连接重新赋值，插入快。</li>
+</ul>
+<h2 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h2><p>链表的元素都是节点，首先要构建一个节点Node类，每个节点都是Node的实例。<br>Node类有两个属性，一个是节点的值，一个是对下一个节点的指向（next）。<br>链表需要一个头节点。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span></span>&#123;</div><div class="line">    <span class="keyword">constructor</span>(element)&#123;</div><div class="line">        <span class="keyword">this</span>.element = element;</div><div class="line">        <span class="keyword">this</span>.next = <span class="literal">null</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">LinkList</span></span>&#123;</div><div class="line">    <span class="comment">//构造出head节点</span></div><div class="line">    <span class="keyword">constructor</span>()&#123;</div><div class="line">        <span class="keyword">this</span>.head = <span class="keyword">new</span> Node(<span class="string">'head'</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="添加方法"><a href="#添加方法" class="headerlink" title="添加方法"></a>添加方法</h2><ol>
+<li><p>尾部添加节点<br>添加节点非常简单，从头节点开始，用next属性做遍历，当某个节点的next属性为null，则说明到达尾部，将尾部节点的next指向要添加的节点。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//添加节点</span></div><div class="line">append(newVal)&#123;</div><div class="line">    <span class="keyword">let</span> newNode = <span class="keyword">new</span> Node(newVal);</div><div class="line">    <span class="comment">//从头结点开始走</span></div><div class="line">    <span class="keyword">let</span> currentNode = <span class="keyword">this</span>.head;</div><div class="line">    <span class="comment">//结点next不为null，可往后走</span></div><div class="line">    <span class="keyword">while</span>(currentNode.next!=<span class="literal">null</span>)&#123;</div><div class="line">        currentNode = currentNode.next</div><div class="line">    &#125;</div><div class="line">    currentNode.next = newNode;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>根据节点值查找节点<br>链表和数组不同，并没有indexOf方法，只能逐个遍历判断。<br>由于头节点没有值，将从头节点后的第一个节点开始进行。<br>循环条件：节点不为空且节点值和目标值不等，则循环下一个节点。<br>循环完毕没找到节点，返回-1</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//根据节点值查找节点</span></div><div class="line">findByValue(item)&#123;</div><div class="line">    <span class="keyword">let</span> currentNode = <span class="keyword">this</span>.head.next;</div><div class="line">    <span class="keyword">while</span>(currentNode != <span class="literal">null</span> &amp;&amp; currentNode.element != item)&#123;</div><div class="line">        currentNode = currentNode.next;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> currentNode===<span class="literal">null</span>? <span class="number">-1</span> : currentNode</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>根据索引值获取节点<br>链表和数组不同，内存地址不连续，无法直接通过索引下标（链表根本不存在下标的概念）查找。<br>头节点之后的节点是索引0号节点，用pos变量来记录节点的索引，来和传入的index值作比较。<br>循环条件：节点不为空且pos和索引值不等，则循环下一个节点。<br>循环完毕没找到节点（index超出节点数），返回-1</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//根据index索引查找节点，下标从0开始</span></div><div class="line">findByIndex(index)&#123;</div><div class="line">    <span class="comment">//头节点之后的节点是索引0号节点</span></div><div class="line">    <span class="keyword">let</span> currentNode = <span class="keyword">this</span>.head.next;</div><div class="line">    <span class="keyword">let</span> pos = <span class="number">0</span>;</div><div class="line">    <span class="keyword">while</span>(currentNode != <span class="literal">null</span> &amp;&amp; pos != index)&#123;</div><div class="line">        currentNode = currentNode.next;</div><div class="line">        pos++</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> currentNode===<span class="literal">null</span> ? <span class="number">-1</span>: currentNode</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>指定元素向后插入<br>通过findByValue方法找到要插入的节点位置，在其后方插入新元素。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//指定元素向后插入</span></div><div class="line">insert(newElement, element)&#123;</div><div class="line">    <span class="keyword">let</span> currentNode = <span class="keyword">this</span>.findByValue(element);</div><div class="line">    <span class="keyword">if</span>(currentNode === <span class="number">-1</span>)&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="string">'未找到插入位置'</span>)</div><div class="line">        <span class="keyword">return</span></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">let</span> newNode = <span class="keyword">new</span> Node(newElement)</div><div class="line">    newNode.next = currentNode.next;</div><div class="line">    currentNode.next = newNode;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>删除元素<br>删除链表元素的方法很简单，找到要删除的元素，把它上一个节点的next指向它后一个节点即可。<br>那么我们需要<strong>先写一个方法来找目标节点的前一个节点</strong>。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//查找前一个节点</span></div><div class="line">findPrev(item)&#123;</div><div class="line">    <span class="keyword">let</span> currentNode = <span class="keyword">this</span>.head;</div><div class="line">    <span class="keyword">while</span>(currentNode.next != <span class="literal">null</span> &amp;&amp; currentNode.next.element!=item)&#123;</div><div class="line">        currentNode = currentNode.next</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span>(currentNode.next === <span class="literal">null</span>)&#123;</div><div class="line">        <span class="keyword">return</span> <span class="number">-1</span></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> currentNode</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>之后只要让把prevNode.next指向prevNode.next.next就完成了删除。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">remove(item)&#123;</div><div class="line">    <span class="keyword">let</span> prevNode = <span class="keyword">this</span>.findPrev(item)</div><div class="line">    <span class="keyword">if</span>(prevNode===<span class="number">-1</span>)&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="string">'未找到元素'</span>)</div><div class="line">        <span class="keyword">return</span></div><div class="line">    &#125;</div><div class="line">    prevNode.next = prevNode.next.next</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h2><p>为了方便测试，需要写一个打印链表元素的方法。非常简单，从头节点后的节点开始遍历，将节点的element打印出来。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//展示链表</span></div><div class="line">display()&#123;</div><div class="line">    <span class="keyword">let</span> currentNode = <span class="keyword">this</span>.head.next;</div><div class="line">    <span class="keyword">let</span> linkedListElementChain = [];</div><div class="line">    <span class="keyword">while</span>(currentNode!=<span class="literal">null</span>)&#123;</div><div class="line">        linkedListElementChain.push(currentNode.element)</div><div class="line">        currentNode = currentNode.next;</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">console</span>.log(linkedListElementChain.join(<span class="string">'  -&gt;  '</span>))</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>完整示例<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span></span>&#123;</div><div class="line">    <span class="keyword">constructor</span>(element)&#123;</div><div class="line">        <span class="keyword">this</span>.element = element;</div><div class="line">        <span class="keyword">this</span>.next = <span class="literal">null</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">LinkList</span></span>&#123;</div><div class="line">    <span class="comment">//构造出head节点</span></div><div class="line">    <span class="keyword">constructor</span>()&#123;</div><div class="line">        <span class="keyword">this</span>.head = <span class="keyword">new</span> Node(<span class="string">'head'</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">//添加节点</span></div><div class="line">    append(newVal)&#123;</div><div class="line">        <span class="keyword">let</span> newNode = <span class="keyword">new</span> Node(newVal);</div><div class="line">        <span class="comment">//从头结点开始走</span></div><div class="line">        <span class="keyword">let</span> currentNode = <span class="keyword">this</span>.head;</div><div class="line">        <span class="comment">//结点next不为null，可往后走</span></div><div class="line">        <span class="keyword">while</span>(currentNode.next!=<span class="literal">null</span>)&#123;</div><div class="line">            currentNode = currentNode.next</div><div class="line">        &#125;</div><div class="line">        currentNode.next = newNode;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">//根据value查找节点</span></div><div class="line">    findByValue(item)&#123;</div><div class="line">        <span class="keyword">let</span> currentNode = <span class="keyword">this</span>.head.next;</div><div class="line">        <span class="keyword">while</span>(currentNode != <span class="literal">null</span> &amp;&amp; currentNode.element != item)&#123;</div><div class="line">            currentNode = currentNode.next;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> currentNode===<span class="literal">null</span>? <span class="number">-1</span> : currentNode</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">//根据index索引查找节点，下标从0开始</span></div><div class="line">    findByIndex(index)&#123;</div><div class="line">        <span class="comment">//头节点之后的节点是索引0号节点</span></div><div class="line">        <span class="keyword">let</span> currentNode = <span class="keyword">this</span>.head.next;</div><div class="line">        <span class="keyword">let</span> pos = <span class="number">0</span>;</div><div class="line">        <span class="keyword">while</span>(currentNode != <span class="literal">null</span> &amp;&amp; pos != index)&#123;</div><div class="line">            currentNode = currentNode.next;</div><div class="line">            pos++</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> currentNode===<span class="literal">null</span> ? <span class="number">-1</span>: currentNode</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">//指定元素向后插入</span></div><div class="line">    insert(newElement, element)&#123;</div><div class="line">        <span class="keyword">let</span> currentNode = <span class="keyword">this</span>.findByValue(element);</div><div class="line">        <span class="keyword">if</span>(currentNode === <span class="number">-1</span>)&#123;</div><div class="line">            <span class="built_in">console</span>.log(<span class="string">'未找到插入位置'</span>)</div><div class="line">            <span class="keyword">return</span></div><div class="line">        &#125;</div><div class="line">        <span class="keyword">let</span> newNode = <span class="keyword">new</span> Node(newElement)</div><div class="line">        newNode.next = currentNode.next;</div><div class="line">        currentNode.next = newNode;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">//查找前一个</span></div><div class="line">    findPrev(item)&#123;</div><div class="line">        <span class="keyword">let</span> currentNode = <span class="keyword">this</span>.head;</div><div class="line">        <span class="keyword">while</span>(currentNode.next != <span class="literal">null</span> &amp;&amp; currentNode.next.element!=item)&#123;</div><div class="line">            currentNode = currentNode.next</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(currentNode.next === <span class="literal">null</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">-1</span></div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> currentNode</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">//根据值做删除</span></div><div class="line">    remove(item)&#123;</div><div class="line">        <span class="keyword">let</span> prevNode = <span class="keyword">this</span>.findPrev(item)</div><div class="line">        <span class="keyword">if</span>(prevNode===<span class="number">-1</span>)&#123;</div><div class="line">            <span class="built_in">console</span>.log(<span class="string">'未找到元素'</span>)</div><div class="line">            <span class="keyword">return</span></div><div class="line">        &#125;</div><div class="line">        prevNode.next = prevNode.next.next</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">//展示链表</span></div><div class="line">    display()&#123;</div><div class="line">        <span class="keyword">let</span> currentNode = <span class="keyword">this</span>.head.next;</div><div class="line">        <span class="keyword">let</span> linkedListElementChain = [];</div><div class="line">        <span class="keyword">while</span>(currentNode!=<span class="literal">null</span>)&#123;</div><div class="line">            linkedListElementChain.push(currentNode.element)</div><div class="line">            currentNode = currentNode.next;</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">console</span>.log(linkedListElementChain.join(<span class="string">'  -&gt;  '</span>))</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">const</span> LList = <span class="keyword">new</span> LinkList();</div><div class="line">LList.append(<span class="string">'1'</span>);</div><div class="line">LList.append(<span class="string">'2'</span>);</div><div class="line">LList.append(<span class="string">'3'</span>);</div><div class="line">LList.display();  <span class="comment">// 1 -&gt; 2 -&gt; 3</span></div><div class="line">LList.insert(<span class="string">'0'</span>, <span class="string">'1'</span>) </div><div class="line">LList.remove(<span class="string">'3'</span>)</div><div class="line">LList.display(); <span class="comment">// 1 -&gt; 0 -&gt; 2</span></div></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://snapline.github.io/2018/11/16/python_mod/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1004,143 +1149,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://snapline.github.io/2017/12/26/vue源码/1. ready_intro/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Snapline">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://images4.fanpop.com/image/photos/21000000/Bob-Dylan-bob-dylan-21091275-116-120.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="You are my JavaScript Queen">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/12/26/vue源码/1. ready_intro/" itemprop="url">vue源码学习的前期准备工作</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-26T15:23:54+08:00">
-                2017-12-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="类型检查工具Flow"><a href="#类型检查工具Flow" class="headerlink" title="类型检查工具Flow"></a>类型检查工具Flow</h2><p>Flow是Facebook出品的静态类型检查工具。</p>
-<h3 id="Flow的工作方式"><a href="#Flow的工作方式" class="headerlink" title="Flow的工作方式"></a>Flow的工作方式</h3><p>通常类型检查分成 2 种方式：</p>
-<ul>
-<li><p><strong>类型推断</strong>：通过变量的使用上下文来推断出变量类型，然后根据这些推断来检查类型。</p>
-</li>
-<li><p><strong>类型注释</strong>：事先注释好我们期待的类型，Flow 会基于这些注释来判断。</p>
-</li>
-</ul>
-<h3 id="在vue源码里找Flow"><a href="#在vue源码里找Flow" class="headerlink" title="在vue源码里找Flow"></a>在vue源码里找Flow</h3><p>在Vue的主目录下，有一个 <code>.flowconfig</code> 文件，这是Flow的配置文件，其中<code>[libs]</code>按照官方文档是来描述指定库定义的目录，可以看出配置的是<code>flow</code>。<br>接着我们可以找到flow文件夹，可以看到文件如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">flow</div><div class="line">├── compiler.js        # 编译相关</div><div class="line">├── component.js       # 组件数据结构</div><div class="line">├── global-api.js      # Global API 结构</div><div class="line">├── modules.js         # 第三方库定义</div><div class="line">├── options.js         # 选项相关</div><div class="line">├── ssr.js             # 服务端渲染相关</div><div class="line">├── vnode.js           # 虚拟 node 相关</div></pre></td></tr></table></figure></p>
-<p><strong>在阅读源码的过程中，如果对于某个自定义类型的数据结构有疑问，可以翻阅对应的文件部分进行查阅</strong></p>
-<p>同时，在查阅Flow的资料时，发现很多同行认为TypeScript比Flow更先进，对于TypeScript可以在以后进行深入学习。</p>
-<h2 id="vue源码目录结构"><a href="#vue源码目录结构" class="headerlink" title="vue源码目录结构"></a>vue源码目录结构</h2><p>vue的源码都在src的目录下，结构如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">src</div><div class="line">├── compiler        # 编译相关 </div><div class="line">├── core            # 核心代码 </div><div class="line">├── platforms       # 不同平台的支持</div><div class="line">├── server          # 服务端渲染</div><div class="line">├── sfc             # .vue 文件解析</div><div class="line">├── shared          # 共享代码</div></pre></td></tr></table></figure></p>
-<h4 id="compiler"><a href="#compiler" class="headerlink" title="compiler"></a>compiler</h4><p>编译相关。具有把模板解析成ast语法树，对ast语法树的优化，代码生成等功能。</p>
-<h4 id="cores"><a href="#cores" class="headerlink" title="cores"></a>cores</h4><p>vue的核心代码就在这里，包括我们熟知的全局API、Vue实例化、虚拟DOM、工具函数等等。<br>这里是vue的灵魂。s</p>
-<h4 id="platform"><a href="#platform" class="headerlink" title="platform"></a>platform</h4><p>我们已经知道阿里开发了weex，用来实现vue跑在原生客户端上。<br>platform 是 Vue.js 的入口，2 个目录代表 2 个主要入口，分别打包成运行在 web 上和 weex 上的 Vue.js。</p>
-<h4 id="server"><a href="#server" class="headerlink" title="server"></a>server</h4><p>从vue2.0开始支持了服务端渲染，主要的工作是把组件渲染为服务器端的 HTML 字符串，将它们直接发送到浏览器，最后将静态标记”混合”为客户端上完全交互的应用程序。</p>
-<h4 id="sfc"><a href="#sfc" class="headerlink" title="sfc"></a>sfc</h4><p>这个目录下的代码逻辑会把 .vue 文件内容解析成一个 JavaScript 的对象。</p>
-<h4 id="shared"><a href="#shared" class="headerlink" title="shared"></a>shared</h4><p>Vue.js 会定义一些工具方法，这里定义的工具方法都是会被浏览器端的 Vue.js 和服务端的 Vue.js 所共享的。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1195,7 +1203,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1208,7 +1216,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

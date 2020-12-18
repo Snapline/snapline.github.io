@@ -251,6 +251,148 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://snapline.github.io/2016/12/05/what_is_vuex/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Snapline">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://images4.fanpop.com/image/photos/21000000/Bob-Dylan-bob-dylan-21091275-116-120.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="You are my JavaScript Queen">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/12/05/what_is_vuex/" itemprop="url">Vuex初体验</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-12-05T10:25:13+08:00">
+                2016-12-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>最近写了一个小项目，涉及到众多vue组件里的数据传输。一直听闻大家说起vuex就是一个状态管理器，可以让组件之间的通信更加的简约和可维护，于是就看了一下vuex方面的东西。</p>
+<p>目前只是理解了vuex的一些思路，但是在实践方面还有所欠缺。先把一些简单的demo做一下记录。</p>
+<p>做一个只用vueJS的组件通信demo和一个利用了vuex做通信的demo进行对比。</p>
+<h3 id="仅仅使用vue"><a href="#仅仅使用vue" class="headerlink" title="仅仅使用vue"></a>仅仅使用vue</h3><p>以下是一个简单的小程序，点击按钮加减号，数字就会跟随者进行加减变动。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://unpkg.com/vue/dist/vue.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123;count&#125;&#125;</div><div class="line">    <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">"inc"</span>&gt;</span>+<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">"dec"</span>&gt;</span>-<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line"><span class="keyword">new</span> Vue(&#123;</div><div class="line">  <span class="attr">el</span>:<span class="string">'#app'</span>,</div><div class="line">  data () &#123;</div><div class="line">    <span class="keyword">return</span> &#123;</div><div class="line">      <span class="attr">count</span>: <span class="number">0</span></div><div class="line">    &#125;</div><div class="line">  &#125;,</div><div class="line">  <span class="attr">methods</span>: &#123;</div><div class="line">    inc () &#123;</div><div class="line">      <span class="keyword">this</span>.count++</div><div class="line">    &#125;,</div><div class="line">    dec () &#123;</div><div class="line">      <span class="keyword">this</span>.count--</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;)</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>整个代码结构非常清晰，代码是代码，数据是数据，这也是我一直以来非常喜欢vue.js的重要原因。代码就是放在methods数组内的两个函数inc、dec，被指令@click关联到button上。而data内返回一个属性count，此属性通过绑定到标签p内。</p>
+<h3 id="使用vuex"><a href="#使用vuex" class="headerlink" title="使用vuex"></a>使用vuex</h3><p>同样的一个demo，如果用vuex的思想，是这样写的：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://unpkg.com/vue/dist/vue.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://unpkg.com/vuex@next"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123;count&#125;&#125;</div><div class="line">    <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">"inc"</span>&gt;</span>+<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">"dec"</span>&gt;</span>-<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line"></div><div class="line"><span class="keyword">const</span> store = <span class="keyword">new</span> Vuex.Store(&#123;</div><div class="line">  <span class="attr">state</span>: &#123;</div><div class="line">    <span class="attr">count</span>: <span class="number">0</span></div><div class="line">  &#125;,</div><div class="line">  <span class="attr">mutations</span>: &#123;</div><div class="line">      <span class="attr">inc</span>: <span class="function"><span class="params">state</span> =&gt;</span> state.count++,</div><div class="line">    <span class="attr">dec</span>: <span class="function"><span class="params">state</span> =&gt;</span> state.count--</div><div class="line">  &#125;</div><div class="line">&#125;)</div><div class="line"></div><div class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> Vue(&#123;</div><div class="line">  <span class="attr">el</span>: <span class="string">'#app'</span>,</div><div class="line">  <span class="attr">computed</span>: &#123;</div><div class="line">    count () &#123;</div><div class="line">        <span class="keyword">return</span> store.state.count</div><div class="line">    &#125;</div><div class="line">  &#125;,</div><div class="line">  <span class="attr">methods</span>: &#123;</div><div class="line">    inc () &#123;</div><div class="line">      store.commit(<span class="string">'inc'</span>)</div><div class="line">    &#125;,</div><div class="line">    dec () &#123;</div><div class="line">        store.commit(<span class="string">'dec'</span>)</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;)</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>变化如下：</p>
+<pre><code>1. 新的代码添加了对vuex的依赖。
+2. methods数组还是这两个方法，这和demo1是一样的；但是方法内的计算逻辑，不再是在函数内进行，而是提交给store对象。这是一个新的对象！
+3. count数据也不再是一个data函数返回的对象的属性；而是通过计算字段来返回，并且在计算字段内的代码也不是自己算的，而是转发给store对象。再一次store对象。
+</code></pre><p>换言之，之前在vue实例内做的操作和数据的计算现在都不再自己做了，而是交由对象store来做了。</p>
+<p>store对象是Vuex.Store的实例。在store内有分为state对象和mutations对象，其中的state放置状态,mutations则是一个会引发状态改变的所有方法。正如我们看到的，目前的state对象，其中的状态就只有一个count。而mutations有两个成员，它们参数为state，在函数体内对state内的count成员做加1和减1的操作。</p>
+<p>功能还是那些功能，现在引入了一个store对象，把数据更新的功能给揽过去，不再需要vue实例自己计算了，代价则是引入了新的概念和层次。</p>
+<p>vuex解决了组件之间共享同一状态的麻烦问题。当我们的应用遇到多个组件共享状态时，会需要：</p>
+<pre><code>1. 多个组件依赖于同一状态。传参的方法对于多层嵌套的组件将会非常繁琐，并且对于兄弟组件间的状态传递无能为力。这需要你去学习下，vue编码中多个组件之间的通讯的做法。
+
+2. 来自不同组件的行为需要变更同一状态。我们经常会采用父子组件直接引用或者通过事件来变更和同步状态的多份拷贝。
+</code></pre><p>以上的这些模式非常脆弱，通常会导致无法维护的代码。官网说：Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式。它采用集中式存储管理应用的所有组件的状态。这里的关键在于集中式存储管理。这意味着本来需要共享状态的更新是需要组件之间通讯的，而现在有了vuex，组件就都和store通讯了。问题就自然解决了。</p>
+<p>这就是为什么官网再次会提到Vuex构建大型应用的价值。如果不打算开发大型单页应用，使用 Vuex就会感到很繁琐。项目本身并不复杂，则使用一个store bus来进行运输就可以了。</p>
+<p>最后，我在项目里还是弃用了vuex，因为真的本身的传输并没有那么多的层次和路线，只是一次子组件向父组件传输所有数据，然后父组件再分发给其他子组件的过程。</p>
+<p>然后，这次学习vuex的过程却是值得的。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://snapline.github.io/2016/11/09/unit_test_in_vue_webpack/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -768,7 +910,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -781,7 +923,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
