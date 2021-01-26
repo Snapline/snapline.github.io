@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="notOnlyFE," />
+  <meta name="keywords" content="typeScript," />
 
 
 
@@ -79,22 +79,19 @@
 
 
 
-<meta name="description" content="昨天完成了迁移，迁移时也换了新的gitlab账户，并绑定了新的ssh。更新博文后发现hexo d命令总是错误，原因是github的permission处于denied的状态，猜测一定是ssh的问题。
-由于按照网上给出的ssh生成命令进行，一路回车，等于对id_rsa文件的命名采取了默认状态，导致github在获取rsa的时候引起了错乱。
-那么优雅的使用github和gitlab的方法就是命名两个不">
+<meta name="description" content="接口的意义在java这种面向对象的编程语言里，接口（Interface）是非常重要的概念，是对行为的抽象，由类（class）去实现（implement）。在TS里，接口还可以用来规范对象的描述。
+例1123456789interface Person &amp;#123;    name: string;    age: number;&amp;#125;let john: Person = &amp;#123;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="便捷地同时使用github和gitlab的方法">
-<meta property="og:url" content="http://snapline.github.io/2017/09/16/github_and_gtlab/index.html">
+<meta property="og:title" content="TypeScript里对象的类型——接口">
+<meta property="og:url" content="http://snapline.github.io/2019/08/28/typescript/interface/index.html">
 <meta property="og:site_name" content="You are my JavaScript Queen">
-<meta property="og:description" content="昨天完成了迁移，迁移时也换了新的gitlab账户，并绑定了新的ssh。更新博文后发现hexo d命令总是错误，原因是github的permission处于denied的状态，猜测一定是ssh的问题。
-由于按照网上给出的ssh生成命令进行，一路回车，等于对id_rsa文件的命名采取了默认状态，导致github在获取rsa的时候引起了错乱。
-那么优雅的使用github和gitlab的方法就是命名两个不">
-<meta property="og:updated_time" content="2019-04-17T05:41:29.760Z">
+<meta property="og:description" content="接口的意义在java这种面向对象的编程语言里，接口（Interface）是非常重要的概念，是对行为的抽象，由类（class）去实现（implement）。在TS里，接口还可以用来规范对象的描述。
+例1123456789interface Person &amp;#123;    name: string;    age: number;&amp;#125;let john: Person = &amp;#123;">
+<meta property="og:updated_time" content="2021-01-26T03:08:49.444Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="便捷地同时使用github和gitlab的方法">
-<meta name="twitter:description" content="昨天完成了迁移，迁移时也换了新的gitlab账户，并绑定了新的ssh。更新博文后发现hexo d命令总是错误，原因是github的permission处于denied的状态，猜测一定是ssh的问题。
-由于按照网上给出的ssh生成命令进行，一路回车，等于对id_rsa文件的命名采取了默认状态，导致github在获取rsa的时候引起了错乱。
-那么优雅的使用github和gitlab的方法就是命名两个不">
+<meta name="twitter:title" content="TypeScript里对象的类型——接口">
+<meta name="twitter:description" content="接口的意义在java这种面向对象的编程语言里，接口（Interface）是非常重要的概念，是对行为的抽象，由类（class）去实现（implement）。在TS里，接口还可以用来规范对象的描述。
+例1123456789interface Person &amp;#123;    name: string;    age: number;&amp;#125;let john: Person = &amp;#123;">
 
 
 
@@ -124,13 +121,13 @@
 
 
 
-  <link rel="canonical" href="http://snapline.github.io/2017/09/16/github_and_gtlab/"/>
+  <link rel="canonical" href="http://snapline.github.io/2019/08/28/typescript/interface/"/>
 
 
 
 
 
-  <title>便捷地同时使用github和gitlab的方法 | You are my JavaScript Queen</title>
+  <title>TypeScript里对象的类型——接口 | You are my JavaScript Queen</title>
   
 
 
@@ -257,7 +254,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://snapline.github.io/2017/09/16/github_and_gtlab/">
+    <link itemprop="mainEntityOfPage" href="http://snapline.github.io/2019/08/28/typescript/interface/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Snapline">
@@ -274,7 +271,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">便捷地同时使用github和gitlab的方法</h1>
+          <h1 class="post-title" itemprop="name headline">TypeScript里对象的类型——接口</h1>
         
 
         <div class="post-meta">
@@ -286,8 +283,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-16T13:50:54+08:00">
-                2017-09-16
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-28T10:54:24+08:00">
+                2019-08-28
               </time>
             
 
@@ -324,21 +321,14 @@
       
 
       
-        <p>昨天完成了迁移，迁移时也换了新的gitlab账户，并绑定了新的ssh。更新博文后发现hexo d命令总是错误，原因是github的permission处于denied的状态，猜测一定是ssh的问题。</p>
-<p>由于按照网上给出的ssh生成命令进行，一路回车，等于对id_rsa文件的命名采取了默认状态，导致github在获取rsa的时候引起了错乱。</p>
-<p>那么优雅的使用github和gitlab的方法就是命名两个不同的rsa文件分别进行绑定，然后用config文件来做配置区分。</p>
-<h1 id="步骤一：-生成密钥"><a href="#步骤一：-生成密钥" class="headerlink" title="步骤一： 生成密钥"></a>步骤一： 生成密钥</h1><p>首先要在~/ssh/目录下操作，直接把文件生成在本文件夹下。</p>
-<h2 id="gitlab密钥"><a href="#gitlab密钥" class="headerlink" title="gitlab密钥"></a>gitlab密钥</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">ssh-keygen -t rsa -C &quot;gitlab 用户邮箱地址&quot; ←┘</div><div class="line">Generating public/private rsa key pair.</div><div class="line">Enter file in which to save the key (/Users/user/.ssh/id_rsa): ←┘</div><div class="line">Enter passphrase (empty for no passphrase): ←┘</div><div class="line">Enter same passphrase again: ←┘</div></pre></td></tr></table></figure>
-<p>这时候生成的是一对名为id_rsa和id_rsa.pub的公私密钥文件。</p>
-<h2 id="github密钥"><a href="#github密钥" class="headerlink" title="github密钥"></a>github密钥</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">ssh-keygen -t rsa -C &quot;github 用户邮箱地址&quot; ←┘</div><div class="line">Generating public/private rsa key pair.</div><div class="line">Enter file in which to save the key (/Users/user/.ssh/id_rsa): id_rsa_github ←┘</div><div class="line">Enter passphrase (empty for no passphrase): ←┘</div><div class="line">Enter same passphrase again: ←┘</div></pre></td></tr></table></figure>
-<p>这时候生成的是一对名为id_rsa_github和id_rsa_github.pub的公私密钥文件。</p>
-<h2 id="ssh-目录下生成以下文件"><a href="#ssh-目录下生成以下文件" class="headerlink" title="~/.ssh/ 目录下生成以下文件:"></a>~/.ssh/ 目录下生成以下文件:</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">- id_rsa</div><div class="line">- id_rsa.pub </div><div class="line">- id_rsa_github</div><div class="line">- id_rsa_github.pub</div></pre></td></tr></table></figure>
-<p>分别将 id_rsa.pub 和 id_rsa_github.pub 内容复制到 gitlab 或 github 的 ssh key 中。</p>
-<h1 id="新建config文件"><a href="#新建config文件" class="headerlink" title="新建config文件"></a>新建config文件</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Host github.com</div><div class="line">    HostName github.com</div><div class="line">    IdentityFile ~/.ssh/id_rsa_github</div><div class="line"></div><div class="line">Host gitlab.com</div><div class="line">    HostName gitlab.shoukala.com</div><div class="line">    IdentityFile ~/.ssh/id_rsa</div></pre></td></tr></table></figure>
-<p>注意这里Host后面一定要写上 .com，不然hexo d的命令还是会失败。</p>
-<h1 id="测试连接"><a href="#测试连接" class="headerlink" title="测试连接"></a>测试连接</h1><p>使用ssh -T git@gitlab.com测试gitlab的连接，使用ssh -T git@github.com测试github的链接。</p>
-<p>会在 ~/.ssh/ 目录下自动生成 known_hosts 文件。</p>
-<p>此时，我们就能分别维护gitlab和github的项目了。</p>
+        <h2 id="接口的意义"><a href="#接口的意义" class="headerlink" title="接口的意义"></a>接口的意义</h2><p>在java这种面向对象的编程语言里，接口（Interface）是非常重要的概念，是对行为的抽象，由类（class）去实现（implement）。<br>在TS里，接口还可以用来规范对象的描述。</p>
+<h2 id="例1"><a href="#例1" class="headerlink" title="例1"></a>例1</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">interface Person &#123;</div><div class="line">    <span class="attr">name</span>: string;</div><div class="line">    age: number;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> john: Person = &#123;</div><div class="line">    <span class="attr">name</span>: <span class="string">'John'</span>,</div><div class="line">    <span class="attr">age</span>: <span class="number">29</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p><strong>john的属性必须有name和age（且value类型也一致），不可多不可少不可增不可改。</strong></p>
+<h2 id="例2"><a href="#例2" class="headerlink" title="例2"></a>例2</h2><p>如果对象的某些属性处于可用可不用的状态，那就需要设定可选属性，在属性后加一个问号即可。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">interface Person &#123;</div><div class="line">    <span class="attr">name</span>: string;</div><div class="line">    age?: number;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> john: Person = &#123;</div><div class="line">    <span class="attr">name</span>: <span class="string">'John'</span>,</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>这样，john的age属性就可以不设定。<br>但是仍然<strong>不允许添加新的属性</strong>！</p>
+<h2 id="例3"><a href="#例3" class="headerlink" title="例3"></a>例3</h2><p>如果对象的属性还不能够确定，有可能添加新的属性，则可以使用<strong>任意属性</strong>。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">interface Person &#123;</div><div class="line">    <span class="attr">name</span>: string;</div><div class="line">    age?: number;</div><div class="line">    [propName: string]: any;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> tom: Person = &#123;</div><div class="line">    <span class="attr">name</span>: <span class="string">'Tom'</span>,</div><div class="line">    <span class="attr">gender</span>: <span class="string">'male'</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p><strong>任意属性的数值类型最好命为any，因为一旦定义了任意属性，那么确定属性和可选属性的类型都必须是它的类型的子集</strong></p>
+<h2 id="例4"><a href="#例4" class="headerlink" title="例4"></a>例4</h2><p>如果对象的某个属性需要确定，避免更改，则可使用<strong>只读</strong>属性。<br>只读的约束存在于第一次给对象赋值的时候，而不是第一次给只读属性赋值的时候。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">interface Person &#123;</div><div class="line">    readonly id: number;</div><div class="line">    name: string;</div><div class="line">    age?: number;</div><div class="line">    [propName: string]: any;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> tom: Person = &#123;</div><div class="line">    <span class="attr">id</span>: <span class="number">13579</span>,</div><div class="line">    <span class="attr">name</span>: <span class="string">'John'</span>,</div><div class="line">    <span class="attr">gender</span>: <span class="string">'male'</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line">tom.id = <span class="number">24680</span>;</div><div class="line"></div><div class="line"><span class="comment">// index.ts(14,5): error TS2540: Cannot assign to 'id' because it is a constant or a read-only property.</span></div></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -393,7 +383,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/notOnlyFE/" rel="tag"># notOnlyFE</a>
+            <a href="/tags/typeScript/" rel="tag"># typeScript</a>
           
         </div>
       
@@ -406,8 +396,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/09/15/git_transfer/" rel="next" title="git仓库迁移的方法">
-                <i class="fa fa-chevron-left"></i> git仓库迁移的方法
+              <a href="/2019/05/12/linkelist_js/" rel="next" title="用JS实现一个单链表和常用操作方法">
+                <i class="fa fa-chevron-left"></i> 用JS实现一个单链表和常用操作方法
               </a>
             
           </div>
@@ -415,10 +405,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/09/20/write_bind/" rel="prev" title="手写代码实现bind功能">
-                手写代码实现bind功能 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -603,7 +589,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#步骤一：-生成密钥"><span class="nav-number">1.</span> <span class="nav-text">步骤一： 生成密钥</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#gitlab密钥"><span class="nav-number">1.1.</span> <span class="nav-text">gitlab密钥</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#github密钥"><span class="nav-number">1.2.</span> <span class="nav-text">github密钥</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ssh-目录下生成以下文件"><span class="nav-number">1.3.</span> <span class="nav-text">~/.ssh/ 目录下生成以下文件:</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#新建config文件"><span class="nav-number">2.</span> <span class="nav-text">新建config文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#测试连接"><span class="nav-number">3.</span> <span class="nav-text">测试连接</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#接口的意义"><span class="nav-number">1.</span> <span class="nav-text">接口的意义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#例1"><span class="nav-number">2.</span> <span class="nav-text">例1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#例2"><span class="nav-number">3.</span> <span class="nav-text">例2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#例3"><span class="nav-number">4.</span> <span class="nav-text">例3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#例4"><span class="nav-number">5.</span> <span class="nav-text">例4</span></a></li></ol></div>
             
 
           </div>
