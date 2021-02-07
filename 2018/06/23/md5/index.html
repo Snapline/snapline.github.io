@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="notOnlyFE," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="MD5简介MD5（Message-Digest Algorithm）是计算机安全领域广泛使用的散列函数（又称哈希算法、摘要算法），主要用来确保消息的完整和一致性。常见的应用场景有密码保护、下载文件校验等。
+MD5特点
+1.运算速度快：对jquery.js求md5值，57254个字符，耗时1.907ms。
+2.输出长度固定：输入长度不固定，输出长度固定（128位）。
+3.运算不可逆：已知运算结果的情">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MD5加密的防范方法和crypto模块应用">
+<meta property="og:url" content="http://snapline.github.io/2018/06/23/md5/index.html">
+<meta property="og:site_name" content="You are my JavaScript Queen">
+<meta property="og:description" content="MD5简介MD5（Message-Digest Algorithm）是计算机安全领域广泛使用的散列函数（又称哈希算法、摘要算法），主要用来确保消息的完整和一致性。常见的应用场景有密码保护、下载文件校验等。
+MD5特点
+1.运算速度快：对jquery.js求md5值，57254个字符，耗时1.907ms。
+2.输出长度固定：输入长度不固定，输出长度固定（128位）。
+3.运算不可逆：已知运算结果的情">
+<meta property="og:updated_time" content="2021-02-07T02:47:00.530Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MD5加密的防范方法和crypto模块应用">
+<meta name="twitter:description" content="MD5简介MD5（Message-Digest Algorithm）是计算机安全领域广泛使用的散列函数（又称哈希算法、摘要算法），主要用来确保消息的完整和一致性。常见的应用场景有密码保护、下载文件校验等。
+MD5特点
+1.运算速度快：对jquery.js求md5值，57254个字符，耗时1.907ms。
+2.输出长度固定：输入长度不固定，输出长度固定（128位）。
+3.运算不可逆：已知运算结果的情">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://snapline.github.io/2018/06/23/md5/"/>
+
+
+
+
+
+  <title>MD5加密的防范方法和crypto模块应用 | You are my JavaScript Queen</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?d1c884c835ed72f36e342794ceb8f794";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">You are my JavaScript Queen</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://snapline.github.io/2018/06/23/md5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Snapline">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://images4.fanpop.com/image/photos/21000000/Bob-Dylan-bob-dylan-21091275-116-120.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="You are my JavaScript Queen">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">MD5加密的防范方法和crypto模块应用</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-23T10:45:54+08:00">
+                2018-06-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="MD5简介"><a href="#MD5简介" class="headerlink" title="MD5简介"></a>MD5简介</h2><p>MD5（Message-Digest Algorithm）是计算机安全领域广泛使用的散列函数（又称哈希算法、摘要算法），主要用来确保消息的完整和一致性。常见的应用场景有密码保护、下载文件校验等。</p>
+<h2 id="MD5特点"><a href="#MD5特点" class="headerlink" title="MD5特点"></a>MD5特点</h2><ul>
+<li>1.运算速度快：对jquery.js求md5值，57254个字符，耗时1.907ms。</li>
+<li>2.输出长度固定：输入长度不固定，输出长度固定（128位）。</li>
+<li>3.运算不可逆：已知运算结果的情况下，无法通过通过逆运算得到原始字符串。</li>
+<li>4.高度离散：输入的微小变化，可导致运算结果差异巨大。</li>
+<li>5.弱碰撞性：不同输入的散列值可能相同。</li>
+</ul>
+<h2 id="MD5应用场景"><a href="#MD5应用场景" class="headerlink" title="MD5应用场景"></a>MD5应用场景</h2><ul>
+<li>1.文件完整性校验：比如从网上下载一个软件，一般网站都会将软件的md5值附在网页上，用户下载完软件后，可对下载到本地的软件进行md5运算，然后跟网站上的md5值进行对比，确保下载的软件是完整的（或正确的）。</li>
+<li>2.密码保护：将md5后的密码保存到数据库，而不是保存明文密码，避免拖库等事件发生后，明文密码外泄。</li>
+<li>3.防篡改：比如数字证书的防篡改，就用到了摘要算法。（当然还要结合数字签名等手段）。</li>
+</ul>
+<h2 id="常用案例：密码保护"><a href="#常用案例：密码保护" class="headerlink" title="常用案例：密码保护"></a>常用案例：密码保护</h2><p>密码首先肯定不可能明文保存在数据库里，一旦泄露后果不堪设想。最基础的做法是对密码进行一层MD5加密，最常见的老年人密码“123456”，经过md5加密后，变为：e10adc3949ba59abbe56e057f20f883e。<br>这么做一来避免明文暴露，二来黑客破解起来需要时间。<br>但仅仅是一层md5加密是远远不够的，因为md5的加密是确定性的，所以可以建立一个md5密码破解池，通过枚举，把各种排列组合的加密结果保存起来，然后通过md5密码进行查询，反解。尤其是很多用户的密码很简单，大概率会被暴力破解。</p>
+<h2 id="防范方法：密码加盐"><a href="#防范方法：密码加盐" class="headerlink" title="防范方法：密码加盐"></a>防范方法：密码加盐</h2><p>“加盐”的意思就是在密码特定位置插入特定字符串后，再对修改后的字符串进行md5运算。<br>这样首先暴力破解的难度会加大，因为利用了“输入的微小变化，可导致运算结果差异巨大”这一特点，哪怕加入3个数字的盐“值”，md5的加密结果则会完全不同。</p>
+<h2 id="crypto模块应用"><a href="#crypto模块应用" class="headerlink" title="crypto模块应用"></a>crypto模块应用</h2><p>在nodejs中，crypto模块封装了一系列密码学相关的功能，包括摘要运算。基础例子如下，非常简单：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> crypto = <span class="built_in">require</span>(<span class="string">'crypto'</span>);</div><div class="line"><span class="keyword">var</span> md5 = crypto.createHash(<span class="string">'md5'</span>);</div><div class="line"></div><div class="line"><span class="keyword">var</span> result = md5.update(<span class="string">'a'</span>).digest(<span class="string">'hex'</span>);</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(result);</div><div class="line"><span class="comment">// 输出：0cc175b9c0f1b6a831c399e269772661</span></div></pre></td></tr></table></figure></p>
+<p>给密码加盐:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> crypto = <span class="built_in">require</span>(<span class="string">'crypto'</span>);</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">cryptPwd</span>(<span class="params">password, salt</span>) </span>&#123;</div><div class="line">    <span class="comment">// 密码“加盐”</span></div><div class="line">    <span class="keyword">var</span> saltPassword = password + <span class="string">':'</span> + salt;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'原始密码：%s'</span>, password);</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'加盐后的密码：%s'</span>, saltPassword);</div><div class="line"></div><div class="line">    <span class="comment">// 加盐密码的md5值</span></div><div class="line">    <span class="keyword">var</span> md5 = crypto.createHash(<span class="string">'md5'</span>);</div><div class="line">    <span class="keyword">var</span> result = md5.update(saltPassword).digest(<span class="string">'hex'</span>);</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'加盐密码的md5值：%s'</span>, result);</div><div class="line">&#125;</div><div class="line"></div><div class="line">cryptPwd(<span class="string">'123456'</span>, <span class="string">'abc'</span>);</div><div class="line"><span class="comment">// 输出：</span></div><div class="line"><span class="comment">// 原始密码：123456</span></div><div class="line"><span class="comment">// 加盐后的密码：123456:abc</span></div><div class="line"><span class="comment">// 加盐密码的md5值：51011af1892f59e74baf61f3d4389092</span></div><div class="line"></div><div class="line">cryptPwd(<span class="string">'123456'</span>, <span class="string">'bcd'</span>);</div><div class="line"><span class="comment">// 输出：</span></div><div class="line"><span class="comment">// 原始密码：123456</span></div><div class="line"><span class="comment">// 加盐后的密码：123456:bcd</span></div><div class="line"><span class="comment">// 加盐密码的md5值：55a95bcb6bfbaef6906dbbd264ab4531</span></div></pre></td></tr></table></figure></p>
+<h2 id="还不够-需要随机盐值"><a href="#还不够-需要随机盐值" class="headerlink" title="还不够,需要随机盐值"></a>还不够,需要随机盐值</h2><p>单纯的加盐，依然会有各种问题：</p>
+<ul>
+<li>1.盐值过短，暴力破解会很容易。</li>
+<li>2.固定盐值，或者盐值已经外泄，那么只要把常用密码+固定盐值的hash值表算出来就可以了，本质上又回到了最初的暴力破解路线。</li>
+</ul>
+<p>那么我们要做的就是给每个用户一个“随机盐值”。<br>示例代码如下。可以看到，密码同样是123456，由于采用了随机盐值，前后运算得出的结果是不同的。这样带来的好处是，多个用户，同样的密码，攻击者需要进行多次运算才能够完全破解。同样是纯数字3位短盐值，随机盐值破解所需的运算量，是固定盐值的1000倍。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> crypto = <span class="built_in">require</span>(<span class="string">'crypto'</span>);</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getRandomSalt</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="built_in">Math</span>.random().toString().slice(<span class="number">2</span>, <span class="number">5</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">cryptPwd</span>(<span class="params">password, salt</span>) </span>&#123;</div><div class="line">    <span class="comment">// 密码“加盐”</span></div><div class="line">    <span class="keyword">var</span> saltPassword = password + <span class="string">':'</span> + salt;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'原始密码：%s'</span>, password);</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'加盐后的密码：%s'</span>, saltPassword);</div><div class="line"></div><div class="line">    <span class="comment">// 加盐密码的md5值</span></div><div class="line">    <span class="keyword">var</span> md5 = crypto.createHash(<span class="string">'md5'</span>);</div><div class="line">    <span class="keyword">var</span> result = md5.update(saltPassword).digest(<span class="string">'hex'</span>);</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'加盐密码的md5值：%s'</span>, result);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> password = <span class="string">'123456'</span>;</div><div class="line"></div><div class="line">cryptPwd(<span class="string">'123456'</span>, getRandomSalt());</div><div class="line"><span class="comment">// 输出：</span></div><div class="line"><span class="comment">// 原始密码：123456</span></div><div class="line"><span class="comment">// 加盐后的密码：123456:498</span></div><div class="line"><span class="comment">// 加盐密码的md5值：af3b7d32cc2a254a6bf1ebdcfd700115</span></div><div class="line"></div><div class="line">cryptPwd(<span class="string">'123456'</span>, getRandomSalt());</div><div class="line"><span class="comment">// 输出：</span></div><div class="line"><span class="comment">// 原始密码：123456</span></div><div class="line"><span class="comment">// 加盐后的密码：123456:287</span></div><div class="line"><span class="comment">// 加盐密码的md5值：65d7dd044c2db64c5e658d947578d759</span></div></pre></td></tr></table></figure></p>
+<p>随机盐值需要注意的问题是：<strong>后端也需要用户密码来校验登录，所以需要针对每一个用户设定一个随机盐值并且存储起来，每一次都要使用密码和随机盐值通过约定算法加密做校验。</strong><br>这样做的话，即使盐值外泄，由于每一个用户的盐值都不同，即便暴力破解，也要破解很久，结果也就是破解了一个用户的密码，时间成本会很大。</p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>当然也可以使用只有开发者知道的加密次数，比如对md5值再次进行md5加密，然后再加密，这样也会很大的提高破解代价。<br>md5也存在碰撞问题，就是两个不同的字符串会得到相同的结果，这是一个需要注意的点。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="https://github.com/Snapline/MyMarkDownPhotos/blob/master/other_images/wechat_qrcode.jpg?raw=true" alt="Snapline wechat" style="width: 200px; max-width: 100%;"/>
+    <div>扫码关注我的公众号“约翰柠檬的唱片店”</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Buy me a cup of Coffee</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="https://github.com/Snapline/MyMarkDownPhotos/blob/master/other_images/wechat_pay.png?raw=true" alt="Snapline 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="https://github.com/Snapline/MyMarkDownPhotos/blob/master/other_images/alipay1.jpg?raw=true" alt="Snapline 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/notOnlyFE/" rel="tag"># notOnlyFE</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/16/github_and_gtlab/" rel="next" title="便捷地同时使用github和gitlab的方法">
+                <i class="fa fa-chevron-left"></i> 便捷地同时使用github和gitlab的方法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/29/write_call_and_apply/" rel="prev" title="手写代码实现call和apply功能">
+                手写代码实现call和apply功能 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://images4.fanpop.com/image/photos/21000000/Bob-Dylan-bob-dylan-21091275-116-120.jpg"
+                alt="Snapline" />
+            
+              <p class="site-author-name" itemprop="name">Snapline</p>
+              <p class="site-description motion-element" itemprop="description">毕业于香港城市大学<br>苏州码农<br>热爱摇滚乐</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Snapline" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="britpopfan@163.com" target="_blank" title="我的邮箱">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>我的邮箱</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.zhangxinxu.com/wordpress/" title="张鑫旭" target="_blank">张鑫旭</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.ruanyifeng.com/blog/" title="阮一峰" target="_blank">阮一峰</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.liaoxuefeng.com/" title="廖雪峰" target="_blank">廖雪峰</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://nywitness.github.io/" title="witness" target="_blank">witness</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.imooc.com/" title="慕课网" target="_blank">慕课网</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://gold.xitu.io/explore/frontend" title="掘金前端" target="_blank">掘金前端</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://cn.vuejs.org/" title="Vuejs" target="_blank">Vuejs</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://mp.weixin.qq.com/debug/wxadoc/dev/?t=1476197490824" title="微信小程序" target="_blank">微信小程序</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#MD5简介"><span class="nav-number">1.</span> <span class="nav-text">MD5简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MD5特点"><span class="nav-number">2.</span> <span class="nav-text">MD5特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MD5应用场景"><span class="nav-number">3.</span> <span class="nav-text">MD5应用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用案例：密码保护"><span class="nav-number">4.</span> <span class="nav-text">常用案例：密码保护</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#防范方法：密码加盐"><span class="nav-number">5.</span> <span class="nav-text">防范方法：密码加盐</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#crypto模块应用"><span class="nav-number">6.</span> <span class="nav-text">crypto模块应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#还不够-需要随机盐值"><span class="nav-number">7.</span> <span class="nav-text">还不够,需要随机盐值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最后"><span class="nav-number">8.</span> <span class="nav-text">最后</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Snapline</span>
+
+  
+</div>
+
+
+  <div class="powered-by">特别鸣谢 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> </div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

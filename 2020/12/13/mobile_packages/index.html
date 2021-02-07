@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Vue," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="多环境部署@vue/cli-service 安装了一个名为 vue-cli-service 的命令。你可以在 npm scripts 中以vue-cli-service、或者从终端中以 ./node_modules/.bin/vue-cli-service 访问这个命令。
+npm run serve启动本地开发环境。
+在项目根目录中新建env.*可以设置环境变量。
+变量我们统一在 src/conf">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一个移动端项目的工程化部署总结">
+<meta property="og:url" content="http://snapline.github.io/2020/12/13/mobile_packages/index.html">
+<meta property="og:site_name" content="You are my JavaScript Queen">
+<meta property="og:description" content="多环境部署@vue/cli-service 安装了一个名为 vue-cli-service 的命令。你可以在 npm scripts 中以vue-cli-service、或者从终端中以 ./node_modules/.bin/vue-cli-service 访问这个命令。
+npm run serve启动本地开发环境。
+在项目根目录中新建env.*可以设置环境变量。
+变量我们统一在 src/conf">
+<meta property="og:updated_time" content="2021-02-07T03:08:25.383Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="一个移动端项目的工程化部署总结">
+<meta name="twitter:description" content="多环境部署@vue/cli-service 安装了一个名为 vue-cli-service 的命令。你可以在 npm scripts 中以vue-cli-service、或者从终端中以 ./node_modules/.bin/vue-cli-service 访问这个命令。
+npm run serve启动本地开发环境。
+在项目根目录中新建env.*可以设置环境变量。
+变量我们统一在 src/conf">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://snapline.github.io/2020/12/13/mobile_packages/"/>
+
+
+
+
+
+  <title>一个移动端项目的工程化部署总结 | You are my JavaScript Queen</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?d1c884c835ed72f36e342794ceb8f794";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">You are my JavaScript Queen</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://snapline.github.io/2020/12/13/mobile_packages/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Snapline">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://images4.fanpop.com/image/photos/21000000/Bob-Dylan-bob-dylan-21091275-116-120.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="You are my JavaScript Queen">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">一个移动端项目的工程化部署总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-12-13T10:54:24+08:00">
+                2020-12-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="多环境部署"><a href="#多环境部署" class="headerlink" title="多环境部署"></a>多环境部署</h2><p><code>@vue/cli-service</code> 安装了一个名为 <code>vue-cli-service</code> 的命令。你可以在 npm scripts 中以<code>vue-cli-service</code>、或者从终端中以 <code>./node_modules/.bin/vue-cli-service</code> 访问这个命令。</p>
+<p><code>npm run serve</code>启动本地开发环境。</p>
+<p>在项目根目录中新建<code>env.*</code>可以设置环境变量。</p>
+<p>变量我们统一在 <code>src/config/env.*.js</code> 里进行管理。</p>
+<p>config下新建对应的文件进行管理的目的是<strong>修改起来方便，不需 要重启项目，符合开发习惯。</strong></p>
+<h2 id="解决1px问题：vw布局"><a href="#解决1px问题：vw布局" class="headerlink" title="解决1px问题：vw布局"></a>解决1px问题：vw布局</h2><p>安装postcss-px-to-viewport；<br>新建.postcssrc.js文件，参考文档进行配置。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">  <span class="attr">plugins</span>: &#123;</div><div class="line">    <span class="attr">autoprefixer</span>: &#123;</div><div class="line">      <span class="attr">overrideBrowserslist</span>: [<span class="string">'Android 4.1'</span>, <span class="string">'iOS 7.1'</span>, <span class="string">'Chrome &gt; 31'</span>, <span class="string">'ff &gt; 31'</span>, <span class="string">'ie &gt;= 8'</span>]</div><div class="line">    &#125;,</div><div class="line">    <span class="string">'postcss-px-to-viewport'</span>: &#123;</div><div class="line">      <span class="attr">unitToConvert</span>: <span class="string">"px"</span>, <span class="comment">// 要转化的单位</span></div><div class="line">      viewportWidth: <span class="number">375</span>, <span class="comment">// 视窗的宽度，对应的是我们设计稿的宽度</span></div><div class="line">      unitPrecision: <span class="number">6</span>, <span class="comment">// 指定`px`转换为视窗单位值的小数位数（很多时候无法整除）</span></div><div class="line">      propList: [<span class="string">"*"</span>], <span class="comment">// 指定转换的css属性的单位，*代表全部css属性的单位都进行转换</span></div><div class="line">      viewportUnit: <span class="string">'vw'</span>, <span class="comment">// 指定需要转换成的视窗单位，建议使用vw</span></div><div class="line">      fontViewportUnit: <span class="string">"vw"</span>, <span class="comment">// 指定字体需要转换成的视窗单位，默认vw</span></div><div class="line">      selectorBlackList: [<span class="string">'.ignore'</span>, <span class="string">'.hairlines'</span>], <span class="comment">// 指定不转换为视窗单位的类，可以自定义，可以无限添加,建议定义一至两个通用的类名</span></div><div class="line">      minPixelValue: <span class="number">1</span>, <span class="comment">// 小于或等于`1px`不转换为视窗单位，你也可以设置为你想要的值</span></div><div class="line">      mediaQuery: <span class="literal">false</span>, <span class="comment">// 是否在媒体查询的css代码中也进行转换，默认false</span></div><div class="line">      exclude: [<span class="regexp">/node_modules/</span>], <span class="comment">// 设置忽略文件，用正则做目录名匹配</span></div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="Sass全局样式"><a href="#Sass全局样式" class="headerlink" title="Sass全局样式"></a>Sass全局样式</h2><p>安装node-sass和sass-loader。<br>参考vue-cli官网针对css的配置文档，把全局的scss文件注入。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> IS_PROD = [<span class="string">'production'</span>, <span class="string">'prod'</span>].includes(process.env.NODE_ENV)</div><div class="line"><span class="keyword">const</span> defaultSettings = <span class="built_in">require</span>(<span class="string">'./src/config/index.js'</span>)</div><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">    <span class="attr">css</span>: &#123;</div><div class="line">        <span class="attr">extract</span>: IS_PROD,</div><div class="line">        <span class="attr">sourceMap</span>: <span class="literal">false</span>,</div><div class="line">        <span class="attr">loaderOptions</span>: &#123;</div><div class="line">            <span class="attr">scss</span>: &#123;</div><div class="line">                <span class="attr">additionalData</span>: <span class="string">`</span></div><div class="line">                @import "assets/css/mixin.scss";</div><div class="line">                @import "assets/css/variables.scss";</div><div class="line">                 `,</div><div class="line">            &#125;,</div><div class="line">        &#125;,</div><div class="line">    &#125;,</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="移动端组件库"><a href="#移动端组件库" class="headerlink" title="移动端组件库"></a>移动端组件库</h2><p>选择了有赞出品的vant，按需引入参考官网文档。</p>
+<p>为了避免每个页面都还要import组件的写法，最好是在一个文件里统一做引入，挂载全局，这样任何组件都可以直接用了。<br>可以在 <code>src/plugins/vant.js</code> 下统一管理。</p>
+<h2 id="vant主题定制"><a href="#vant主题定制" class="headerlink" title="vant主题定制"></a>vant主题定制</h2><p>首先安装sass-loader和sass包。<br>在<code>babel.config.js</code>的plugins里做修改:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> plugins = [</div><div class="line">  [<span class="string">'import'</span>, &#123;</div><div class="line">    <span class="attr">libraryName</span>: <span class="string">'vant'</span>,</div><div class="line">    <span class="attr">libraryDirectory</span>: <span class="string">'es'</span>,</div><div class="line">    <span class="attr">style</span>: <span class="function">(<span class="params">name</span>) =&gt;</span> <span class="string">`<span class="subst">$&#123;name&#125;</span>/style/less`</span>,</div><div class="line">  &#125;, <span class="string">'vant'</span>]</div><div class="line">];</div></pre></td></tr></table></figure></p>
+<p>最后在<code>vue.config.js</code>里加入lessOptions：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">  <span class="attr">css</span>: &#123;</div><div class="line">    <span class="attr">loaderOptions</span>: &#123;</div><div class="line">      <span class="attr">less</span>: &#123;</div><div class="line">        <span class="comment">// 若 less-loader 版本小于 6.0，请移除 lessOptions 这一级，直接配置选项。</span></div><div class="line">        lessOptions: &#123;</div><div class="line">          <span class="attr">modifyVars</span>: &#123;</div><div class="line">            <span class="comment">// 直接覆盖变量</span></div><div class="line">            <span class="string">'text-color'</span>: <span class="string">'#111'</span>,</div><div class="line">            <span class="string">'border-color'</span>: <span class="string">'#eee'</span>,</div><div class="line">            <span class="comment">// 或者可以通过 less 文件覆盖（文件路径为绝对路径）</span></div><div class="line">            hack: <span class="string">`true; @import "your-less-file-path.less";`</span>,</div><div class="line">          &#125;,</div><div class="line">        &#125;,</div><div class="line">      &#125;,</div><div class="line">    &#125;,</div><div class="line">  &#125;,</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>注意，如果选择直接覆盖变量，修改以后需要重启服务。<br>鉴于要修改的主题太多，全写在配置文件里看着很难受，所以我用hack引入文件，看着比较舒服，而且不需要重启服务，一举两得。<br>样式修改的主题就参考vant文档每一个组件下边的列表即可。</p>
+<h2 id="打包分析"><a href="#打包分析" class="headerlink" title="打包分析"></a>打包分析</h2><p>使用<code>webpack-bundle-analyzer</code><br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> BundleAnalyzerPlugin = <span class="built_in">require</span>(<span class="string">'webpack-bundle-analyzer'</span>).BundleAnalyzerPlugin</div><div class="line"></div><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">  <span class="attr">chainWebpack</span>: <span class="function"><span class="params">config</span> =&gt;</span> &#123;</div><div class="line">    <span class="comment">// 打包分析</span></div><div class="line">    <span class="keyword">if</span> (IS_PROD) &#123;</div><div class="line">      config.plugin(<span class="string">'webpack-report'</span>).use(BundleAnalyzerPlugin, [</div><div class="line">        &#123;</div><div class="line">          <span class="attr">analyzerMode</span>: <span class="string">'static'</span></div><div class="line">        &#125;</div><div class="line">      ])</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="去掉console-log"><a href="#去掉console-log" class="headerlink" title="去掉console.log"></a>去掉console.log</h2><p>因为开发过程中经常需要打印一些值来调试，但是生产环境的版本不应该打印出来。又不想一点一点删除，所以需要一个工具自动删除线上环境的console。<br>使用<code>babel-plugin-transform-remove-console</code><br>在 babel.config.js 中配置:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 获取 VUE_APP_ENV 非 NODE_ENV，测试环境依然 console</span></div><div class="line"><span class="keyword">const</span> IS_PROD = [<span class="string">'production'</span>, <span class="string">'prod'</span>].includes(process.env.VUE_APP_ENV)</div><div class="line"><span class="keyword">const</span> plugins = [</div><div class="line">  [</div><div class="line">    <span class="string">'import'</span>,</div><div class="line">    &#123;</div><div class="line">      <span class="attr">libraryName</span>: <span class="string">'vant'</span>,</div><div class="line">      <span class="attr">libraryDirectory</span>: <span class="string">'es'</span>,</div><div class="line">      <span class="attr">style</span>: <span class="literal">true</span></div><div class="line">    &#125;,</div><div class="line">    <span class="string">'vant'</span></div><div class="line">  ]</div><div class="line">]</div><div class="line"><span class="comment">// 去除 console.log</span></div><div class="line"><span class="keyword">if</span> (IS_PROD) &#123;</div><div class="line">  plugins.push(<span class="string">'transform-remove-console'</span>)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">  <span class="attr">presets</span>: [[<span class="string">'@vue/cli-plugin-babel/preset'</span>, &#123;<span class="attr">useBuiltIns</span>: <span class="string">'entry'</span>&#125;]],</div><div class="line">  plugins</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="splitChunks-单独打包第三方模块"><a href="#splitChunks-单独打包第三方模块" class="headerlink" title="splitChunks 单独打包第三方模块"></a>splitChunks 单独打包第三方模块</h2><p>使用<code>script-ext-html-webpack-plugin</code><br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">  <span class="attr">chainWebpack</span>: <span class="function"><span class="params">config</span> =&gt;</span> &#123;</div><div class="line">    config.when(IS_PROD, config =&gt; &#123;</div><div class="line">      config</div><div class="line">        .plugin(<span class="string">'ScriptExtHtmlWebpackPlugin'</span>)</div><div class="line">        .after(<span class="string">'html'</span>)</div><div class="line">        .use(<span class="string">'script-ext-html-webpack-plugin'</span>, [</div><div class="line">          &#123;</div><div class="line">            <span class="comment">// 将 runtime 作为内联引入不单独存在</span></div><div class="line">            inline: <span class="regexp">/runtime\..*\.js$/</span></div><div class="line">          &#125;</div><div class="line">        ])</div><div class="line">        .end()</div><div class="line">      config.optimization.splitChunks(&#123;</div><div class="line">        <span class="attr">chunks</span>: <span class="string">'all'</span>,</div><div class="line">        <span class="attr">cacheGroups</span>: &#123;</div><div class="line">          <span class="comment">// cacheGroups 下可以可以配置多个组，每个组根据test设置条件，符合test条件的模块</span></div><div class="line">          commons: &#123;</div><div class="line">            <span class="attr">name</span>: <span class="string">'chunk-commons'</span>,</div><div class="line">            <span class="attr">test</span>: resolve(<span class="string">'src/components'</span>),</div><div class="line">            <span class="attr">minChunks</span>: <span class="number">3</span>, <span class="comment">//  被至少用三次以上打包分离</span></div><div class="line">            priority: <span class="number">5</span>, <span class="comment">// 优先级</span></div><div class="line">            reuseExistingChunk: <span class="literal">true</span> <span class="comment">// 表示是否使用已有的 chunk，如果为 true 则表示如果当前的 chunk 包含的模块已经被抽取出去了，那么将不会重新生成新的。</span></div><div class="line">          &#125;,</div><div class="line">          <span class="attr">node_vendors</span>: &#123;</div><div class="line">            <span class="attr">name</span>: <span class="string">'chunk-libs'</span>,</div><div class="line">            <span class="attr">chunks</span>: <span class="string">'initial'</span>, <span class="comment">// 只打包初始时依赖的第三方</span></div><div class="line">            test: <span class="regexp">/[\\/]node_modules[\\/]/</span>,</div><div class="line">            <span class="attr">priority</span>: <span class="number">10</span></div><div class="line">          &#125;,</div><div class="line">          <span class="attr">vantUI</span>: &#123;</div><div class="line">            <span class="attr">name</span>: <span class="string">'chunk-vantUI'</span>, <span class="comment">// 单独将 vantUI 拆包</span></div><div class="line">            priority: <span class="number">20</span>, <span class="comment">// 数字大权重到，满足多个 cacheGroups 的条件时候分到权重高的</span></div><div class="line">            test: <span class="regexp">/[\\/]node_modules[\\/]_?vant(.*)/</span></div><div class="line">          &#125;</div><div class="line">        &#125;</div><div class="line">      &#125;)</div><div class="line">      config.optimization.runtimeChunk(<span class="string">'single'</span>)</div><div class="line">    &#125;)</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="https://github.com/Snapline/MyMarkDownPhotos/blob/master/other_images/wechat_qrcode.jpg?raw=true" alt="Snapline wechat" style="width: 200px; max-width: 100%;"/>
+    <div>扫码关注我的公众号“约翰柠檬的唱片店”</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Buy me a cup of Coffee</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="https://github.com/Snapline/MyMarkDownPhotos/blob/master/other_images/wechat_pay.png?raw=true" alt="Snapline 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="https://github.com/Snapline/MyMarkDownPhotos/blob/master/other_images/alipay1.jpg?raw=true" alt="Snapline 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Vue/" rel="tag"># Vue</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/10/12/linkelist_js/" rel="next" title="用JS实现一个单链表和常用操作方法">
+                <i class="fa fa-chevron-left"></i> 用JS实现一个单链表和常用操作方法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://images4.fanpop.com/image/photos/21000000/Bob-Dylan-bob-dylan-21091275-116-120.jpg"
+                alt="Snapline" />
+            
+              <p class="site-author-name" itemprop="name">Snapline</p>
+              <p class="site-description motion-element" itemprop="description">毕业于香港城市大学<br>苏州码农<br>热爱摇滚乐</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Snapline" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="britpopfan@163.com" target="_blank" title="我的邮箱">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>我的邮箱</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.zhangxinxu.com/wordpress/" title="张鑫旭" target="_blank">张鑫旭</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.ruanyifeng.com/blog/" title="阮一峰" target="_blank">阮一峰</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.liaoxuefeng.com/" title="廖雪峰" target="_blank">廖雪峰</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://nywitness.github.io/" title="witness" target="_blank">witness</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.imooc.com/" title="慕课网" target="_blank">慕课网</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://gold.xitu.io/explore/frontend" title="掘金前端" target="_blank">掘金前端</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://cn.vuejs.org/" title="Vuejs" target="_blank">Vuejs</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://mp.weixin.qq.com/debug/wxadoc/dev/?t=1476197490824" title="微信小程序" target="_blank">微信小程序</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#多环境部署"><span class="nav-number">1.</span> <span class="nav-text">多环境部署</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决1px问题：vw布局"><span class="nav-number">2.</span> <span class="nav-text">解决1px问题：vw布局</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sass全局样式"><span class="nav-number">3.</span> <span class="nav-text">Sass全局样式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#移动端组件库"><span class="nav-number">4.</span> <span class="nav-text">移动端组件库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vant主题定制"><span class="nav-number">5.</span> <span class="nav-text">vant主题定制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#打包分析"><span class="nav-number">6.</span> <span class="nav-text">打包分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#去掉console-log"><span class="nav-number">7.</span> <span class="nav-text">去掉console.log</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#splitChunks-单独打包第三方模块"><span class="nav-number">8.</span> <span class="nav-text">splitChunks 单独打包第三方模块</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Snapline</span>
+
+  
+</div>
+
+
+  <div class="powered-by">特别鸣谢 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> </div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

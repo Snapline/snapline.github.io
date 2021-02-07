@@ -251,7 +251,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://snapline.github.io/2018/01/13/sorting_algo/">
+    <link itemprop="mainEntityOfPage" href="http://snapline.github.io/2019/03/13/sorting_algo/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Snapline">
@@ -270,7 +270,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/01/13/sorting_algo/" itemprop="url">常用排序算法汇总</a></h1>
+                <a class="post-title-link" href="/2019/03/13/sorting_algo/" itemprop="url">常用排序算法汇总</a></h1>
         
 
         <div class="post-meta">
@@ -282,8 +282,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-13T10:23:54+08:00">
-                2018-01-13
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-13T10:23:54+08:00">
+                2019-03-13
               </time>
             
 
@@ -444,7 +444,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://snapline.github.io/2017/12/26/vue源码/1. ready_intro/">
+    <link itemprop="mainEntityOfPage" href="http://snapline.github.io/2019/01/16/python_mod/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Snapline">
@@ -463,7 +463,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/12/26/vue源码/1. ready_intro/" itemprop="url">vue源码学习的前期准备工作</a></h1>
+                <a class="post-title-link" href="/2019/01/16/python_mod/" itemprop="url">Python负数的取余计算</a></h1>
         
 
         <div class="post-meta">
@@ -475,8 +475,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-26T15:23:54+08:00">
-                2017-12-26
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-16T13:50:54+08:00">
+                2019-01-16
               </time>
             
 
@@ -515,25 +515,300 @@
       
         
           
-            <h2 id="类型检查工具Flow"><a href="#类型检查工具Flow" class="headerlink" title="类型检查工具Flow"></a>类型检查工具Flow</h2><p>Flow是Facebook出品的静态类型检查工具。</p>
-<h3 id="Flow的工作方式"><a href="#Flow的工作方式" class="headerlink" title="Flow的工作方式"></a>Flow的工作方式</h3><p>通常类型检查分成 2 种方式：</p>
+            <p>最近在leetcode上用python做题，由于python不是我工作的主要语言，所以对于一些基础特性搞的并不是很清楚，所以在写的过程中会遇到一些奇怪的问题。</p>
+<p>在做数字翻转的题目时，因为要用到python的取余计算，但是测试用例中有很多负数，负数的用例我都没有通过。调试时候发现-123%10在python里得到的结果是7。在学习python的四则运算时并没有考虑这么深入，于是记录一下python中负数的取余计算机制。</p>
+<p>在Python中，取余的计算公式与别的语言并没有什么区别：r=a-n*[a//n]</p>
+<p>这里r是余数，a是被除数，n是除数。</p>
+<p>不过在“a//n”这一步，当a是负数的时候，<strong>会向下取整</strong>，也就是说向负无穷方向取整。这也就得到：</p>
+<p><code>-123%10 = -123 - 10 * (-123 // 10) = -123 - 10 * (-13) = 7</code></p>
+<p>这里还不得不提的是</p>
+<p><code>print(123%-10)</code></p>
+<p>这个情况，结果为：</p>
+<p><code>-7</code></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://snapline.github.io/2018/10/20/vue_cli/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Snapline">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://images4.fanpop.com/image/photos/21000000/Bob-Dylan-bob-dylan-21091275-116-120.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="You are my JavaScript Queen">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/20/vue_cli/" itemprop="url">vue-cli2和vue-cli3的区别</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-20T14:28:30+08:00">
+                2018-10-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>vue-cli升级到3了，整体看了下感觉是封装的更简洁了，而且支持typescript、pwd等新特性。<br>不过从vue-cli2时代过来的我，还是习惯用2，可以看到整体的配置选项，根据业务需要自己来添加。<br>现在来大概概括一下2代和3代的区别。</p>
+<h3 id="vue-cli脚手架的使用"><a href="#vue-cli脚手架的使用" class="headerlink" title="vue-cli脚手架的使用"></a>vue-cli脚手架的使用</h3><ul>
+<li>使用vue-cli可以快速搭建vue的开发环境，和webpack的配置</li>
+<li>安装vue脚手架： npm install -g@vue/cli</li>
+<li>上面安装的是vue cli3的版本，如果需要想按照vue cli2的方式初始化项目是不可以的，我们必须要拉取2.x的模板，需要安装全局的桥接工具(官方查看)</li>
+<li>Vue CLI2 初始化项目 <code>vue init webpack my-project</code></li>
+<li>Vue CLI3 初始化项目 <code>vue create my-project</code></li>
+</ul>
+<h2 id="CLI2的使用"><a href="#CLI2的使用" class="headerlink" title="CLI2的使用"></a>CLI2的使用</h2> <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">初始化项目：web init webpack mytest（根据这个创建项目文件名），初始化出现配置选项：</div><div class="line"> //项目名称</div><div class="line"> Project name ...</div><div class="line"> //作者的信息，会默认从git中读取信息</div><div class="line"> Project description ...</div><div class="line"> Author ...</div><div class="line"> //vue创建的选项 1.runtime-compiler   2.runtime-only</div><div class="line"> vue build ...(一般选runtime-only)</div><div class="line"> //是否安装vue-router</div><div class="line"> Install vue-router？ ..</div><div class="line"> //是否使用ESLint检测代码规范</div><div class="line"> use ESLint to link your code</div><div class="line"> //是否写单元测试 （一般不使用）</div><div class="line"> Set up unit tests</div><div class="line"> //是否使用Nightwatch来进行e2e测试 （2代表to  e to e 点对点）</div><div class="line"> Setup e2e <span class="built_in">test</span> with Nightwatch？</div><div class="line"> //使用npm或者yarn包管理工具</div><div class="line"> use npm</div><div class="line"> use yarn</div></pre></td></tr></table></figure>
+<p><code>Runtime-Compiler</code>和<code>Runtime-only</code>的区别?</p>
 <ul>
-<li><p><strong>类型推断</strong>：通过变量的使用上下文来推断出变量类型，然后根据这些推断来检查类型。</p>
+<li>runtime-compiler（v1）(运行过程)): template -&gt; ast -&gt; render -&gt; vdom -&gt; UI</li>
+<li>runtime-only(v2 1.性能更高， 2.代码量更少)：render -&gt; vdom -&gt; UI</li>
+<li>那.vue文件中的template是由谁处理的呢？ 是由vue-template-compiler这个开发时 工具依赖来处理的，他将.vue文件解析成了render函数，解析之后，是没有tamplate这个 东西的</li>
+</ul>
+<p><strong>总结</strong></p>
+<ul>
+<li>如果在开发中，依然使用template，就需要选择Runtime-Compiler</li>
+<li>如果在开发中，使用的是.vue文件夹开发，那么可以选择Runtime-Only</li>
+</ul>
+<p><strong>render函数的使用</strong><br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> Vue(&#123;</div><div class="line">  <span class="attr">el</span>:<span class="string">'#app'</span>,</div><div class="line">  <span class="attr">render</span>:<span class="function">(<span class="params">createElement</span>) =&gt;</span>&#123;</div><div class="line">    <span class="comment">//使用方式一：</span></div><div class="line">    <span class="keyword">return</span> createElement(<span class="string">'标签'</span>,<span class="string">'相关数据对象(可以不传)'</span>,[<span class="string">'内容数组'</span>])</div><div class="line">    <span class="comment">//1.1render函数的基本使用</span></div><div class="line">    <span class="keyword">return</span> createElement(<span class="string">'div'</span>,&#123;<span class="attr">class</span>:<span class="string">'box'</span>&#125;,[<span class="string">'xiaohuang'</span>])</div><div class="line">    <span class="comment">//1.2嵌套render函数</span></div><div class="line">    <span class="keyword">return</span> createElement(<span class="string">'div'</span>,&#123;<span class="attr">class</span>:<span class="string">'box'</span>&#125;,[<span class="string">'小黄'</span>,createElement(<span class="string">'h2'</span>,[<span class="string">'标题啊'</span>])])</div><div class="line">  &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="string">`Runtime-Compiler`</span>和<span class="string">`Runtime-only`</span>在main.js中的不同使用：</div><div class="line"></div><div class="line">  <span class="number">1.</span><span class="string">`Runtime-Compiler`</span>中</div><div class="line">  <span class="keyword">const</span> cpn =Vue.component(<span class="string">'cpn'</span>,&#123;</div><div class="line">    <span class="attr">template</span>:<span class="string">'&lt;div&gt;我是cpn组件 &lt;/div&gt;'</span>，</div><div class="line">    data()&#123;</div><div class="line">      <span class="keyword">return</span>&#123;</div><div class="line"></div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;)</div><div class="line"></div><div class="line">  <span class="number">2.</span><span class="string">`Runtime-only`</span>中</div><div class="line">  <span class="keyword">new</span> Vue(&#123;</div><div class="line">    <span class="attr">el</span>:<span class="string">'#app'</span></div><div class="line">    render:<span class="function">(<span class="params">createElement</span>)=&gt;</span>&#123;</div><div class="line">      <span class="comment">//使用方法二：传入一个组件对象</span></div><div class="line">      <span class="keyword">return</span> createElement(cpn)</div><div class="line">    &#125;</div><div class="line">  &#125;)</div></pre></td></tr></table></figure>
+<h2 id="cLI3的使用"><a href="#cLI3的使用" class="headerlink" title="cLI3的使用"></a>cLI3的使用</h2><p>1.初始化项目：<code>vue create my-project</code><br>2.<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">//选择一个配置方式</div><div class="line"> please pick a perset  (一般选最后一个Manually select features（手动选择特性） )</div><div class="line"> //选择对于你的工程所需要的特性 （用空格选择）</div><div class="line"> check the features needed <span class="keyword">for</span> your project</div><div class="line"> //对应的配置文件单独生成还是放在package.json里</div><div class="line"> <span class="built_in">where</span> <span class="keyword">do</span> you prefer placing config <span class="keyword">for</span> babel</div><div class="line"> //要不要把刚才自己选择的配置保存下来</div><div class="line"> save this as a preset <span class="keyword">for</span> future projects?</div></pre></td></tr></table></figure></p>
+<p>3.pubilc文件相当于CLI2中的static目录<br>4.配置都去哪里了，可以启动配置服务器 vue ui 查看（全局命令）</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://snapline.github.io/2018/08/29/write_call_and_apply/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Snapline">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://images4.fanpop.com/image/photos/21000000/Bob-Dylan-bob-dylan-21091275-116-120.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="You are my JavaScript Queen">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/29/write_call_and_apply/" itemprop="url">手写代码实现call和apply功能</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-29T10:32:54+08:00">
+                2018-08-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>call和apply的功能类似, 区别仅仅是传入的参数形式不同。<br>它们的作用都是使用指定的this值来调用某个函数，用来改变上下文环境。</p>
+<p>举例说明：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> foo = &#123;</div><div class="line">    <span class="attr">value</span>: <span class="number">1</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.value);</div><div class="line">&#125;</div><div class="line"></div><div class="line">bar.call(foo); <span class="comment">//输出1</span></div></pre></td></tr></table></figure></p>
+<p>call把this的指向改成指向foo, 但bar函数依旧执行了。</p>
+<h2 id="Step1"><a href="#Step1" class="headerlink" title="Step1"></a>Step1</h2><p>调用call的时候, 想当于把foo对象进行了一次改造:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> foo = &#123;</div><div class="line">    <span class="attr">value</span>: <span class="number">1</span>,</div><div class="line">    <span class="attr">bar</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.value)</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">foo.bar(); <span class="comment">// 1</span></div></pre></td></tr></table></figure></p>
+<p>等于把bar函数设为了foo对象的一个属性——&gt;执行bar函数——&gt;删除这个属性</p>
+<p>按照这个思路,可以写出一个call2模拟函数:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Function</span>.prototype.call2 = <span class="function"><span class="keyword">function</span>(<span class="params">context</span>)</span>&#123;</div><div class="line">    <span class="comment">//用this获取调用call的函数</span></div><div class="line">    context.fn = <span class="keyword">this</span>;</div><div class="line">    context.fn();</div><div class="line">    <span class="keyword">delete</span> context.fn;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//test</span></div><div class="line"><span class="keyword">var</span> foo = &#123;</div><div class="line">    <span class="attr">age</span>: <span class="number">12</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.age);</div><div class="line">&#125;</div><div class="line"></div><div class="line">bar.call2(foo);  <span class="comment">//输出12</span></div></pre></td></tr></table></figure>
+<p>但是这个模拟没有实现传参功能,所以需要进行改造。</p>
+<h2 id="Step2"><a href="#Step2" class="headerlink" title="Step2"></a>Step2</h2><p>关于传参, 举个栗子:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> foo = &#123;</div><div class="line">    <span class="attr">value</span>: <span class="number">1</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params">name, age</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(name)</div><div class="line">    <span class="built_in">console</span>.log(age)</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.value);</div><div class="line">&#125;</div><div class="line"></div><div class="line">bar.call(foo, <span class="string">'Snapline'</span>, <span class="number">28</span>);</div><div class="line"><span class="comment">//输出</span></div><div class="line"><span class="comment">//Snapline</span></div><div class="line"><span class="comment">//28</span></div><div class="line"><span class="comment">//1</span></div></pre></td></tr></table></figure></p>
+<p>call的传参是不定的, 用arguments来获取所有的参数。</p>
+<p>改造如下:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Function</span>.prototype.call2 = <span class="function"><span class="keyword">function</span>(<span class="params">context</span>)</span>&#123;</div><div class="line">    <span class="comment">//用this获取调用call的函数</span></div><div class="line">    context.fn = <span class="keyword">this</span>;</div><div class="line">    <span class="comment">//获取参数</span></div><div class="line">    <span class="keyword">const</span> args = [...arguments].slice(<span class="number">1</span>);</div><div class="line">    context.fn(...args);</div><div class="line">    <span class="keyword">delete</span> context.fn;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//test</span></div><div class="line"><span class="keyword">var</span> foo = &#123;</div><div class="line">    <span class="attr">value</span>: <span class="number">1</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params">name, age</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(name)</div><div class="line">    <span class="built_in">console</span>.log(age)</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.value);</div><div class="line">&#125;</div><div class="line"></div><div class="line">bar.call2(foo, <span class="string">'Snapline'</span>, <span class="number">28</span>);</div><div class="line"><span class="comment">//输出</span></div><div class="line"><span class="comment">//Snapline</span></div><div class="line"><span class="comment">//28</span></div><div class="line"><span class="comment">//1</span></div></pre></td></tr></table></figure></p>
+<h2 id="Step3"><a href="#Step3" class="headerlink" title="Step3"></a>Step3</h2><p>基本已经完成了模拟, 有几个小问题需要注意:</p>
+<ul>
+<li><p>1.this参数可以传null, 此时this指向window</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> value = <span class="number">1</span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.value);</div><div class="line">&#125;</div><div class="line"></div><div class="line">bar.call(<span class="literal">null</span>); <span class="comment">// 相当于window.value  输出1</span></div></pre></td></tr></table></figure>
 </li>
-<li><p><strong>类型注释</strong>：事先注释好我们期待的类型，Flow 会基于这些注释来判断。</p>
+<li><p>2.函数可以有返回值</p>
 </li>
 </ul>
-<h3 id="在vue源码里找Flow"><a href="#在vue源码里找Flow" class="headerlink" title="在vue源码里找Flow"></a>在vue源码里找Flow</h3><p>在Vue的主目录下，有一个 <code>.flowconfig</code> 文件，这是Flow的配置文件，其中<code>[libs]</code>按照官方文档是来描述指定库定义的目录，可以看出配置的是<code>flow</code>。<br>接着我们可以找到flow文件夹，可以看到文件如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">flow</div><div class="line">├── compiler.js        # 编译相关</div><div class="line">├── component.js       # 组件数据结构</div><div class="line">├── global-api.js      # Global API 结构</div><div class="line">├── modules.js         # 第三方库定义</div><div class="line">├── options.js         # 选项相关</div><div class="line">├── ssr.js             # 服务端渲染相关</div><div class="line">├── vnode.js           # 虚拟 node 相关</div></pre></td></tr></table></figure></p>
-<p><strong>在阅读源码的过程中，如果对于某个自定义类型的数据结构有疑问，可以翻阅对应的文件部分进行查阅</strong></p>
-<p>同时，在查阅Flow的资料时，发现很多同行认为TypeScript比Flow更先进，对于TypeScript可以在以后进行深入学习。</p>
-<h2 id="vue源码目录结构"><a href="#vue源码目录结构" class="headerlink" title="vue源码目录结构"></a>vue源码目录结构</h2><p>vue的源码都在src的目录下，结构如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">src</div><div class="line">├── compiler        # 编译相关 </div><div class="line">├── core            # 核心代码 </div><div class="line">├── platforms       # 不同平台的支持</div><div class="line">├── server          # 服务端渲染</div><div class="line">├── sfc             # .vue 文件解析</div><div class="line">├── shared          # 共享代码</div></pre></td></tr></table></figure></p>
-<h4 id="compiler"><a href="#compiler" class="headerlink" title="compiler"></a>compiler</h4><p>编译相关。具有把模板解析成ast语法树，对ast语法树的优化，代码生成等功能。</p>
-<h4 id="cores"><a href="#cores" class="headerlink" title="cores"></a>cores</h4><p>vue的核心代码就在这里，包括我们熟知的全局API、Vue实例化、虚拟DOM、工具函数等等。<br>这里是vue的灵魂。s</p>
-<h4 id="platform"><a href="#platform" class="headerlink" title="platform"></a>platform</h4><p>我们已经知道阿里开发了weex，用来实现vue跑在原生客户端上。<br>platform 是 Vue.js 的入口，2 个目录代表 2 个主要入口，分别打包成运行在 web 上和 weex 上的 Vue.js。</p>
-<h4 id="server"><a href="#server" class="headerlink" title="server"></a>server</h4><p>从vue2.0开始支持了服务端渲染，主要的工作是把组件渲染为服务器端的 HTML 字符串，将它们直接发送到浏览器，最后将静态标记”混合”为客户端上完全交互的应用程序。</p>
-<h4 id="sfc"><a href="#sfc" class="headerlink" title="sfc"></a>sfc</h4><p>这个目录下的代码逻辑会把 .vue 文件内容解析成一个 JavaScript 的对象。</p>
-<h4 id="shared"><a href="#shared" class="headerlink" title="shared"></a>shared</h4><p>Vue.js 会定义一些工具方法，这里定义的工具方法都是会被浏览器端的 Vue.js 和服务端的 Vue.js 所共享的。</p>
-
+<p>所以有如下call函数完全体:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Function</span>.prototype.call2 = <span class="function"><span class="keyword">function</span>(<span class="params">context</span>)</span>&#123;</div><div class="line">    <span class="comment">//传入的必须是函数</span></div><div class="line">    <span class="keyword">if</span>(<span class="keyword">typeof</span> <span class="keyword">this</span> !== <span class="string">'function'</span>)&#123;</div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">'Error'</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">//传入null的话,this指向window</span></div><div class="line">    context = context || <span class="built_in">window</span>;</div><div class="line"></div><div class="line">    <span class="comment">//用this获取调用call的函数</span></div><div class="line">    context.fn = <span class="keyword">this</span>;</div><div class="line">    <span class="comment">//获取参数</span></div><div class="line">    <span class="keyword">const</span> args = [...arguments].slice(<span class="number">1</span>);</div><div class="line">    <span class="comment">//创建result用来做返回值</span></div><div class="line">    <span class="keyword">const</span> result = context.fn(...args);</div><div class="line"></div><div class="line">    <span class="comment">//恢复默认的fn</span></div><div class="line">    <span class="keyword">delete</span> context.fn;</div><div class="line">    <span class="comment">//返回值</span></div><div class="line">    <span class="keyword">return</span> result;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//test</span></div><div class="line"><span class="keyword">var</span> value = <span class="number">2</span>;</div><div class="line"></div><div class="line"><span class="keyword">var</span> obj = &#123;</div><div class="line">    <span class="attr">value</span>: <span class="number">1</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params">name, age</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.value);</div><div class="line">    <span class="keyword">return</span> &#123;</div><div class="line">        <span class="attr">value</span>: <span class="keyword">this</span>.value,</div><div class="line">        <span class="attr">name</span>: name,</div><div class="line">        <span class="attr">age</span>: age</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">bar.call2(<span class="literal">null</span>); <span class="comment">// 2</span></div><div class="line"><span class="built_in">console</span>.log(bar.call2(obj, <span class="string">'Snapline'</span>, <span class="number">28</span>));</div><div class="line"><span class="comment">//输出</span></div><div class="line"><span class="comment">//1</span></div><div class="line"><span class="comment">//Object &#123;</span></div><div class="line"><span class="comment">//     value: 1,</span></div><div class="line"><span class="comment">//     name: 'Snapline',</span></div><div class="line"><span class="comment">//     age: 28</span></div><div class="line"><span class="comment">// &#125;</span></div></pre></td></tr></table></figure></p>
+<h2 id="实现apply"><a href="#实现apply" class="headerlink" title="实现apply"></a>实现apply</h2><p>实现了call以后实现apply就非常简单了, 只是参数形式不同。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//实现apply</span></div><div class="line"><span class="built_in">Function</span>.prototype.apply2 = <span class="function"><span class="keyword">function</span>(<span class="params">context</span>)</span>&#123;</div><div class="line">    <span class="comment">//传入的必须是函数</span></div><div class="line">    <span class="keyword">if</span>(<span class="keyword">typeof</span> <span class="keyword">this</span> !== <span class="string">'function'</span>)&#123;</div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">'Error'</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    context = context || <span class="built_in">window</span>;</div><div class="line">    context.fn = <span class="keyword">this</span>;</div><div class="line">    <span class="keyword">let</span> result;</div><div class="line">    <span class="keyword">if</span>(<span class="built_in">Array</span>.isArray(<span class="built_in">arguments</span>[<span class="number">1</span>])) &#123;</div><div class="line">        <span class="comment">// 通过...运算符将数组转换为用逗号分隔的参数序列</span></div><div class="line">        result = context.fn(...arguments[<span class="number">1</span>])</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        result = context.fn()</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">delete</span> context.fn;</div><div class="line">    <span class="keyword">return</span> result;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//test</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params">arg1, arg2</span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(arg1, arg2)</div><div class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.a, <span class="keyword">this</span>.b)</div><div class="line">&#125;</div><div class="line"></div><div class="line">test.apply2(&#123;</div><div class="line">  <span class="attr">a</span>: <span class="string">'a'</span>,</div><div class="line">  <span class="attr">b</span>: <span class="string">'b'</span></div><div class="line">&#125;, [<span class="number">1</span>, <span class="number">2</span>])</div><div class="line"><span class="comment">//(1,2)</span></div><div class="line"><span class="comment">//(a,b)</span></div></pre></td></tr></table></figure>
           
         
       
@@ -581,7 +856,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://snapline.github.io/2017/11/30/scroll_top/">
+    <link itemprop="mainEntityOfPage" href="http://snapline.github.io/2018/06/23/md5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Snapline">
@@ -600,7 +875,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/11/30/scroll_top/" itemprop="url">vue切换页面时保证滚动条在最顶部</a></h1>
+                <a class="post-title-link" href="/2018/06/23/md5/" itemprop="url">MD5加密的防范方法和crypto模块应用</a></h1>
         
 
         <div class="post-meta">
@@ -612,129 +887,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-30T17:23:54+08:00">
-                2017-11-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>最近的项目里，首页放了很多跳转的元素，点击以后跳转到相应的页面。<br>一个最典型的例子，点击下方的“关于我们”，会跳到介绍页面，但因为vue的spa单页面特性导致切换页面只是更换了对应的组件，滚动条的位置是不会发生改变的。<br>因此需要每次切换一个页面的时候，都让滚动条回到最顶部。<br>可以在app.vue文件下添加监听，监听$route的变化。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// App.vue</span></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</div><div class="line">  <span class="attr">name</span>: <span class="string">'App'</span>,</div><div class="line">  <span class="attr">components</span>: &#123;</div><div class="line">    MHeader,</div><div class="line">    MFooter</div><div class="line">  &#125;,</div><div class="line">  <span class="attr">watch</span>:&#123;</div><div class="line">    <span class="string">'$route'</span>:<span class="function"><span class="keyword">function</span>(<span class="params">to,from</span>)</span>&#123;</div><div class="line">　    <span class="built_in">document</span>.body.scrollTop = <span class="number">0</span></div><div class="line">      <span class="built_in">document</span>.documentElement.scrollTop = <span class="number">0</span></div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>本文没有技术含量，纯粹是工作过程中的一次优化体验的记录:)</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://snapline.github.io/2017/10/23/md5/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Snapline">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://images4.fanpop.com/image/photos/21000000/Bob-Dylan-bob-dylan-21091275-116-120.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="You are my JavaScript Queen">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/10/23/md5/" itemprop="url">MD5加密的防范方法和crypto模块应用</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-23T10:45:54+08:00">
-                2017-10-23
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-23T10:45:54+08:00">
+                2018-06-23
               </time>
             
 
@@ -846,7 +1000,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://snapline.github.io/2017/09/20/write_bind/">
+    <link itemprop="mainEntityOfPage" href="http://snapline.github.io/2018/04/16/github_and_gtlab/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Snapline">
@@ -865,7 +1019,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/09/20/write_bind/" itemprop="url">手写代码实现bind功能</a></h1>
+                <a class="post-title-link" href="/2018/04/16/github_and_gtlab/" itemprop="url">便捷地同时使用github和gitlab的方法</a></h1>
         
 
         <div class="post-meta">
@@ -877,136 +1031,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-20T14:12:54+08:00">
-                2017-09-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p> bind()方法主要就是将函数绑定到某个对象，bind()会创建一个函数，函数体内的this对象的值会被绑定到传入bind()中的第一个参数的值，例如：f.bind(obj)，实际上可以理解为obj.f()，这时f函数体内的this自然指向的是obj</p>
-<p>举例说明：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a = &#123;</div><div class="line">    <span class="attr">b</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">      <span class="keyword">var</span> func = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.c);</div><div class="line">      &#125;</div><div class="line">      func();</div><div class="line">    &#125;,</div><div class="line">    <span class="attr">c</span>: <span class="string">'hello'</span></div><div class="line">  &#125;</div><div class="line">a.b(); <span class="comment">// undefined 这里的this指向的是全局作用域</span></div><div class="line"><span class="built_in">console</span>.log(a.c); <span class="comment">// hello</span></div></pre></td></tr></table></figure></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a = &#123;</div><div class="line">    <span class="attr">b</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">      <span class="keyword">var</span> _this = <span class="keyword">this</span>; <span class="comment">// 通过赋值的方式将this赋值给that</span></div><div class="line">      <span class="keyword">var</span> func = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(_this.c);</div><div class="line">      &#125;</div><div class="line">      func();</div><div class="line">    &#125;,</div><div class="line">    <span class="attr">c</span>: <span class="string">'hello'</span></div><div class="line">  &#125;</div><div class="line">a.b(); <span class="comment">// hello</span></div><div class="line"><span class="built_in">console</span>.log(a.c); <span class="comment">// hello</span></div></pre></td></tr></table></figure>
-<h3 id="手写bind"><a href="#手写bind" class="headerlink" title="手写bind"></a>手写bind</h3><p>bind有两个特点:</p>
-<ul>
-<li>1.本身返回一个新的函数，所以要考虑new的情况</li>
-<li>2.可以“保留”参数，内部实现了参数的拼接</li>
-</ul>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Function</span>.prototype.bind2 = <span class="function"><span class="keyword">function</span>(<span class="params">context</span>)</span>&#123;</div><div class="line">    <span class="comment">//传入的必须是函数</span></div><div class="line">    <span class="keyword">if</span>(<span class="keyword">typeof</span> <span class="keyword">this</span> != <span class="string">'function'</span>)&#123;</div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">'Error'</span>)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">const</span> that = <span class="keyword">this</span></div><div class="line">    <span class="comment">//保留参数, 以便于之后拼接参数</span></div><div class="line">    <span class="keyword">const</span> args = [...arguments].slice(<span class="number">1</span>);</div><div class="line"></div><div class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">F</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="comment">//如果是被new创建的实例, 那么上下文不会改变</span></div><div class="line">        <span class="keyword">if</span>(<span class="keyword">this</span> <span class="keyword">instanceof</span> F)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> that(...argus, ...arguments)</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">// args.concat(...arguments): 拼接之前和现在的参数</span></div><div class="line">        <span class="comment">// 注意：arguments是个类Array的Object, 用解构运算符..., 直接拿值拼接</span></div><div class="line">        <span class="keyword">return</span> that.apply(context, args.concat(...arguments))</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//test</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params">arg1, arg2</span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(arg1, arg2)</div><div class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.a, <span class="keyword">this</span>.b)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">const</span> test2 = test.bind2(&#123;</div><div class="line">  <span class="attr">a</span>: <span class="string">'a'</span>,</div><div class="line">  <span class="attr">b</span>: <span class="string">'b'</span></div><div class="line">&#125;, <span class="number">1</span>) <span class="comment">// 参数 1</span></div><div class="line"></div><div class="line">test2(<span class="number">2</span>) <span class="comment">// 参数 2</span></div><div class="line"><span class="comment">//输出</span></div><div class="line"><span class="comment">//1 2</span></div><div class="line"><span class="comment">//a b</span></div></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://snapline.github.io/2017/09/16/github_and_gtlab/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Snapline">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://images4.fanpop.com/image/photos/21000000/Bob-Dylan-bob-dylan-21091275-116-120.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="You are my JavaScript Queen">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/16/github_and_gtlab/" itemprop="url">便捷地同时使用github和gitlab的方法</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-16T13:50:54+08:00">
-                2017-09-16
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-16T13:50:54+08:00">
+                2018-04-16
               </time>
             
 
@@ -1149,7 +1175,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

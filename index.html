@@ -251,7 +251,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://snapline.github.io/2019/08/28/typescript/interface/">
+    <link itemprop="mainEntityOfPage" href="http://snapline.github.io/2020/12/13/mobile_packages/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Snapline">
@@ -270,7 +270,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/08/28/typescript/interface/" itemprop="url">TypeScript里对象的类型——接口</a></h1>
+                <a class="post-title-link" href="/2020/12/13/mobile_packages/" itemprop="url">一个移动端项目的工程化部署总结</a></h1>
         
 
         <div class="post-meta">
@@ -282,8 +282,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-28T10:54:24+08:00">
-                2019-08-28
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-12-13T10:54:24+08:00">
+                2020-12-13
               </time>
             
 
@@ -322,14 +322,23 @@
       
         
           
-            <h2 id="接口的意义"><a href="#接口的意义" class="headerlink" title="接口的意义"></a>接口的意义</h2><p>在java这种面向对象的编程语言里，接口（Interface）是非常重要的概念，是对行为的抽象，由类（class）去实现（implement）。<br>在TS里，接口还可以用来规范对象的描述。</p>
-<h2 id="例1"><a href="#例1" class="headerlink" title="例1"></a>例1</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">interface Person &#123;</div><div class="line">    <span class="attr">name</span>: string;</div><div class="line">    age: number;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> john: Person = &#123;</div><div class="line">    <span class="attr">name</span>: <span class="string">'John'</span>,</div><div class="line">    <span class="attr">age</span>: <span class="number">29</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<p><strong>john的属性必须有name和age（且value类型也一致），不可多不可少不可增不可改。</strong></p>
-<h2 id="例2"><a href="#例2" class="headerlink" title="例2"></a>例2</h2><p>如果对象的某些属性处于可用可不用的状态，那就需要设定可选属性，在属性后加一个问号即可。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">interface Person &#123;</div><div class="line">    <span class="attr">name</span>: string;</div><div class="line">    age?: number;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> john: Person = &#123;</div><div class="line">    <span class="attr">name</span>: <span class="string">'John'</span>,</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
-<p>这样，john的age属性就可以不设定。<br>但是仍然<strong>不允许添加新的属性</strong>！</p>
-<h2 id="例3"><a href="#例3" class="headerlink" title="例3"></a>例3</h2><p>如果对象的属性还不能够确定，有可能添加新的属性，则可以使用<strong>任意属性</strong>。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">interface Person &#123;</div><div class="line">    <span class="attr">name</span>: string;</div><div class="line">    age?: number;</div><div class="line">    [propName: string]: any;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> tom: Person = &#123;</div><div class="line">    <span class="attr">name</span>: <span class="string">'Tom'</span>,</div><div class="line">    <span class="attr">gender</span>: <span class="string">'male'</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
-<p><strong>任意属性的数值类型最好命为any，因为一旦定义了任意属性，那么确定属性和可选属性的类型都必须是它的类型的子集</strong></p>
-<h2 id="例4"><a href="#例4" class="headerlink" title="例4"></a>例4</h2><p>如果对象的某个属性需要确定，避免更改，则可使用<strong>只读</strong>属性。<br>只读的约束存在于第一次给对象赋值的时候，而不是第一次给只读属性赋值的时候。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">interface Person &#123;</div><div class="line">    readonly id: number;</div><div class="line">    name: string;</div><div class="line">    age?: number;</div><div class="line">    [propName: string]: any;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> tom: Person = &#123;</div><div class="line">    <span class="attr">id</span>: <span class="number">13579</span>,</div><div class="line">    <span class="attr">name</span>: <span class="string">'John'</span>,</div><div class="line">    <span class="attr">gender</span>: <span class="string">'male'</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line">tom.id = <span class="number">24680</span>;</div><div class="line"></div><div class="line"><span class="comment">// index.ts(14,5): error TS2540: Cannot assign to 'id' because it is a constant or a read-only property.</span></div></pre></td></tr></table></figure></p>
+            <h2 id="多环境部署"><a href="#多环境部署" class="headerlink" title="多环境部署"></a>多环境部署</h2><p><code>@vue/cli-service</code> 安装了一个名为 <code>vue-cli-service</code> 的命令。你可以在 npm scripts 中以<code>vue-cli-service</code>、或者从终端中以 <code>./node_modules/.bin/vue-cli-service</code> 访问这个命令。</p>
+<p><code>npm run serve</code>启动本地开发环境。</p>
+<p>在项目根目录中新建<code>env.*</code>可以设置环境变量。</p>
+<p>变量我们统一在 <code>src/config/env.*.js</code> 里进行管理。</p>
+<p>config下新建对应的文件进行管理的目的是<strong>修改起来方便，不需 要重启项目，符合开发习惯。</strong></p>
+<h2 id="解决1px问题：vw布局"><a href="#解决1px问题：vw布局" class="headerlink" title="解决1px问题：vw布局"></a>解决1px问题：vw布局</h2><p>安装postcss-px-to-viewport；<br>新建.postcssrc.js文件，参考文档进行配置。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">  <span class="attr">plugins</span>: &#123;</div><div class="line">    <span class="attr">autoprefixer</span>: &#123;</div><div class="line">      <span class="attr">overrideBrowserslist</span>: [<span class="string">'Android 4.1'</span>, <span class="string">'iOS 7.1'</span>, <span class="string">'Chrome &gt; 31'</span>, <span class="string">'ff &gt; 31'</span>, <span class="string">'ie &gt;= 8'</span>]</div><div class="line">    &#125;,</div><div class="line">    <span class="string">'postcss-px-to-viewport'</span>: &#123;</div><div class="line">      <span class="attr">unitToConvert</span>: <span class="string">"px"</span>, <span class="comment">// 要转化的单位</span></div><div class="line">      viewportWidth: <span class="number">375</span>, <span class="comment">// 视窗的宽度，对应的是我们设计稿的宽度</span></div><div class="line">      unitPrecision: <span class="number">6</span>, <span class="comment">// 指定`px`转换为视窗单位值的小数位数（很多时候无法整除）</span></div><div class="line">      propList: [<span class="string">"*"</span>], <span class="comment">// 指定转换的css属性的单位，*代表全部css属性的单位都进行转换</span></div><div class="line">      viewportUnit: <span class="string">'vw'</span>, <span class="comment">// 指定需要转换成的视窗单位，建议使用vw</span></div><div class="line">      fontViewportUnit: <span class="string">"vw"</span>, <span class="comment">// 指定字体需要转换成的视窗单位，默认vw</span></div><div class="line">      selectorBlackList: [<span class="string">'.ignore'</span>, <span class="string">'.hairlines'</span>], <span class="comment">// 指定不转换为视窗单位的类，可以自定义，可以无限添加,建议定义一至两个通用的类名</span></div><div class="line">      minPixelValue: <span class="number">1</span>, <span class="comment">// 小于或等于`1px`不转换为视窗单位，你也可以设置为你想要的值</span></div><div class="line">      mediaQuery: <span class="literal">false</span>, <span class="comment">// 是否在媒体查询的css代码中也进行转换，默认false</span></div><div class="line">      exclude: [<span class="regexp">/node_modules/</span>], <span class="comment">// 设置忽略文件，用正则做目录名匹配</span></div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="Sass全局样式"><a href="#Sass全局样式" class="headerlink" title="Sass全局样式"></a>Sass全局样式</h2><p>安装node-sass和sass-loader。<br>参考vue-cli官网针对css的配置文档，把全局的scss文件注入。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> IS_PROD = [<span class="string">'production'</span>, <span class="string">'prod'</span>].includes(process.env.NODE_ENV)</div><div class="line"><span class="keyword">const</span> defaultSettings = <span class="built_in">require</span>(<span class="string">'./src/config/index.js'</span>)</div><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">    <span class="attr">css</span>: &#123;</div><div class="line">        <span class="attr">extract</span>: IS_PROD,</div><div class="line">        <span class="attr">sourceMap</span>: <span class="literal">false</span>,</div><div class="line">        <span class="attr">loaderOptions</span>: &#123;</div><div class="line">            <span class="attr">scss</span>: &#123;</div><div class="line">                <span class="attr">additionalData</span>: <span class="string">`</span></div><div class="line">                @import "assets/css/mixin.scss";</div><div class="line">                @import "assets/css/variables.scss";</div><div class="line">                 `,</div><div class="line">            &#125;,</div><div class="line">        &#125;,</div><div class="line">    &#125;,</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="移动端组件库"><a href="#移动端组件库" class="headerlink" title="移动端组件库"></a>移动端组件库</h2><p>选择了有赞出品的vant，按需引入参考官网文档。</p>
+<p>为了避免每个页面都还要import组件的写法，最好是在一个文件里统一做引入，挂载全局，这样任何组件都可以直接用了。<br>可以在 <code>src/plugins/vant.js</code> 下统一管理。</p>
+<h2 id="vant主题定制"><a href="#vant主题定制" class="headerlink" title="vant主题定制"></a>vant主题定制</h2><p>首先安装sass-loader和sass包。<br>在<code>babel.config.js</code>的plugins里做修改:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> plugins = [</div><div class="line">  [<span class="string">'import'</span>, &#123;</div><div class="line">    <span class="attr">libraryName</span>: <span class="string">'vant'</span>,</div><div class="line">    <span class="attr">libraryDirectory</span>: <span class="string">'es'</span>,</div><div class="line">    <span class="attr">style</span>: <span class="function">(<span class="params">name</span>) =&gt;</span> <span class="string">`<span class="subst">$&#123;name&#125;</span>/style/less`</span>,</div><div class="line">  &#125;, <span class="string">'vant'</span>]</div><div class="line">];</div></pre></td></tr></table></figure></p>
+<p>最后在<code>vue.config.js</code>里加入lessOptions：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">  <span class="attr">css</span>: &#123;</div><div class="line">    <span class="attr">loaderOptions</span>: &#123;</div><div class="line">      <span class="attr">less</span>: &#123;</div><div class="line">        <span class="comment">// 若 less-loader 版本小于 6.0，请移除 lessOptions 这一级，直接配置选项。</span></div><div class="line">        lessOptions: &#123;</div><div class="line">          <span class="attr">modifyVars</span>: &#123;</div><div class="line">            <span class="comment">// 直接覆盖变量</span></div><div class="line">            <span class="string">'text-color'</span>: <span class="string">'#111'</span>,</div><div class="line">            <span class="string">'border-color'</span>: <span class="string">'#eee'</span>,</div><div class="line">            <span class="comment">// 或者可以通过 less 文件覆盖（文件路径为绝对路径）</span></div><div class="line">            hack: <span class="string">`true; @import "your-less-file-path.less";`</span>,</div><div class="line">          &#125;,</div><div class="line">        &#125;,</div><div class="line">      &#125;,</div><div class="line">    &#125;,</div><div class="line">  &#125;,</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>注意，如果选择直接覆盖变量，修改以后需要重启服务。<br>鉴于要修改的主题太多，全写在配置文件里看着很难受，所以我用hack引入文件，看着比较舒服，而且不需要重启服务，一举两得。<br>样式修改的主题就参考vant文档每一个组件下边的列表即可。</p>
+<h2 id="打包分析"><a href="#打包分析" class="headerlink" title="打包分析"></a>打包分析</h2><p>使用<code>webpack-bundle-analyzer</code><br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> BundleAnalyzerPlugin = <span class="built_in">require</span>(<span class="string">'webpack-bundle-analyzer'</span>).BundleAnalyzerPlugin</div><div class="line"></div><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">  <span class="attr">chainWebpack</span>: <span class="function"><span class="params">config</span> =&gt;</span> &#123;</div><div class="line">    <span class="comment">// 打包分析</span></div><div class="line">    <span class="keyword">if</span> (IS_PROD) &#123;</div><div class="line">      config.plugin(<span class="string">'webpack-report'</span>).use(BundleAnalyzerPlugin, [</div><div class="line">        &#123;</div><div class="line">          <span class="attr">analyzerMode</span>: <span class="string">'static'</span></div><div class="line">        &#125;</div><div class="line">      ])</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="去掉console-log"><a href="#去掉console-log" class="headerlink" title="去掉console.log"></a>去掉console.log</h2><p>因为开发过程中经常需要打印一些值来调试，但是生产环境的版本不应该打印出来。又不想一点一点删除，所以需要一个工具自动删除线上环境的console。<br>使用<code>babel-plugin-transform-remove-console</code><br>在 babel.config.js 中配置:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 获取 VUE_APP_ENV 非 NODE_ENV，测试环境依然 console</span></div><div class="line"><span class="keyword">const</span> IS_PROD = [<span class="string">'production'</span>, <span class="string">'prod'</span>].includes(process.env.VUE_APP_ENV)</div><div class="line"><span class="keyword">const</span> plugins = [</div><div class="line">  [</div><div class="line">    <span class="string">'import'</span>,</div><div class="line">    &#123;</div><div class="line">      <span class="attr">libraryName</span>: <span class="string">'vant'</span>,</div><div class="line">      <span class="attr">libraryDirectory</span>: <span class="string">'es'</span>,</div><div class="line">      <span class="attr">style</span>: <span class="literal">true</span></div><div class="line">    &#125;,</div><div class="line">    <span class="string">'vant'</span></div><div class="line">  ]</div><div class="line">]</div><div class="line"><span class="comment">// 去除 console.log</span></div><div class="line"><span class="keyword">if</span> (IS_PROD) &#123;</div><div class="line">  plugins.push(<span class="string">'transform-remove-console'</span>)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">  <span class="attr">presets</span>: [[<span class="string">'@vue/cli-plugin-babel/preset'</span>, &#123;<span class="attr">useBuiltIns</span>: <span class="string">'entry'</span>&#125;]],</div><div class="line">  plugins</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="splitChunks-单独打包第三方模块"><a href="#splitChunks-单独打包第三方模块" class="headerlink" title="splitChunks 单独打包第三方模块"></a>splitChunks 单独打包第三方模块</h2><p>使用<code>script-ext-html-webpack-plugin</code><br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">  <span class="attr">chainWebpack</span>: <span class="function"><span class="params">config</span> =&gt;</span> &#123;</div><div class="line">    config.when(IS_PROD, config =&gt; &#123;</div><div class="line">      config</div><div class="line">        .plugin(<span class="string">'ScriptExtHtmlWebpackPlugin'</span>)</div><div class="line">        .after(<span class="string">'html'</span>)</div><div class="line">        .use(<span class="string">'script-ext-html-webpack-plugin'</span>, [</div><div class="line">          &#123;</div><div class="line">            <span class="comment">// 将 runtime 作为内联引入不单独存在</span></div><div class="line">            inline: <span class="regexp">/runtime\..*\.js$/</span></div><div class="line">          &#125;</div><div class="line">        ])</div><div class="line">        .end()</div><div class="line">      config.optimization.splitChunks(&#123;</div><div class="line">        <span class="attr">chunks</span>: <span class="string">'all'</span>,</div><div class="line">        <span class="attr">cacheGroups</span>: &#123;</div><div class="line">          <span class="comment">// cacheGroups 下可以可以配置多个组，每个组根据test设置条件，符合test条件的模块</span></div><div class="line">          commons: &#123;</div><div class="line">            <span class="attr">name</span>: <span class="string">'chunk-commons'</span>,</div><div class="line">            <span class="attr">test</span>: resolve(<span class="string">'src/components'</span>),</div><div class="line">            <span class="attr">minChunks</span>: <span class="number">3</span>, <span class="comment">//  被至少用三次以上打包分离</span></div><div class="line">            priority: <span class="number">5</span>, <span class="comment">// 优先级</span></div><div class="line">            reuseExistingChunk: <span class="literal">true</span> <span class="comment">// 表示是否使用已有的 chunk，如果为 true 则表示如果当前的 chunk 包含的模块已经被抽取出去了，那么将不会重新生成新的。</span></div><div class="line">          &#125;,</div><div class="line">          <span class="attr">node_vendors</span>: &#123;</div><div class="line">            <span class="attr">name</span>: <span class="string">'chunk-libs'</span>,</div><div class="line">            <span class="attr">chunks</span>: <span class="string">'initial'</span>, <span class="comment">// 只打包初始时依赖的第三方</span></div><div class="line">            test: <span class="regexp">/[\\/]node_modules[\\/]/</span>,</div><div class="line">            <span class="attr">priority</span>: <span class="number">10</span></div><div class="line">          &#125;,</div><div class="line">          <span class="attr">vantUI</span>: &#123;</div><div class="line">            <span class="attr">name</span>: <span class="string">'chunk-vantUI'</span>, <span class="comment">// 单独将 vantUI 拆包</span></div><div class="line">            priority: <span class="number">20</span>, <span class="comment">// 数字大权重到，满足多个 cacheGroups 的条件时候分到权重高的</span></div><div class="line">            test: <span class="regexp">/[\\/]node_modules[\\/]_?vant(.*)/</span></div><div class="line">          &#125;</div><div class="line">        &#125;</div><div class="line">      &#125;)</div><div class="line">      config.optimization.runtimeChunk(<span class="string">'single'</span>)</div><div class="line">    &#125;)</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 
           
         
@@ -378,7 +387,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://snapline.github.io/2019/05/12/linkelist_js/">
+    <link itemprop="mainEntityOfPage" href="http://snapline.github.io/2020/10/12/linkelist_js/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Snapline">
@@ -397,7 +406,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/05/12/linkelist_js/" itemprop="url">用JS实现一个单链表和常用操作方法</a></h1>
+                <a class="post-title-link" href="/2020/10/12/linkelist_js/" itemprop="url">用JS实现一个单链表和常用操作方法</a></h1>
         
 
         <div class="post-meta">
@@ -409,8 +418,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-12T17:14:24+08:00">
-                2019-05-12
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-10-12T17:14:24+08:00">
+                2020-10-12
               </time>
             
 
@@ -523,7 +532,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://snapline.github.io/2018/11/16/python_mod/">
+    <link itemprop="mainEntityOfPage" href="http://snapline.github.io/2020/07/28/typescript/interface/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Snapline">
@@ -542,7 +551,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/16/python_mod/" itemprop="url">Python负数的取余计算</a></h1>
+                <a class="post-title-link" href="/2020/07/28/typescript/interface/" itemprop="url">TypeScript里对象的类型——接口</a></h1>
         
 
         <div class="post-meta">
@@ -554,8 +563,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-16T13:50:54+08:00">
-                2018-11-16
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-07-28T10:54:24+08:00">
+                2020-07-28
               </time>
             
 
@@ -594,16 +603,14 @@
       
         
           
-            <p>最近在leetcode上用python做题，由于python不是我工作的主要语言，所以对于一些基础特性搞的并不是很清楚，所以在写的过程中会遇到一些奇怪的问题。</p>
-<p>在做数字翻转的题目时，因为要用到python的取余计算，但是测试用例中有很多负数，负数的用例我都没有通过。调试时候发现-123%10在python里得到的结果是7。在学习python的四则运算时并没有考虑这么深入，于是记录一下python中负数的取余计算机制。</p>
-<p>在Python中，取余的计算公式与别的语言并没有什么区别：r=a-n*[a//n]</p>
-<p>这里r是余数，a是被除数，n是除数。</p>
-<p>不过在“a//n”这一步，当a是负数的时候，<strong>会向下取整</strong>，也就是说向负无穷方向取整。这也就得到：</p>
-<p><code>-123%10 = -123 - 10 * (-123 // 10) = -123 - 10 * (-13) = 7</code></p>
-<p>这里还不得不提的是</p>
-<p><code>print(123%-10)</code></p>
-<p>这个情况，结果为：</p>
-<p><code>-7</code></p>
+            <h2 id="接口的意义"><a href="#接口的意义" class="headerlink" title="接口的意义"></a>接口的意义</h2><p>在java这种面向对象的编程语言里，接口（Interface）是非常重要的概念，是对行为的抽象，由类（class）去实现（implement）。<br>在TS里，接口还可以用来规范对象的描述。</p>
+<h2 id="例1"><a href="#例1" class="headerlink" title="例1"></a>例1</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">interface Person &#123;</div><div class="line">    <span class="attr">name</span>: string;</div><div class="line">    age: number;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> john: Person = &#123;</div><div class="line">    <span class="attr">name</span>: <span class="string">'John'</span>,</div><div class="line">    <span class="attr">age</span>: <span class="number">29</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p><strong>john的属性必须有name和age（且value类型也一致），不可多不可少不可增不可改。</strong></p>
+<h2 id="例2"><a href="#例2" class="headerlink" title="例2"></a>例2</h2><p>如果对象的某些属性处于可用可不用的状态，那就需要设定可选属性，在属性后加一个问号即可。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">interface Person &#123;</div><div class="line">    <span class="attr">name</span>: string;</div><div class="line">    age?: number;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> john: Person = &#123;</div><div class="line">    <span class="attr">name</span>: <span class="string">'John'</span>,</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>这样，john的age属性就可以不设定。<br>但是仍然<strong>不允许添加新的属性</strong>！</p>
+<h2 id="例3"><a href="#例3" class="headerlink" title="例3"></a>例3</h2><p>如果对象的属性还不能够确定，有可能添加新的属性，则可以使用<strong>任意属性</strong>。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">interface Person &#123;</div><div class="line">    <span class="attr">name</span>: string;</div><div class="line">    age?: number;</div><div class="line">    [propName: string]: any;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> tom: Person = &#123;</div><div class="line">    <span class="attr">name</span>: <span class="string">'Tom'</span>,</div><div class="line">    <span class="attr">gender</span>: <span class="string">'male'</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p><strong>任意属性的数值类型最好命为any，因为一旦定义了任意属性，那么确定属性和可选属性的类型都必须是它的类型的子集</strong></p>
+<h2 id="例4"><a href="#例4" class="headerlink" title="例4"></a>例4</h2><p>如果对象的某个属性需要确定，避免更改，则可使用<strong>只读</strong>属性。<br>只读的约束存在于第一次给对象赋值的时候，而不是第一次给只读属性赋值的时候。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">interface Person &#123;</div><div class="line">    readonly id: number;</div><div class="line">    name: string;</div><div class="line">    age?: number;</div><div class="line">    [propName: string]: any;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> tom: Person = &#123;</div><div class="line">    <span class="attr">id</span>: <span class="number">13579</span>,</div><div class="line">    <span class="attr">name</span>: <span class="string">'John'</span>,</div><div class="line">    <span class="attr">gender</span>: <span class="string">'male'</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line">tom.id = <span class="number">24680</span>;</div><div class="line"></div><div class="line"><span class="comment">// index.ts(14,5): error TS2540: Cannot assign to 'id' because it is a constant or a read-only property.</span></div></pre></td></tr></table></figure></p>
 
           
         
@@ -652,7 +659,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://snapline.github.io/2018/10/20/vue_cli/">
+    <link itemprop="mainEntityOfPage" href="http://snapline.github.io/2020/04/01/nuxt_project_summary/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Snapline">
@@ -671,7 +678,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/10/20/vue_cli/" itemprop="url">vue-cli2和vue-cli3的区别</a></h1>
+                <a class="post-title-link" href="/2020/04/01/nuxt_project_summary/" itemprop="url">公司某个nuxt项目的经验总结</a></h1>
         
 
         <div class="post-meta">
@@ -683,8 +690,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-20T14:28:30+08:00">
-                2018-10-20
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-01T15:35:30+08:00">
+                2020-04-01
               </time>
             
 
@@ -723,30 +730,20 @@
       
         
           
-            <p>vue-cli升级到3了，整体看了下感觉是封装的更简洁了，而且支持typescript、pwd等新特性。<br>不过从vue-cli2时代过来的我，还是习惯用2，可以看到整体的配置选项，根据业务需要自己来添加。<br>现在来大概概括一下2代和3代的区别。</p>
-<h3 id="vue-cli脚手架的使用"><a href="#vue-cli脚手架的使用" class="headerlink" title="vue-cli脚手架的使用"></a>vue-cli脚手架的使用</h3><ul>
-<li>使用vue-cli可以快速搭建vue的开发环境，和webpack的配置</li>
-<li>安装vue脚手架： npm install -g@vue/cli</li>
-<li>上面安装的是vue cli3的版本，如果需要想按照vue cli2的方式初始化项目是不可以的，我们必须要拉取2.x的模板，需要安装全局的桥接工具(官方查看)</li>
-<li>Vue CLI2 初始化项目 <code>vue init webpack my-project</code></li>
-<li>Vue CLI3 初始化项目 <code>vue create my-project</code></li>
-</ul>
-<h2 id="CLI2的使用"><a href="#CLI2的使用" class="headerlink" title="CLI2的使用"></a>CLI2的使用</h2> <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">初始化项目：web init webpack mytest（根据这个创建项目文件名），初始化出现配置选项：</div><div class="line"> //项目名称</div><div class="line"> Project name ...</div><div class="line"> //作者的信息，会默认从git中读取信息</div><div class="line"> Project description ...</div><div class="line"> Author ...</div><div class="line"> //vue创建的选项 1.runtime-compiler   2.runtime-only</div><div class="line"> vue build ...(一般选runtime-only)</div><div class="line"> //是否安装vue-router</div><div class="line"> Install vue-router？ ..</div><div class="line"> //是否使用ESLint检测代码规范</div><div class="line"> use ESLint to link your code</div><div class="line"> //是否写单元测试 （一般不使用）</div><div class="line"> Set up unit tests</div><div class="line"> //是否使用Nightwatch来进行e2e测试 （2代表to  e to e 点对点）</div><div class="line"> Setup e2e <span class="built_in">test</span> with Nightwatch？</div><div class="line"> //使用npm或者yarn包管理工具</div><div class="line"> use npm</div><div class="line"> use yarn</div></pre></td></tr></table></figure>
-<p><code>Runtime-Compiler</code>和<code>Runtime-only</code>的区别?</p>
-<ul>
-<li>runtime-compiler（v1）(运行过程)): template -&gt; ast -&gt; render -&gt; vdom -&gt; UI</li>
-<li>runtime-only(v2 1.性能更高， 2.代码量更少)：render -&gt; vdom -&gt; UI</li>
-<li>那.vue文件中的template是由谁处理的呢？ 是由vue-template-compiler这个开发时 工具依赖来处理的，他将.vue文件解析成了render函数，解析之后，是没有tamplate这个 东西的</li>
-</ul>
-<p><strong>总结</strong></p>
-<ul>
-<li>如果在开发中，依然使用template，就需要选择Runtime-Compiler</li>
-<li>如果在开发中，使用的是.vue文件夹开发，那么可以选择Runtime-Only</li>
-</ul>
-<p><strong>render函数的使用</strong><br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> Vue(&#123;</div><div class="line">  <span class="attr">el</span>:<span class="string">'#app'</span>,</div><div class="line">  <span class="attr">render</span>:<span class="function">(<span class="params">createElement</span>) =&gt;</span>&#123;</div><div class="line">    <span class="comment">//使用方式一：</span></div><div class="line">    <span class="keyword">return</span> createElement(<span class="string">'标签'</span>,<span class="string">'相关数据对象(可以不传)'</span>,[<span class="string">'内容数组'</span>])</div><div class="line">    <span class="comment">//1.1render函数的基本使用</span></div><div class="line">    <span class="keyword">return</span> createElement(<span class="string">'div'</span>,&#123;<span class="attr">class</span>:<span class="string">'box'</span>&#125;,[<span class="string">'xiaohuang'</span>])</div><div class="line">    <span class="comment">//1.2嵌套render函数</span></div><div class="line">    <span class="keyword">return</span> createElement(<span class="string">'div'</span>,&#123;<span class="attr">class</span>:<span class="string">'box'</span>&#125;,[<span class="string">'小黄'</span>,createElement(<span class="string">'h2'</span>,[<span class="string">'标题啊'</span>])])</div><div class="line">  &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="string">`Runtime-Compiler`</span>和<span class="string">`Runtime-only`</span>在main.js中的不同使用：</div><div class="line"></div><div class="line">  <span class="number">1.</span><span class="string">`Runtime-Compiler`</span>中</div><div class="line">  <span class="keyword">const</span> cpn =Vue.component(<span class="string">'cpn'</span>,&#123;</div><div class="line">    <span class="attr">template</span>:<span class="string">'&lt;div&gt;我是cpn组件 &lt;/div&gt;'</span>，</div><div class="line">    data()&#123;</div><div class="line">      <span class="keyword">return</span>&#123;</div><div class="line"></div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;)</div><div class="line"></div><div class="line">  <span class="number">2.</span><span class="string">`Runtime-only`</span>中</div><div class="line">  <span class="keyword">new</span> Vue(&#123;</div><div class="line">    <span class="attr">el</span>:<span class="string">'#app'</span></div><div class="line">    render:<span class="function">(<span class="params">createElement</span>)=&gt;</span>&#123;</div><div class="line">      <span class="comment">//使用方法二：传入一个组件对象</span></div><div class="line">      <span class="keyword">return</span> createElement(cpn)</div><div class="line">    &#125;</div><div class="line">  &#125;)</div></pre></td></tr></table></figure>
-<h2 id="cLI3的使用"><a href="#cLI3的使用" class="headerlink" title="cLI3的使用"></a>cLI3的使用</h2><p>1.初始化项目：<code>vue create my-project</code><br>2.<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">//选择一个配置方式</div><div class="line"> please pick a perset  (一般选最后一个Manually select features（手动选择特性） )</div><div class="line"> //选择对于你的工程所需要的特性 （用空格选择）</div><div class="line"> check the features needed <span class="keyword">for</span> your project</div><div class="line"> //对应的配置文件单独生成还是放在package.json里</div><div class="line"> <span class="built_in">where</span> <span class="keyword">do</span> you prefer placing config <span class="keyword">for</span> babel</div><div class="line"> //要不要把刚才自己选择的配置保存下来</div><div class="line"> save this as a preset <span class="keyword">for</span> future projects?</div></pre></td></tr></table></figure></p>
-<p>3.pubilc文件相当于CLI2中的static目录<br>4.配置都去哪里了，可以启动配置服务器 vue ui 查看（全局命令）</p>
+            <p>最近花了四个月完成了一个nuxt项目的开发，组件库为iview。现在对项目中累积的经验做一个总结和记录。</p>
+<h3 id="1-开工前准备"><a href="#1-开工前准备" class="headerlink" title="1.开工前准备"></a>1.开工前准备</h3><p>本项目功能众多且复杂，需要先理顺整个业务逻辑。<br>先花了一整天的时间画出了思维导图，确定开发模块的顺序。<br>然后找出需要做的共用组件，用工厂模式开发组件。</p>
+<h3 id="2-nuxt的配置"><a href="#2-nuxt的配置" class="headerlink" title="2.nuxt的配置"></a>2.nuxt的配置</h3><p>已经不是第一次用nuxt了，现在对于nuxt的配置已经很娴熟。现把本次项目用到的配置和含义记录如下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> isProdMode = <span class="built_in">Object</span>.is(process.env.NODE_ENV, <span class="string">'production'</span>);</div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</div><div class="line">  <span class="attr">mode</span>: <span class="string">'universal'</span>, <span class="comment">//默认是universal，如果不需要服务端渲染则设置spa，但不需要服务端渲染又何必用nuxt，所以这一项配置基本不用关心</span></div><div class="line">  head: &#123;</div><div class="line">    <span class="attr">title</span>: <span class="string">''</span>, <span class="comment">//网站标签页的标题</span></div><div class="line">    meta: [</div><div class="line">      &#123; <span class="attr">charset</span>: <span class="string">'utf-8'</span> &#125;,</div><div class="line">      &#123; <span class="attr">name</span>: <span class="string">'viewport'</span>, <span class="attr">content</span>: <span class="string">'width=device-width, initial-scale=1'</span> &#125;,</div><div class="line">      &#123; <span class="attr">hid</span>: <span class="string">'keywords'</span>, <span class="attr">name</span>: <span class="string">'keywords'</span>, <span class="attr">content</span>: <span class="string">''</span> &#125;,</div><div class="line">      &#123; <span class="attr">hid</span>: <span class="string">'description'</span>, <span class="attr">name</span>: <span class="string">'description'</span>, <span class="attr">content</span>: <span class="string">''</span> &#125;</div><div class="line">    ], <span class="comment">//常用的meta设置，方便SEO</span></div><div class="line">    link: [</div><div class="line">      &#123; <span class="attr">rel</span>: <span class="string">'icon'</span>, <span class="attr">type</span>: <span class="string">'image/x-icon'</span>, <span class="attr">href</span>: <span class="string">'/favicon.ico'</span> &#125;  <span class="comment">//favicon放置在static文件夹里</span></div><div class="line">    ], </div><div class="line">    <span class="attr">script</span>: [</div><div class="line">      &#123; <span class="attr">src</span>: <span class="string">''</span> &#125;, <span class="comment">//引入需要的脚本文件，如百度统计文件</span></div><div class="line">    ]</div><div class="line">  &#125;,</div><div class="line">  <span class="attr">loading</span>: &#123; <span class="attr">color</span>: <span class="string">'#fff'</span> &#125;, <span class="comment">//每个页面加载的进度条的颜色</span></div><div class="line">  css: [</div><div class="line">    &#123; <span class="attr">src</span>:<span class="string">'@/static/css/reset.scss'</span>, <span class="attr">lang</span>:<span class="string">'scss'</span>&#125;, <span class="comment">//公用初始化设置css文件</span></div><div class="line">  ],</div><div class="line">  <span class="attr">plugins</span>: [</div><div class="line">    &#123; <span class="attr">src</span>: <span class="string">'~/plugins/iview'</span>, <span class="attr">ssr</span>: <span class="literal">true</span> &#125;, <span class="comment">//引入的plugin，如组件库，iconfont，axios等，ssr为true的时候表示服务端渲染，建议涉及到window和document的部分ssr设置为false</span></div><div class="line">  ],</div><div class="line">  <span class="attr">modules</span>: [<span class="string">"@nuxtjs/axios"</span>, <span class="string">"@nuxtjs/proxy"</span>], <span class="comment">//需要引入的模块，前者是网络请求axios必须，后者为开发模式下代理请求的必须</span></div><div class="line">  axios: &#123; <span class="attr">prefix</span>: <span class="string">'/api/'</span>, <span class="attr">proxy</span>: <span class="literal">true</span> &#125;, <span class="comment">//请求的前缀</span></div><div class="line">  proxy: [</div><div class="line">    [</div><div class="line">      <span class="string">"/api/"</span>,</div><div class="line">      &#123;</div><div class="line">        <span class="attr">target</span>: <span class="string">"http://xxx"</span>, <span class="comment">// 后端服务地址</span></div><div class="line">        changeOrigin: <span class="literal">true</span>,</div><div class="line">        <span class="attr">pathRewrite</span>: &#123; <span class="string">"^/api/"</span>: <span class="string">"/"</span> &#125;</div><div class="line">      &#125;</div><div class="line">    ]</div><div class="line">  ],</div><div class="line">  <span class="attr">dev</span>: isProdMode,</div><div class="line">  <span class="attr">env</span>:&#123;</div><div class="line">    <span class="attr">BASE_API</span>: <span class="string">'/api'</span>  <span class="comment">//请求前缀，可根据开发环境和生产环境的不同做不同的设置</span></div><div class="line">  &#125;,</div><div class="line">  <span class="attr">build</span>: &#123;</div><div class="line">    extend(config, ctx) &#123;</div><div class="line">      config.resolve.extensions.push(<span class="string">'.less'</span>) <span class="comment">//对less类型的文件做处理</span></div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="3-iview的定制主题"><a href="#3-iview的定制主题" class="headerlink" title="3.iview的定制主题"></a>3.iview的定制主题</h3><p>很多组件库的UI并不符合我们的设计稿，所以需要对iview的样式做全局修改。<br>在<code>iview</code>的github地址可以看到<a href="https://github.com/view-design/ViewUI/blob/master/src/styles/custom.less" target="_blank" rel="external">iview的全局样式设置</a>，可以看到是less格式的，所以项目必须支持less的解析。<br>使用<code>npm install less-loader</code>安装less-loader，如果解析失败，可能是less版本问题导致，详细参考<a href="https://www.cnblogs.com/zhengshize/p/10033896.html" target="_blank" rel="external">本篇文章</a>。<br>在plugins下建立ui文件夹，目录如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">ui</div><div class="line">├── index.js        # 入口文件</div><div class="line">├── theme.less       # 自定义覆盖变量</div></pre></td></tr></table></figure></p>
+<p>然后在<code>nuxt.config.js</code>文件的<code>plugins</code>里引入ui。</p>
+<h3 id="4-如何在nuxt项目中添加iconfont"><a href="#4-如何在nuxt项目中添加iconfont" class="headerlink" title="4.如何在nuxt项目中添加iconfont"></a>4.如何在nuxt项目中添加iconfont</h3><p>本质上和正常的项目添加一样，主要是需要把css文件里的路径调整一致。<br>详情可以参考<a href="https://www.cnblogs.com/xinci/p/10529399.html" target="_blank" rel="external">Nuxt使用iconfont矢量图标</a></p>
+<h3 id="5-scss做计算的方法"><a href="#5-scss做计算的方法" class="headerlink" title="5.scss做计算的方法"></a>5.scss做计算的方法</h3><p>假定定义变量$a = ‘20px’，若要使用calc，直接calc(100% - a)这么用是不行的，需要按如下使用方法：　　calc(100% - #{a})</p>
+<h3 id="6-做两个互相关联的datepicker"><a href="#6-做两个互相关联的datepicker" class="headerlink" title="6.做两个互相关联的datepicker"></a>6.做两个互相关联的datepicker</h3><p>iview本身的datepicker如果要选择日期范围（即type为daterange），但是设计图稿要求用两个datepicker框来表示，这时候就需要用到data里绑定的属性值来做计算。<br>因为要用到this，所以disabledDate要用箭头函数表示。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">DatePicker</span> <span class="attr">type</span>=<span class="string">"date"</span> <span class="attr">v-model</span>=<span class="string">"startDate"</span> <span class="attr">:options</span>=<span class="string">"startOption"</span> <span class="attr">format</span>=<span class="string">"yyyy-MM-dd"</span> <span class="attr">style</span>=<span class="string">"width: 160px"</span>&gt;</span><span class="tag">&lt;/<span class="name">DatePicker</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">style</span>=<span class="string">"margin:0 3px"</span>&gt;</span>至<span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">DatePicker</span> <span class="attr">type</span>=<span class="string">"date"</span> <span class="attr">v-model</span>=<span class="string">"endDate"</span> <span class="attr">:options</span>=<span class="string">"endOption"</span> <span class="attr">format</span>=<span class="string">"yyyy-MM-dd"</span> <span class="attr">style</span>=<span class="string">"width: 160px"</span>&gt;</span><span class="tag">&lt;/<span class="name">DatePicker</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</div><div class="line">    data()&#123;</div><div class="line">        <span class="keyword">return</span>&#123;</div><div class="line">            <span class="attr">startDate</span>:<span class="string">''</span>,</div><div class="line">            <span class="attr">endDate</span>:<span class="string">''</span>,</div><div class="line">            <span class="attr">startOption</span>:&#123;</div><div class="line">                <span class="attr">disabledDate</span>: <span class="function"><span class="params">date</span> =&gt;</span> &#123;</div><div class="line">                    <span class="keyword">return</span> date &amp;&amp; date.valueOf() &gt; <span class="built_in">Date</span>.now() || date.valueOf()&gt;<span class="keyword">this</span>.endDate;</div><div class="line">                &#125;</div><div class="line">            &#125;,</div><div class="line">            <span class="attr">endOption</span>:&#123;</div><div class="line">                <span class="attr">disabledDate</span>: <span class="function"><span class="params">date</span> =&gt;</span> &#123;</div><div class="line">                <span class="keyword">return</span> date &amp;&amp; date.valueOf() &gt; <span class="built_in">Date</span>.now() || date.valueOf()&lt;<span class="keyword">this</span>.startDate;</div><div class="line">                &#125;</div><div class="line">             &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="7-封装axios的注意事项"><a href="#7-封装axios的注意事项" class="headerlink" title="7.封装axios的注意事项"></a>7.封装axios的注意事项</h3><p>大部分请求都需要token，但对于不涉及用户权限和登录的接口是无需token的，那么在封装axios的时候就需要区别对待。<br>这次采取的方法是创建白名单，在白名单里的url就不从Cookie里拿token。</p>
+<p>刷新token如何做？<br>比如token的有效期是1小时，用户有长达50分钟的时间内没有进行任何操作，此时用户进行刷新页面等操作需要刷新token来重新计算session时间。<br>后端接口会返回code为501，告知我需要刷新token进行更新。<br>对于刷新接口的操作采用“防抖”机制。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 是否正在刷新的标记</span></div><div class="line"><span class="keyword">let</span> isRefreshing = <span class="literal">false</span>;</div><div class="line"> <span class="keyword">if</span>(response.data.code==<span class="string">"501"</span>)&#123;</div><div class="line">    <span class="keyword">if</span> (!isRefreshing) &#123;</div><div class="line">        isRefreshing = <span class="literal">true</span></div><div class="line">        <span class="keyword">return</span> refreshToken().then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</div><div class="line">            <span class="keyword">if</span> (res.code === <span class="number">200</span>) &#123;</div><div class="line">                Cookies.set(<span class="string">'token'</span>, res.data.token);</div><div class="line">            &#125;</div><div class="line">        &#125;).finally(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">            isRefreshing = <span class="literal">false</span></div><div class="line">        &#125;)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="8-组件全局注册"><a href="#8-组件全局注册" class="headerlink" title="8.组件全局注册"></a>8.组件全局注册</h3><p>抽象出的组件可能会在许多其他组件里使用，每次使用都引入注册很麻烦，索性全局注册。<br>全局注册的文件放在plugins目录下，需要特别注意的是在<code>nuxt.config.js</code>里引入的时候ssr必须为true，否则服务端渲染和客户端渲染不一致 会导致组件的生命周期被执行两次。</p>
+<h3 id="9-组件网络请求放在mounted里"><a href="#9-组件网络请求放在mounted里" class="headerlink" title="9.组件网络请求放在mounted里"></a>9.组件网络请求放在mounted里</h3><p>网络请求应该出现在mounted的生命周期里, 在created中的话, 因为还没有渲染出来, 会导致一个非常奇怪的ERROR connect ECONNREFUSED 127.0.0.1:80 的网络错误。<br>开发模式下没什么问题, 但是一旦打包 就会有很大的错误。</p>
+<h3 id="10-防止document和window对象的报错"><a href="#10-防止document和window对象的报错" class="headerlink" title="10.防止document和window对象的报错"></a>10.防止document和window对象的报错</h3><p>防止报document or window is not defined的方法是做一个if(process.client)的判断：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span>(process.client)&#123; </div><div class="line">  <span class="comment">//写涉及到document和window相关的代码</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 
           
         
@@ -795,7 +792,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://snapline.github.io/2018/09/10/session_and_cookie/">
+    <link itemprop="mainEntityOfPage" href="http://snapline.github.io/2019/12/26/vue源码/1. ready_intro/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Snapline">
@@ -814,7 +811,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/09/10/session_and_cookie/" itemprop="url">session, cookie和token的一个总结</a></h1>
+                <a class="post-title-link" href="/2019/12/26/vue源码/1. ready_intro/" itemprop="url">vue源码学习的前期准备工作</a></h1>
         
 
         <div class="post-meta">
@@ -826,8 +823,145 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-10T11:14:24+08:00">
-                2018-09-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-26T15:23:54+08:00">
+                2019-12-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="类型检查工具Flow"><a href="#类型检查工具Flow" class="headerlink" title="类型检查工具Flow"></a>类型检查工具Flow</h2><p>Flow是Facebook出品的静态类型检查工具。</p>
+<h3 id="Flow的工作方式"><a href="#Flow的工作方式" class="headerlink" title="Flow的工作方式"></a>Flow的工作方式</h3><p>通常类型检查分成 2 种方式：</p>
+<ul>
+<li><p><strong>类型推断</strong>：通过变量的使用上下文来推断出变量类型，然后根据这些推断来检查类型。</p>
+</li>
+<li><p><strong>类型注释</strong>：事先注释好我们期待的类型，Flow 会基于这些注释来判断。</p>
+</li>
+</ul>
+<h3 id="在vue源码里找Flow"><a href="#在vue源码里找Flow" class="headerlink" title="在vue源码里找Flow"></a>在vue源码里找Flow</h3><p>在Vue的主目录下，有一个 <code>.flowconfig</code> 文件，这是Flow的配置文件，其中<code>[libs]</code>按照官方文档是来描述指定库定义的目录，可以看出配置的是<code>flow</code>。<br>接着我们可以找到flow文件夹，可以看到文件如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">flow</div><div class="line">├── compiler.js        # 编译相关</div><div class="line">├── component.js       # 组件数据结构</div><div class="line">├── global-api.js      # Global API 结构</div><div class="line">├── modules.js         # 第三方库定义</div><div class="line">├── options.js         # 选项相关</div><div class="line">├── ssr.js             # 服务端渲染相关</div><div class="line">├── vnode.js           # 虚拟 node 相关</div></pre></td></tr></table></figure></p>
+<p><strong>在阅读源码的过程中，如果对于某个自定义类型的数据结构有疑问，可以翻阅对应的文件部分进行查阅</strong></p>
+<p>同时，在查阅Flow的资料时，发现很多同行认为TypeScript比Flow更先进，对于TypeScript可以在以后进行深入学习。</p>
+<h2 id="vue源码目录结构"><a href="#vue源码目录结构" class="headerlink" title="vue源码目录结构"></a>vue源码目录结构</h2><p>vue的源码都在src的目录下，结构如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">src</div><div class="line">├── compiler        # 编译相关 </div><div class="line">├── core            # 核心代码 </div><div class="line">├── platforms       # 不同平台的支持</div><div class="line">├── server          # 服务端渲染</div><div class="line">├── sfc             # .vue 文件解析</div><div class="line">├── shared          # 共享代码</div></pre></td></tr></table></figure></p>
+<h4 id="compiler"><a href="#compiler" class="headerlink" title="compiler"></a>compiler</h4><p>编译相关。具有把模板解析成ast语法树，对ast语法树的优化，代码生成等功能。</p>
+<h4 id="cores"><a href="#cores" class="headerlink" title="cores"></a>cores</h4><p>vue的核心代码就在这里，包括我们熟知的全局API、Vue实例化、虚拟DOM、工具函数等等。<br>这里是vue的灵魂。s</p>
+<h4 id="platform"><a href="#platform" class="headerlink" title="platform"></a>platform</h4><p>我们已经知道阿里开发了weex，用来实现vue跑在原生客户端上。<br>platform 是 Vue.js 的入口，2 个目录代表 2 个主要入口，分别打包成运行在 web 上和 weex 上的 Vue.js。</p>
+<h4 id="server"><a href="#server" class="headerlink" title="server"></a>server</h4><p>从vue2.0开始支持了服务端渲染，主要的工作是把组件渲染为服务器端的 HTML 字符串，将它们直接发送到浏览器，最后将静态标记”混合”为客户端上完全交互的应用程序。</p>
+<h4 id="sfc"><a href="#sfc" class="headerlink" title="sfc"></a>sfc</h4><p>这个目录下的代码逻辑会把 .vue 文件内容解析成一个 JavaScript 的对象。</p>
+<h4 id="shared"><a href="#shared" class="headerlink" title="shared"></a>shared</h4><p>Vue.js 会定义一些工具方法，这里定义的工具方法都是会被浏览器端的 Vue.js 和服务端的 Vue.js 所共享的。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://snapline.github.io/2019/08/10/session_and_cookie/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Snapline">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://images4.fanpop.com/image/photos/21000000/Bob-Dylan-bob-dylan-21091275-116-120.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="You are my JavaScript Queen">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/10/session_and_cookie/" itemprop="url">session, cookie和token的一个总结</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-10T11:14:24+08:00">
+                2019-08-10
               </time>
             
 
@@ -950,139 +1084,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://snapline.github.io/2018/07/20/nuxt_project_summary/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Snapline">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://images4.fanpop.com/image/photos/21000000/Bob-Dylan-bob-dylan-21091275-116-120.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="You are my JavaScript Queen">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/07/20/nuxt_project_summary/" itemprop="url">公司某个nuxt项目的经验总结</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-20T15:35:30+08:00">
-                2018-07-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>最近花了四个月完成了一个nuxt项目的开发，组件库为iview。现在对项目中累积的经验做一个总结和记录。</p>
-<h3 id="1-开工前准备"><a href="#1-开工前准备" class="headerlink" title="1.开工前准备"></a>1.开工前准备</h3><p>本项目功能众多且复杂，需要先理顺整个业务逻辑。<br>先花了一整天的时间画出了思维导图，确定开发模块的顺序。<br>然后找出需要做的共用组件，用工厂模式开发组件。</p>
-<h3 id="2-nuxt的配置"><a href="#2-nuxt的配置" class="headerlink" title="2.nuxt的配置"></a>2.nuxt的配置</h3><p>已经不是第一次用nuxt了，现在对于nuxt的配置已经很娴熟。现把本次项目用到的配置和含义记录如下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> isProdMode = <span class="built_in">Object</span>.is(process.env.NODE_ENV, <span class="string">'production'</span>);</div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</div><div class="line">  <span class="attr">mode</span>: <span class="string">'universal'</span>, <span class="comment">//默认是universal，如果不需要服务端渲染则设置spa，但不需要服务端渲染又何必用nuxt，所以这一项配置基本不用关心</span></div><div class="line">  head: &#123;</div><div class="line">    <span class="attr">title</span>: <span class="string">''</span>, <span class="comment">//网站标签页的标题</span></div><div class="line">    meta: [</div><div class="line">      &#123; <span class="attr">charset</span>: <span class="string">'utf-8'</span> &#125;,</div><div class="line">      &#123; <span class="attr">name</span>: <span class="string">'viewport'</span>, <span class="attr">content</span>: <span class="string">'width=device-width, initial-scale=1'</span> &#125;,</div><div class="line">      &#123; <span class="attr">hid</span>: <span class="string">'keywords'</span>, <span class="attr">name</span>: <span class="string">'keywords'</span>, <span class="attr">content</span>: <span class="string">''</span> &#125;,</div><div class="line">      &#123; <span class="attr">hid</span>: <span class="string">'description'</span>, <span class="attr">name</span>: <span class="string">'description'</span>, <span class="attr">content</span>: <span class="string">''</span> &#125;</div><div class="line">    ], <span class="comment">//常用的meta设置，方便SEO</span></div><div class="line">    link: [</div><div class="line">      &#123; <span class="attr">rel</span>: <span class="string">'icon'</span>, <span class="attr">type</span>: <span class="string">'image/x-icon'</span>, <span class="attr">href</span>: <span class="string">'/favicon.ico'</span> &#125;  <span class="comment">//favicon放置在static文件夹里</span></div><div class="line">    ], </div><div class="line">    <span class="attr">script</span>: [</div><div class="line">      &#123; <span class="attr">src</span>: <span class="string">''</span> &#125;, <span class="comment">//引入需要的脚本文件，如百度统计文件</span></div><div class="line">    ]</div><div class="line">  &#125;,</div><div class="line">  <span class="attr">loading</span>: &#123; <span class="attr">color</span>: <span class="string">'#fff'</span> &#125;, <span class="comment">//每个页面加载的进度条的颜色</span></div><div class="line">  css: [</div><div class="line">    &#123; <span class="attr">src</span>:<span class="string">'@/static/css/reset.scss'</span>, <span class="attr">lang</span>:<span class="string">'scss'</span>&#125;, <span class="comment">//公用初始化设置css文件</span></div><div class="line">  ],</div><div class="line">  <span class="attr">plugins</span>: [</div><div class="line">    &#123; <span class="attr">src</span>: <span class="string">'~/plugins/iview'</span>, <span class="attr">ssr</span>: <span class="literal">true</span> &#125;, <span class="comment">//引入的plugin，如组件库，iconfont，axios等，ssr为true的时候表示服务端渲染，建议涉及到window和document的部分ssr设置为false</span></div><div class="line">  ],</div><div class="line">  <span class="attr">modules</span>: [<span class="string">"@nuxtjs/axios"</span>, <span class="string">"@nuxtjs/proxy"</span>], <span class="comment">//需要引入的模块，前者是网络请求axios必须，后者为开发模式下代理请求的必须</span></div><div class="line">  axios: &#123; <span class="attr">prefix</span>: <span class="string">'/api/'</span>, <span class="attr">proxy</span>: <span class="literal">true</span> &#125;, <span class="comment">//请求的前缀</span></div><div class="line">  proxy: [</div><div class="line">    [</div><div class="line">      <span class="string">"/api/"</span>,</div><div class="line">      &#123;</div><div class="line">        <span class="attr">target</span>: <span class="string">"http://xxx"</span>, <span class="comment">// 后端服务地址</span></div><div class="line">        changeOrigin: <span class="literal">true</span>,</div><div class="line">        <span class="attr">pathRewrite</span>: &#123; <span class="string">"^/api/"</span>: <span class="string">"/"</span> &#125;</div><div class="line">      &#125;</div><div class="line">    ]</div><div class="line">  ],</div><div class="line">  <span class="attr">dev</span>: isProdMode,</div><div class="line">  <span class="attr">env</span>:&#123;</div><div class="line">    <span class="attr">BASE_API</span>: <span class="string">'/api'</span>  <span class="comment">//请求前缀，可根据开发环境和生产环境的不同做不同的设置</span></div><div class="line">  &#125;,</div><div class="line">  <span class="attr">build</span>: &#123;</div><div class="line">    extend(config, ctx) &#123;</div><div class="line">      config.resolve.extensions.push(<span class="string">'.less'</span>) <span class="comment">//对less类型的文件做处理</span></div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h3 id="3-iview的定制主题"><a href="#3-iview的定制主题" class="headerlink" title="3.iview的定制主题"></a>3.iview的定制主题</h3><p>很多组件库的UI并不符合我们的设计稿，所以需要对iview的样式做全局修改。<br>在<code>iview</code>的github地址可以看到<a href="https://github.com/view-design/ViewUI/blob/master/src/styles/custom.less" target="_blank" rel="external">iview的全局样式设置</a>，可以看到是less格式的，所以项目必须支持less的解析。<br>使用<code>npm install less-loader</code>安装less-loader，如果解析失败，可能是less版本问题导致，详细参考<a href="https://www.cnblogs.com/zhengshize/p/10033896.html" target="_blank" rel="external">本篇文章</a>。<br>在plugins下建立ui文件夹，目录如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">ui</div><div class="line">├── index.js        # 入口文件</div><div class="line">├── theme.less       # 自定义覆盖变量</div></pre></td></tr></table></figure></p>
-<p>然后在<code>nuxt.config.js</code>文件的<code>plugins</code>里引入ui。</p>
-<h3 id="4-如何在nuxt项目中添加iconfont"><a href="#4-如何在nuxt项目中添加iconfont" class="headerlink" title="4.如何在nuxt项目中添加iconfont"></a>4.如何在nuxt项目中添加iconfont</h3><p>本质上和正常的项目添加一样，主要是需要把css文件里的路径调整一致。<br>详情可以参考<a href="https://www.cnblogs.com/xinci/p/10529399.html" target="_blank" rel="external">Nuxt使用iconfont矢量图标</a></p>
-<h3 id="5-scss做计算的方法"><a href="#5-scss做计算的方法" class="headerlink" title="5.scss做计算的方法"></a>5.scss做计算的方法</h3><p>假定定义变量$a = ‘20px’，若要使用calc，直接calc(100% - a)这么用是不行的，需要按如下使用方法：　　calc(100% - #{a})</p>
-<h3 id="6-做两个互相关联的datepicker"><a href="#6-做两个互相关联的datepicker" class="headerlink" title="6.做两个互相关联的datepicker"></a>6.做两个互相关联的datepicker</h3><p>iview本身的datepicker如果要选择日期范围（即type为daterange），但是设计图稿要求用两个datepicker框来表示，这时候就需要用到data里绑定的属性值来做计算。<br>因为要用到this，所以disabledDate要用箭头函数表示。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">DatePicker</span> <span class="attr">type</span>=<span class="string">"date"</span> <span class="attr">v-model</span>=<span class="string">"startDate"</span> <span class="attr">:options</span>=<span class="string">"startOption"</span> <span class="attr">format</span>=<span class="string">"yyyy-MM-dd"</span> <span class="attr">style</span>=<span class="string">"width: 160px"</span>&gt;</span><span class="tag">&lt;/<span class="name">DatePicker</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">style</span>=<span class="string">"margin:0 3px"</span>&gt;</span>至<span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">DatePicker</span> <span class="attr">type</span>=<span class="string">"date"</span> <span class="attr">v-model</span>=<span class="string">"endDate"</span> <span class="attr">:options</span>=<span class="string">"endOption"</span> <span class="attr">format</span>=<span class="string">"yyyy-MM-dd"</span> <span class="attr">style</span>=<span class="string">"width: 160px"</span>&gt;</span><span class="tag">&lt;/<span class="name">DatePicker</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</div><div class="line">    data()&#123;</div><div class="line">        <span class="keyword">return</span>&#123;</div><div class="line">            <span class="attr">startDate</span>:<span class="string">''</span>,</div><div class="line">            <span class="attr">endDate</span>:<span class="string">''</span>,</div><div class="line">            <span class="attr">startOption</span>:&#123;</div><div class="line">                <span class="attr">disabledDate</span>: <span class="function"><span class="params">date</span> =&gt;</span> &#123;</div><div class="line">                    <span class="keyword">return</span> date &amp;&amp; date.valueOf() &gt; <span class="built_in">Date</span>.now() || date.valueOf()&gt;<span class="keyword">this</span>.endDate;</div><div class="line">                &#125;</div><div class="line">            &#125;,</div><div class="line">            <span class="attr">endOption</span>:&#123;</div><div class="line">                <span class="attr">disabledDate</span>: <span class="function"><span class="params">date</span> =&gt;</span> &#123;</div><div class="line">                <span class="keyword">return</span> date &amp;&amp; date.valueOf() &gt; <span class="built_in">Date</span>.now() || date.valueOf()&lt;<span class="keyword">this</span>.startDate;</div><div class="line">                &#125;</div><div class="line">             &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="7-封装axios的注意事项"><a href="#7-封装axios的注意事项" class="headerlink" title="7.封装axios的注意事项"></a>7.封装axios的注意事项</h3><p>大部分请求都需要token，但对于不涉及用户权限和登录的接口是无需token的，那么在封装axios的时候就需要区别对待。<br>这次采取的方法是创建白名单，在白名单里的url就不从Cookie里拿token。</p>
-<p>刷新token如何做？<br>比如token的有效期是1小时，用户有长达50分钟的时间内没有进行任何操作，此时用户进行刷新页面等操作需要刷新token来重新计算session时间。<br>后端接口会返回code为501，告知我需要刷新token进行更新。<br>对于刷新接口的操作采用“防抖”机制。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 是否正在刷新的标记</span></div><div class="line"><span class="keyword">let</span> isRefreshing = <span class="literal">false</span>;</div><div class="line"> <span class="keyword">if</span>(response.data.code==<span class="string">"501"</span>)&#123;</div><div class="line">    <span class="keyword">if</span> (!isRefreshing) &#123;</div><div class="line">        isRefreshing = <span class="literal">true</span></div><div class="line">        <span class="keyword">return</span> refreshToken().then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</div><div class="line">            <span class="keyword">if</span> (res.code === <span class="number">200</span>) &#123;</div><div class="line">                Cookies.set(<span class="string">'token'</span>, res.data.token);</div><div class="line">            &#125;</div><div class="line">        &#125;).finally(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">            isRefreshing = <span class="literal">false</span></div><div class="line">        &#125;)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h3 id="8-组件全局注册"><a href="#8-组件全局注册" class="headerlink" title="8.组件全局注册"></a>8.组件全局注册</h3><p>抽象出的组件可能会在许多其他组件里使用，每次使用都引入注册很麻烦，索性全局注册。<br>全局注册的文件放在plugins目录下，需要特别注意的是在<code>nuxt.config.js</code>里引入的时候ssr必须为true，否则服务端渲染和客户端渲染不一致 会导致组件的生命周期被执行两次。</p>
-<h3 id="9-组件网络请求放在mounted里"><a href="#9-组件网络请求放在mounted里" class="headerlink" title="9.组件网络请求放在mounted里"></a>9.组件网络请求放在mounted里</h3><p>网络请求应该出现在mounted的生命周期里, 在created中的话, 因为还没有渲染出来, 会导致一个非常奇怪的ERROR connect ECONNREFUSED 127.0.0.1:80 的网络错误。<br>开发模式下没什么问题, 但是一旦打包 就会有很大的错误。</p>
-<h3 id="10-防止document和window对象的报错"><a href="#10-防止document和window对象的报错" class="headerlink" title="10.防止document和window对象的报错"></a>10.防止document和window对象的报错</h3><p>防止报document or window is not defined的方法是做一个if(process.client)的判断：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span>(process.client)&#123; </div><div class="line">  <span class="comment">//写涉及到document和window相关的代码</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1137,7 +1138,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
